@@ -59,6 +59,10 @@ body {
 	position: absolute;
 }
 
+.anee-motion-hero__media {
+	z-index: 0;
+}
+
 .anee-motion-hero__video {
 	height: 100%;
 	inset: 0;
@@ -66,6 +70,7 @@ body {
 	opacity: 0.82;
 	position: absolute;
 	width: 100%;
+	z-index: 1;
 }
 
 .anee-motion-hero__fallback {
@@ -74,6 +79,7 @@ body {
 		radial-gradient(circle at 72% 32%, rgba(140, 21, 21, 0.42), transparent 28%),
 		radial-gradient(circle at 48% 78%, rgba(179, 140, 68, 0.3), transparent 25%),
 		linear-gradient(135deg, #05070b 0%, #10151f 45%, #240707 100%);
+	z-index: 0;
 }
 
 .anee-motion-hero__fallback::before {
@@ -97,7 +103,7 @@ body {
 	background:
 		linear-gradient(90deg, rgba(5, 7, 11, 0.96) 0%, rgba(5, 7, 11, 0.62) 42%, rgba(5, 7, 11, 0.18) 100%),
 		linear-gradient(0deg, rgba(5, 7, 11, 0.78) 0%, transparent 45%);
-	z-index: 1;
+	z-index: 2;
 }
 
 .anee-motion-hero__content {
@@ -109,7 +115,7 @@ body {
 	min-height: clamp(42rem, 82vh, 62rem);
 	padding: clamp(2rem, 5vw, 5.4rem);
 	position: relative;
-	z-index: 2;
+	z-index: 3;
 }
 
 .anee-motion-hero__kicker {

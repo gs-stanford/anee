@@ -11,7 +11,7 @@
 <section class="anee-motion-hero" aria-label="The Boies Group introduction">
 	<div class="anee-motion-hero__media" aria-hidden="true">
 		<video class="anee-motion-hero__video" autoplay muted loop playsinline poster="/wp-content/uploads/boies-hero-poster.jpg">
-			<source src="/wp-content/uploads/boies-hero.mp4" type="video/mp4">
+			<source src="https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4" type="video/mp4">
 		</video>
 		<div class="anee-motion-hero__fallback"></div>
 	</div>
