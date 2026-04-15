@@ -19,22 +19,22 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"fontSize":"lg"} -->
-<h3 class="wp-block-heading has-lg-font-size">Professor A. N. Example</h3>
+<h3 class="wp-block-heading has-lg-font-size">Adam Boies</h3>
 <!-- /wp:heading --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"68%"} -->
 <div class="wp-block-column" style="flex-basis:68%"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
-<p class="anee-eyebrow">PI highlight</p>
+<p class="anee-eyebrow">Our Goals</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"fontSize":"xl"} -->
-<h2 class="wp-block-heading has-xl-font-size">Use this area for the group’s scientific direction, recruiting signal, and collaboration invitation.</h2>
+<h2 class="wp-block-heading has-xl-font-size">Our Goals</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"lg","style":{"color":{"text":"var:preset|color|muted"}}} -->
-<p class="has-text-color has-lg-font-size" style="color:var(--wp--preset--color--muted)">Summarize what the lab is trying to solve, what methods it is known for, and why students, collaborators, and industry partners should care.</p>
+<p class="has-text-color has-lg-font-size" style="color:var(--wp--preset--color--muted)">The Aerosol and Nanotechnology for Energy and the Environment (ANEE) group focuses on developing energy and environmental technologies through aerosol and nano-scale approaches that can either synthesize or measure aerosols, nanoparticles, or pollution. We have dedicated interests in sustainable nanocarbons, energy storage, and self-assembled materials, as well as metrology and modeling approaches to understand new phenomena related to the structure, evolution, dynamics, and impacts of gas-phase nanoparticles. The applications of our research extend from engineered nanoparticles, catalysts and carbon nanotubes for energy applications to transportation emissions, batteries and air quality.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->

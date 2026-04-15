@@ -12,7 +12,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"fontSize":"xl"} -->
-<h2 class="wp-block-heading has-xl-font-size">Move external organizations and partner links out of the main nav and into a cleaner affiliation area.</h2>
+<h2 class="wp-block-heading has-xl-font-size">Affiliations and partners</h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"className":"anee-logo-grid","layout":{"type":"constrained"}} -->
@@ -24,19 +24,19 @@
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Center / institute logo</p>
+<p>Stanford University</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Industry / partner logo</p>
+<p>Collaborators</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Spinout / project logo</p>
+<p>Industry partners</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
