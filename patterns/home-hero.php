@@ -22,7 +22,7 @@
 			<span>The Boies</span>
 			<span>Group</span>
 		</h1>
-		<p class="anee-motion-hero__dek">Aerosols, nanomaterials, and reactive systems for energy and the environment.</p>
+		<p class="anee-motion-hero__dek">Aerosol and Nanotechnology for Energy and the Environment (ANEE)</p>
 		<div class="anee-motion-hero__actions">
 			<a href="/research/">Explore research</a>
 			<a href="/people/">Meet the group</a>

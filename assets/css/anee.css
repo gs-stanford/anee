@@ -17,6 +17,10 @@ body {
 	box-shadow: 0 24px 70px rgba(15, 23, 42, 0.06);
 }
 
+.anee-header-brand p {
+	margin: 0;
+}
+
 .anee-eyebrow {
 	align-items: center;
 	background: var(--wp--preset--color--cardinal-soft);
@@ -164,6 +168,13 @@ body {
 	background: rgba(255, 255, 255, 0.08);
 	border: 1px solid rgba(255, 255, 255, 0.24);
 	color: #fff;
+}
+
+.anee-motion-hero__note,
+.anee-front-page .anee-research-themes,
+body.home .anee-research-themes,
+body.front-page .anee-research-themes {
+	display: none !important;
 }
 
 .anee-hero-shell,
