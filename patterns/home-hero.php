@@ -6,8 +6,8 @@
  * Inserter: yes
  */
 ?>
-<!-- wp:group {"align":"full","className":"anee-motion-hero-shell","style":{"spacing":{"padding":{"top":"1.2rem","bottom":"2.5rem","left":"1.5rem","right":"1.5rem"},"margin":{"top":"0","bottom":"2.6rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull anee-motion-hero-shell" style="margin-top:0;margin-bottom:2.6rem;padding-top:1.2rem;padding-right:1.5rem;padding-bottom:2.5rem;padding-left:1.5rem"><!-- wp:html -->
+<!-- wp:group {"align":"full","className":"anee-motion-hero-shell","style":{"spacing":{"padding":{"top":"1.5rem","bottom":"2.8rem","left":"0","right":"0"},"margin":{"top":"0","bottom":"2.8rem"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull anee-motion-hero-shell" style="margin-top:0;margin-bottom:2.8rem;padding-top:1.5rem;padding-right:0;padding-bottom:2.8rem;padding-left:0"><!-- wp:html -->
 <section class="anee-motion-hero" aria-label="The Boies Group introduction">
 	<div class="anee-motion-hero__media" aria-hidden="true">
 		<video class="anee-motion-hero__video" autoplay muted loop playsinline poster="/wp-content/uploads/boies-hero-poster.jpg">
@@ -27,9 +27,6 @@
 			<a href="/research/">Explore research</a>
 			<a href="/people/">Meet the group</a>
 		</div>
-	</div>
-	<div class="anee-motion-hero__note">
-		<span>Replace <code>boies-hero.mp4</code> with plume, particle-flow, or lab footage.</span>
 	</div>
 </section>
 <!-- /wp:html --></div>

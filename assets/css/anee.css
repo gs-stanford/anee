@@ -32,16 +32,20 @@ body {
 
 .anee-motion-hero-shell {
 	background: #fff;
+	margin-left: calc(50% - 50vw) !important;
+	margin-right: calc(50% - 50vw) !important;
+	width: 100vw;
 }
 
 .anee-motion-hero {
 	background: #07090d;
-	border-radius: clamp(1.5rem, 4vw, 3.8rem);
+	border-radius: 0;
 	color: #fff;
 	isolation: isolate;
-	min-height: clamp(34rem, 74vh, 52rem);
+	min-height: clamp(42rem, 82vh, 62rem);
 	overflow: hidden;
 	position: relative;
+	width: 100%;
 }
 
 .anee-motion-hero__media,
@@ -96,8 +100,10 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	min-height: clamp(34rem, 74vh, 52rem);
-	padding: clamp(1.5rem, 4vw, 4rem);
+	margin: 0 auto;
+	max-width: 1420px;
+	min-height: clamp(42rem, 82vh, 62rem);
+	padding: clamp(2rem, 5vw, 5.4rem);
 	position: relative;
 	z-index: 2;
 }
@@ -115,12 +121,12 @@ body {
 .anee-motion-hero__title {
 	color: #fff;
 	font-family: var(--wp--preset--font-family--editorial);
-	font-size: clamp(5.4rem, 15vw, 16rem);
+	font-size: clamp(6rem, 18vw, 18rem);
 	font-weight: 800;
 	letter-spacing: -0.09em;
 	line-height: 0.74;
 	margin: 0;
-	max-width: 9ch;
+	max-width: 8.4ch;
 	text-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
 }
 
@@ -160,23 +166,6 @@ body {
 	color: #fff;
 }
 
-.anee-motion-hero__note {
-	background: rgba(255, 255, 255, 0.08);
-	border: 1px solid rgba(255, 255, 255, 0.16);
-	border-radius: 999px;
-	bottom: 1.4rem;
-	color: rgba(255, 255, 255, 0.72);
-	font-size: 0.78rem;
-	padding: 0.55rem 0.8rem;
-	position: absolute;
-	right: 1.4rem;
-	z-index: 3;
-}
-
-.anee-motion-hero__note code {
-	color: #fff;
-}
-
 .anee-hero-shell,
 .anee-hero-media,
 .anee-metrics-grid,
@@ -204,7 +193,11 @@ body {
 }
 
 .anee-research-themes {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: var(--wp--style--global--wide-size);
 	padding-block: 1.5rem;
+	width: min(100% - 3rem, var(--wp--style--global--wide-size));
 }
 
 .anee-section-heading-row {
@@ -214,14 +207,16 @@ body {
 
 .anee-research-card-grid {
 	display: grid;
-	gap: 1rem;
+	gap: 1.25rem;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
+	width: 100%;
 }
 
 .anee-theme-card {
 	display: flex;
 	flex-direction: column;
-	min-height: 23rem;
+	min-height: 20rem;
+	padding: 1.8rem;
 	transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
@@ -232,7 +227,7 @@ body {
 }
 
 .anee-theme-card h3 {
-	font-size: clamp(1.55rem, 2vw, 2rem);
+	font-size: clamp(1.7rem, 2.2vw, 2.35rem);
 	letter-spacing: -0.035em;
 	margin-top: auto;
 }
@@ -344,21 +339,16 @@ body {
 
 @media (max-width: 720px) {
 	.anee-motion-hero {
-		border-radius: 2rem;
-		min-height: 36rem;
+		min-height: 38rem;
 	}
 
 	.anee-motion-hero__content {
-		min-height: 36rem;
+		min-height: 38rem;
 		padding: 1.5rem;
 	}
 
 	.anee-motion-hero__title {
 		font-size: clamp(4.3rem, 23vw, 7rem);
-	}
-
-	.anee-motion-hero__note {
-		display: none;
 	}
 
 	.anee-research-card-grid,
