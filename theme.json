@@ -1,0 +1,249 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "custom": {
+      "radius": {
+        "card": "28px",
+        "pill": "999px"
+      },
+      "shadow": {
+        "soft": "0 24px 60px rgba(86, 42, 18, 0.08)"
+      }
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        {
+          "slug": "canvas",
+          "color": "#ffffff",
+          "name": "Canvas"
+        },
+        {
+          "slug": "surface",
+          "color": "#ffffff",
+          "name": "Surface"
+        },
+        {
+          "slug": "ink",
+          "color": "#1d1714",
+          "name": "Ink"
+        },
+        {
+          "slug": "muted",
+          "color": "#5f6368",
+          "name": "Muted"
+        },
+        {
+          "slug": "cardinal",
+          "color": "#8c1515",
+          "name": "Cardinal"
+        },
+        {
+          "slug": "cardinal-soft",
+          "color": "#f8eeee",
+          "name": "Cardinal Soft"
+        },
+        {
+          "slug": "gold",
+          "color": "#b38c44",
+          "name": "Gold"
+        },
+        {
+          "slug": "line",
+          "color": "#e5e7eb",
+          "name": "Line"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1280px"
+    },
+    "spacing": {
+      "blockGap": true,
+      "spacingScale": {
+        "operator": "*",
+        "increment": 1.4,
+        "steps": 7,
+        "mediumStep": 1.5,
+        "unit": "rem"
+      },
+      "units": [
+        "px",
+        "rem",
+        "%",
+        "vh",
+        "vw"
+      ]
+    },
+    "typography": {
+      "dropCap": false,
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Iowan Old Style\", \"Palatino Linotype\", \"Book Antiqua\", Georgia, serif",
+          "name": "Editorial Serif",
+          "slug": "editorial"
+        },
+        {
+          "fontFamily": "\"Avenir Next\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+          "name": "Clean Sans",
+          "slug": "clean"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "sm",
+          "size": "0.95rem",
+          "name": "Small"
+        },
+        {
+          "slug": "md",
+          "size": "1.12rem",
+          "name": "Medium"
+        },
+        {
+          "slug": "lg",
+          "size": "1.45rem",
+          "name": "Large"
+        },
+        {
+          "slug": "xl",
+          "size": "2.35rem",
+          "name": "Extra Large"
+        },
+        {
+          "slug": "hero",
+          "size": "clamp(3.4rem, 8vw, 6.4rem)",
+          "name": "Hero"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#ffffff",
+      "text": "var(--wp--preset--color--ink)"
+    },
+    "elements": {
+      "button": {
+        "border": {
+          "radius": "999px"
+        },
+        "color": {
+          "background": "var(--wp--preset--color--cardinal)",
+          "text": "var(--wp--preset--color--surface)"
+        },
+        "spacing": {
+          "padding": {
+            "top": "0.95rem",
+            "bottom": "0.95rem",
+            "left": "1.6rem",
+            "right": "1.6rem"
+          }
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--clean)",
+          "fontSize": "1rem",
+          "fontWeight": "600"
+        }
+      },
+      "heading": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--editorial)",
+          "fontWeight": "700",
+          "lineHeight": "1.02"
+        }
+      },
+      "link": {
+        "color": {
+          "text": "var(--wp--preset--color--cardinal)"
+        },
+        "typography": {
+          "textDecoration": "none"
+        }
+      }
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": "999px"
+        }
+      },
+      "core/group": {
+        "border": {
+          "radius": "28px"
+        }
+      },
+      "core/navigation": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--clean)",
+          "fontWeight": "600"
+        }
+      },
+      "core/post-title": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--editorial)"
+        }
+      },
+      "core/query-pagination-numbers": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--clean)"
+        }
+      }
+    },
+    "spacing": {
+      "blockGap": "1.35rem"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--clean)",
+      "fontSize": "1.05rem",
+      "lineHeight": "1.65"
+    }
+  },
+  "customTemplates": [
+    {
+      "name": "research-overview",
+      "title": "Research Overview",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "people-directory",
+      "title": "People Directory",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "publications-index",
+      "title": "Publications Index",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "patents-library",
+      "title": "Patents Library",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ],
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    }
+  ]
+}

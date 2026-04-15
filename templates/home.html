@@ -1,0 +1,35 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group"><!-- wp:group {"align":"wide","className":"anee-section-shell","style":{"spacing":{"padding":{"top":"2rem","bottom":"1rem"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide anee-section-shell" style="padding-top:2rem;padding-bottom:1rem"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
+<p class="anee-eyebrow">News</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:query-title {"type":"archive","showPrefix":false,"fontSize":"hero"} /-->
+
+<!-- wp:term-description {"style":{"color":{"text":"var:preset|color|muted"}}} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:query {"queryId":0,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+<!-- wp:group {"className":"anee-post-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-post-card"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":"20px"}}} /-->
+
+<!-- wp:post-date {"style":{"typography":{"fontSize":"0.9rem","letterSpacing":"0.12em","textTransform":"uppercase"},"color":{"text":"var:preset|color|muted"}}} /-->
+
+<!-- wp:post-title {"isLink":true,"fontSize":"xl"} /-->
+
+<!-- wp:post-excerpt {"moreText":"Read update"} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination --></div>
+<!-- /wp:query --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

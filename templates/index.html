@@ -1,0 +1,23 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group"><!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"constrained"}} -->
+<!-- wp:group {"className":"anee-post-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-post-card"><!-- wp:post-title {"isLink":true,"fontSize":"xl"} /-->
+
+<!-- wp:post-date {"style":{"color":{"text":"var:preset|color|muted"}}} /-->
+
+<!-- wp:post-excerpt {"moreText":"Continue reading"} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination --></div>
+<!-- /wp:query --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
