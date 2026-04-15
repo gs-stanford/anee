@@ -7,8 +7,8 @@
  */
 ?>
 <!-- wp:group {"className":"anee-editor-home","layout":{"type":"default"}} -->
-<div class="wp-block-group anee-editor-home"><!-- wp:cover {"url":"https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4","dimRatio":52,"overlayColor":"ink","isUserOverlayColor":true,"backgroundType":"video","minHeight":760,"minHeightUnit":"px","contentPosition":"bottom left","align":"full","className":"anee-editable-hero","style":{"spacing":{"padding":{"top":"4rem","right":"clamp(1.5rem, 5vw, 5rem)","bottom":"4rem","left":"clamp(1.5rem, 5vw, 5rem)"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-cover alignfull has-custom-content-position is-position-bottom-left anee-editable-hero" style="padding-top:4rem;padding-right:clamp(1.5rem, 5vw, 5rem);padding-bottom:4rem;padding-left:clamp(1.5rem, 5vw, 5rem);min-height:760px"><span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-50 has-background-dim"></span><video class="wp-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4" data-object-fit="cover"></video><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","className":"anee-hero-copy","layout":{"type":"constrained","contentSize":"980px","justifyContent":"left"}} -->
+<div class="wp-block-group anee-editor-home"><!-- wp:cover {"url":"https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4","dimRatio":52,"overlayColor":"ink","isUserOverlayColor":true,"backgroundType":"video","minHeight":900,"minHeightUnit":"px","contentPosition":"bottom left","align":"full","className":"anee-editable-hero","style":{"spacing":{"padding":{"top":"4rem","right":"clamp(1.5rem, 5vw, 5rem)","bottom":"4rem","left":"clamp(1.5rem, 5vw, 5rem)"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-cover alignfull has-custom-content-position is-position-bottom-left anee-editable-hero" style="padding-top:4rem;padding-right:clamp(1.5rem, 5vw, 5rem);padding-bottom:4rem;padding-left:clamp(1.5rem, 5vw, 5rem);min-height:900px"><span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-50 has-background-dim"></span><video class="wp-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4" data-object-fit="cover"></video><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","className":"anee-hero-copy","layout":{"type":"constrained","contentSize":"980px","justifyContent":"left"}} -->
 <div class="wp-block-group alignwide anee-hero-copy"><!-- wp:paragraph {"className":"anee-hero-kicker"} -->
 <p class="anee-hero-kicker">Stanford Mechanical Engineering</p>
 <!-- /wp:paragraph -->
@@ -35,11 +35,9 @@
 
 <!-- wp:group {"align":"wide","className":"anee-goals-section anee-section-shell","style":{"spacing":{"margin":{"top":"3rem","bottom":"3rem"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide anee-goals-section anee-section-shell" style="margin-top:3rem;margin-bottom:3rem"><!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"2rem","left":"3rem"}}}} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"width":"36%"} -->
-<div class="wp-block-column" style="flex-basis:36%"><!-- wp:cover {"dimRatio":0,"minHeight":520,"minHeightUnit":"px","className":"anee-photo-placeholder","layout":{"type":"constrained"}} -->
-<div class="wp-block-cover anee-photo-placeholder" style="min-height:520px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.9rem","letterSpacing":"0.16em","textTransform":"uppercase"}}} -->
-<p class="has-text-align-center" style="font-size:0.9rem;letter-spacing:0.16em;text-transform:uppercase">Replace with PI or lab photo</p>
-<!-- /wp:paragraph --></div></div>
+<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"width":"44%"} -->
+<div class="wp-block-column" style="flex-basis:44%"><!-- wp:cover {"dimRatio":0,"minHeight":620,"minHeightUnit":"px","className":"anee-photo-placeholder","layout":{"type":"constrained"}} -->
+<div class="wp-block-cover anee-photo-placeholder" style="min-height:620px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span><div class="wp-block-cover__inner-container"></div></div>
 <!-- /wp:cover -->
 
 <!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.84rem","letterSpacing":"0.12em","textTransform":"uppercase"},"color":{"text":"var:preset|color|muted"}}} -->
@@ -51,8 +49,8 @@
 <!-- /wp:heading --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"64%"} -->
-<div class="wp-block-column" style="flex-basis:64%"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
+<!-- wp:column {"width":"56%"} -->
+<div class="wp-block-column" style="flex-basis:56%"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
 <p class="anee-eyebrow">Our Goals</p>
 <!-- /wp:paragraph -->
 
