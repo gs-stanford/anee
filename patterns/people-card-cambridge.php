@@ -8,8 +8,8 @@
  */
 $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/images/headshot-placeholder.svg' );
 ?>
-<!-- wp:group {"className":"anee-profile-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
+<!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
 <figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Cambridge member headshot" style="border-radius:22px"/></figure>
 <!-- /wp:image -->
 

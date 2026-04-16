@@ -1,4 +1,5 @@
 body {
+	--anee-member-card-width: 420px;
 	background: #fff;
 }
 
@@ -13,7 +14,7 @@ body {
 	margin-right: calc(50% - 50vw) !important;
 	margin-top: 0;
 	max-width: none !important;
-	padding: 0.65rem max(1.5rem, calc((100vw - var(--wp--style--global--wide-size)) / 2)) !important;
+	padding: 0.5rem max(1.5rem, calc((100vw - var(--wp--style--global--wide-size)) / 2)) !important;
 	width: 100vw !important;
 }
 
@@ -35,17 +36,31 @@ body {
 	margin: 0;
 }
 
+.anee-header-brand {
+	align-items: center;
+	display: flex;
+	flex: 0 0 auto;
+}
+
 .anee-header-logo {
-	background: #fff;
-	border-radius: 0.65rem;
-	height: clamp(4.25rem, 5vw, 5.8rem);
+	background: transparent;
+	border-radius: 0;
+	display: inline-flex;
+	flex: 0 0 auto;
+	height: clamp(3.2rem, 3.6vw, 4.25rem);
 	line-height: 0;
 	margin: 0;
 	overflow: hidden;
-	width: clamp(9rem, 13vw, 14rem);
+	width: clamp(8.5rem, 12vw, 12.5rem);
 }
 
-.anee-header-logo a,
+.anee-header-logo a {
+	align-items: center;
+	display: inline-flex;
+	height: 100%;
+	width: 100%;
+}
+
 .anee-header-logo img {
 	display: block;
 	width: 100%;
@@ -448,12 +463,12 @@ body.front-page .anee-research-themes {
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	min-height: 32rem;
-	max-width: 420px;
+	min-height: 34rem;
+	max-width: var(--anee-member-card-width);
 	padding: clamp(1.6rem, 1.8vw, 2.25rem);
 	text-align: center;
 	transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-	width: 100%;
+	width: min(100%, var(--anee-member-card-width)) !important;
 }
 
 .anee-profile-card.has-clickable-bio {
@@ -645,6 +660,7 @@ body.front-page .anee-research-themes {
 .anee-pi-card {
 	max-width: 560px;
 	min-height: 37rem;
+	width: min(100%, 560px) !important;
 }
 
 .anee-people-subheading {
@@ -691,25 +707,62 @@ body.front-page .anee-research-themes {
 	align-items: stretch !important;
 	display: grid !important;
 	gap: clamp(1.35rem, 2vw, 2.25rem) !important;
-	grid-template-columns: repeat(3, minmax(0, 420px));
+	grid-template-columns: repeat(3, minmax(0, var(--anee-member-card-width))) !important;
 	justify-content: center;
+	width: 100%;
+}
+
+.anee-people-directory .wp-block-columns:has(.anee-profile-card),
+.wp-block-columns:has(.anee-member-card),
+.wp-block-columns:has(> .wp-block-column:only-child > .anee-profile-card),
+.wp-block-columns:has(> .wp-block-column:first-child > .anee-profile-card):has(> .wp-block-column:nth-child(2) > .anee-profile-card) {
+	align-items: stretch !important;
+	display: grid !important;
+	gap: clamp(1.35rem, 2vw, 2.25rem) !important;
+	grid-template-columns: repeat(3, minmax(0, var(--anee-member-card-width))) !important;
+	justify-content: center !important;
 	width: 100%;
 }
 
 .anee-people-card-grid > .wp-block-column {
 	flex-basis: auto !important;
-	max-width: 420px;
+	max-width: var(--anee-member-card-width);
 	min-width: 0;
 	width: 100%;
+}
+
+.anee-people-directory .wp-block-columns:has(.anee-profile-card) > .wp-block-column,
+.anee-people-directory .wp-block-columns:has(.anee-profile-card) > .wp-block-group,
+.anee-people-directory .wp-block-columns:has(.anee-profile-card) > .anee-profile-card,
+.wp-block-columns:has(.anee-member-card) > .wp-block-column,
+.wp-block-columns:has(.anee-member-card) > .wp-block-group,
+.wp-block-columns:has(.anee-member-card) > .anee-profile-card,
+.wp-block-columns:has(> .wp-block-column:only-child > .anee-profile-card) > .wp-block-column,
+.wp-block-columns:has(> .wp-block-column:first-child > .anee-profile-card):has(> .wp-block-column:nth-child(2) > .anee-profile-card) > .wp-block-column {
+	flex-basis: auto !important;
+	flex-grow: 0 !important;
+	max-width: var(--anee-member-card-width) !important;
+	min-width: 0 !important;
+	width: 100% !important;
 }
 
 .anee-people-card-grid > .anee-profile-card,
 .anee-people-card-grid > .wp-block-group.anee-profile-card,
 .anee-people-card-grid > .wp-block-column > .anee-profile-card,
-.anee-people-card-grid > .wp-block-column > .wp-block-group.anee-profile-card {
+.anee-people-card-grid > .wp-block-column > .wp-block-group.anee-profile-card,
+.anee-people-directory .wp-block-columns:has(.anee-profile-card) .anee-profile-card,
+.wp-block-columns:has(.anee-member-card) .anee-member-card,
+.wp-block-columns:has(> .wp-block-column:only-child > .anee-profile-card) .anee-profile-card,
+.wp-block-columns:has(> .wp-block-column:first-child > .anee-profile-card):has(> .wp-block-column:nth-child(2) > .anee-profile-card) .anee-profile-card {
+	height: 100%;
 	justify-self: stretch;
-	max-width: 420px;
-	width: 100%;
+	max-width: var(--anee-member-card-width) !important;
+	width: 100% !important;
+}
+
+.anee-member-card {
+	margin-left: auto !important;
+	margin-right: auto !important;
 }
 
 .anee-people-list {
@@ -840,7 +893,14 @@ body.front-page .anee-research-themes {
 	}
 
 	.anee-people-card-grid {
-		grid-template-columns: repeat(2, minmax(0, 420px));
+		grid-template-columns: repeat(2, minmax(0, var(--anee-member-card-width))) !important;
+	}
+
+	.anee-people-directory .wp-block-columns:has(.anee-profile-card),
+	.wp-block-columns:has(.anee-member-card),
+	.wp-block-columns:has(> .wp-block-column:only-child > .anee-profile-card),
+	.wp-block-columns:has(> .wp-block-column:first-child > .anee-profile-card):has(> .wp-block-column:nth-child(2) > .anee-profile-card) {
+		grid-template-columns: repeat(2, minmax(0, var(--anee-member-card-width))) !important;
 	}
 }
 
@@ -896,11 +956,18 @@ body.front-page .anee-research-themes {
 	}
 
 	.anee-people-card-grid {
-		grid-template-columns: minmax(0, min(100%, 420px));
+		grid-template-columns: minmax(0, min(100%, var(--anee-member-card-width))) !important;
+	}
+
+	.anee-people-directory .wp-block-columns:has(.anee-profile-card),
+	.wp-block-columns:has(.anee-member-card),
+	.wp-block-columns:has(> .wp-block-column:only-child > .anee-profile-card),
+	.wp-block-columns:has(> .wp-block-column:first-child > .anee-profile-card):has(> .wp-block-column:nth-child(2) > .anee-profile-card) {
+		grid-template-columns: minmax(0, min(100%, var(--anee-member-card-width))) !important;
 	}
 
 	.anee-header-logo {
-		height: 4.6rem;
-		width: min(58vw, 12rem);
+		height: 3.6rem;
+		width: min(58vw, 10.5rem);
 	}
 }
