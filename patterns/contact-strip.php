@@ -21,7 +21,7 @@
 <!-- wp:column {"width":"35%"} -->
 <div class="wp-block-column" style="flex-basis:35%"><!-- wp:buttons {"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:aboies@stanford.edu">Contact</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->

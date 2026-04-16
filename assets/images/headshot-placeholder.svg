@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+	<title id="title">Headshot placeholder</title>
+	<desc id="desc">A neutral placeholder for a lab member headshot.</desc>
+	<rect width="640" height="640" rx="42" fill="#f8fafc"/>
+	<rect x="34" y="34" width="572" height="572" rx="34" fill="none" stroke="#e5e7eb" stroke-width="5" stroke-dasharray="16 18"/>
+	<circle cx="320" cy="248" r="92" fill="#f8eeee"/>
+	<path d="M160 512c24-100 88-150 160-150s136 50 160 150" fill="#f8eeee"/>
+	<text x="320" y="568" text-anchor="middle" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#5f6368">REPLACE HEADSHOT</text>
+</svg>

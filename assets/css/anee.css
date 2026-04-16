@@ -139,12 +139,13 @@ body {
 }
 
 .anee-motion-hero__kicker {
-	color: rgba(255, 255, 255, 0.72);
+	color: #b1040e;
 	font-family: var(--wp--preset--font-family--clean);
-	font-size: 0.82rem;
+	font-size: clamp(1.05rem, 1.08vw, 1.35rem);
 	font-weight: 800;
 	letter-spacing: 0.26em;
 	margin: 0 0 1rem;
+	text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
 	text-transform: uppercase;
 }
 
@@ -250,7 +251,7 @@ body.front-page .anee-research-themes {
 
 .anee-hero-kicker {
 	color: #b1040e;
-	font-size: 0.82rem;
+	font-size: clamp(1.18rem, 1.28vw, 1.65rem);
 	font-weight: 800;
 	letter-spacing: 0.26em;
 	margin-bottom: 1rem;
@@ -416,8 +417,13 @@ body.front-page .anee-research-themes {
 	font-weight: 700;
 	justify-content: center;
 	min-height: clamp(8.5rem, 10vw, 11rem);
-	padding: 1.25rem;
+	padding: 1.4rem;
+	position: relative;
 	text-align: center;
+}
+
+.anee-logo-card .block-editor-block-list__layout {
+	width: 100%;
 }
 
 .anee-logo-card figure,
@@ -435,6 +441,10 @@ body.front-page .anee-research-themes {
 .anee-logo-card img {
 	height: 100%;
 	object-fit: contain;
+}
+
+.anee-logo-upload img[src*="logo-placeholder.svg"] {
+	opacity: 0.72;
 }
 
 .anee-contact-section .wp-block-buttons,
@@ -468,6 +478,32 @@ body.front-page .anee-research-themes {
 	padding-top: 1.6rem;
 }
 
+.anee-people-section-default {
+	border-top: 0;
+	padding-top: 0;
+}
+
+.anee-people-panel {
+	background: #fff;
+	border: 1px solid var(--wp--preset--color--line);
+	border-radius: 26px;
+	margin-top: 1.25rem;
+	padding: 1.2rem 1.4rem;
+}
+
+.anee-people-panel summary {
+	color: var(--wp--preset--color--ink);
+	cursor: pointer;
+	font-family: var(--wp--preset--font-family--editorial);
+	font-size: clamp(1.6rem, 2.2vw, 2.25rem);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.anee-people-panel[open] summary {
+	margin-bottom: 1.25rem;
+}
+
 .anee-people-card-grid {
 	gap: 1.25rem;
 }
@@ -476,6 +512,23 @@ body.front-page .anee-research-themes {
 	columns: 2;
 	column-gap: 3rem;
 	line-height: 1.8;
+}
+
+.anee-capability-grid {
+	gap: 1rem;
+}
+
+.anee-capability-card {
+	background: #fff;
+	border: 1px solid var(--wp--preset--color--line);
+	border-radius: 24px;
+	height: 100%;
+	padding: 1.45rem;
+}
+
+.anee-capability-card h3 {
+	font-size: clamp(1.35rem, 1.8vw, 1.85rem);
+	letter-spacing: -0.025em;
 }
 
 .anee-section-shell {
@@ -529,7 +582,16 @@ body.front-page .anee-research-themes {
 }
 
 .site-footer-shell {
-	max-width: min(calc(100vw - 3rem), var(--wp--style--global--wide-size)) !important;
+	border-left: 0;
+	border-radius: 0;
+	border-right: 0;
+	box-sizing: border-box;
+	margin-left: calc(50% - 50vw) !important;
+	margin-right: calc(50% - 50vw) !important;
+	max-width: none !important;
+	padding-left: max(1.75rem, calc((100vw - var(--wp--style--global--wide-size)) / 2)) !important;
+	padding-right: max(1.75rem, calc((100vw - var(--wp--style--global--wide-size)) / 2)) !important;
+	width: 100vw !important;
 }
 
 .site-footer-shell .wp-block-site-title,
@@ -540,7 +602,13 @@ body.front-page .anee-research-themes {
 
 .anee-footer-columns {
 	align-items: flex-start;
+	display: flex;
 	gap: clamp(1.4rem, 3vw, 3rem);
+	width: 100%;
+}
+
+.anee-footer-columns > .wp-block-column {
+	min-width: 0;
 }
 
 .wp-block-post-template.is-layout-grid > li {

@@ -5,13 +5,14 @@
  * Categories: anee-sections, anee-pages
  * Inserter: yes
  */
+$anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/images/headshot-placeholder.svg' );
 ?>
 <!-- wp:group {"align":"wide","className":"anee-card anee-surface","style":{"spacing":{"padding":{"top":"1.8rem","bottom":"1.8rem","left":"1.8rem","right":"1.8rem"},"margin":{"bottom":"2.4rem"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide anee-card anee-surface" style="margin-bottom:2.4rem;padding-top:1.8rem;padding-right:1.8rem;padding-bottom:1.8rem;padding-left:1.8rem"><!-- wp:columns {"verticalAlignment":"center","align":"wide"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"width":"32%"} -->
 <div class="wp-block-column" style="flex-basis:32%"><!-- wp:group {"className":"anee-profile-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-large has-custom-border"></figure>
+<div class="wp-block-group anee-profile-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"22px"}}} -->
+<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with PI headshot" style="border-radius:22px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.84rem","letterSpacing":"0.12em","textTransform":"uppercase"},"color":{"text":"var:preset|color|muted"}}} -->
@@ -43,7 +44,7 @@
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact the lab</a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:aboies@stanford.edu">Contact the lab</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>

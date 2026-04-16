@@ -5,6 +5,7 @@
  * Categories: anee-pages
  * Inserter: yes
  */
+$anee_logo_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/images/logo-placeholder.svg' );
 ?>
 <!-- wp:group {"className":"anee-editor-home","layout":{"type":"default"}} -->
 <div class="wp-block-group anee-editor-home"><!-- wp:cover {"url":"https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4","dimRatio":52,"overlayColor":"ink","isUserOverlayColor":true,"backgroundType":"video","minHeight":900,"minHeightUnit":"px","contentPosition":"bottom left","align":"full","className":"anee-editable-hero","style":{"spacing":{"padding":{"top":"4rem","right":"clamp(1.5rem, 5vw, 5rem)","bottom":"4rem","left":"clamp(1.5rem, 5vw, 5rem)"}}},"layout":{"type":"constrained"}} -->
@@ -68,47 +69,71 @@
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact the lab</a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:aboies@stanford.edu">Contact the lab</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"align":"wide","className":"anee-section-shell","style":{"spacing":{"margin":{"bottom":"2.4rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide anee-section-shell" style="margin-bottom:2.4rem"><!-- wp:columns {"align":"wide"} -->
+<!-- wp:group {"align":"wide","anchor":"capabilities","className":"anee-section-shell","style":{"spacing":{"margin":{"bottom":"2.4rem"}}},"layout":{"type":"constrained"}} -->
+<div id="capabilities" class="wp-block-group alignwide anee-section-shell" style="margin-bottom:2.4rem"><!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"width":"32%"} -->
 <div class="wp-block-column" style="flex-basis:32%"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
-<p class="anee-eyebrow">Latest updates</p>
+<p class="anee-eyebrow">Capabilities and facilities</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"fontSize":"xl"} -->
-<h2 class="wp-block-heading has-xl-font-size">Recent activity from the group.</h2>
+<h2 class="wp-block-heading has-xl-font-size">Tools and platforms that make the lab work.</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|muted"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--muted)">Use this section to surface news, awards, publications, and major lab updates without turning the homepage into a generic blog.</p>
+<p class="has-text-color" style="color:var(--wp--preset--color--muted)">Highlight the instruments, fabrication tools, reactors, measurement systems, and shared capabilities that make the lab useful to collaborators and prospective students.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><a href="/blog/">See all news</a></p>
+<p><a href="/research/">Explore facilities</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"68%"} -->
-<div class="wp-block-column" style="flex-basis:68%"><!-- wp:query {"queryId":12,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":false},"layout":{"type":"default"}} -->
-<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-<!-- wp:group {"className":"anee-post-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-post-card"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":"20px"}}} /-->
+<div class="wp-block-column" style="flex-basis:68%"><!-- wp:columns {"className":"anee-capability-grid"} -->
+<div class="wp-block-columns anee-capability-grid"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"className":"anee-capability-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-capability-card"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Aerosol synthesis and measurement</h3>
+<!-- /wp:heading -->
 
-<!-- wp:post-date {"style":{"typography":{"fontSize":"0.82rem","letterSpacing":"0.12em","textTransform":"uppercase"},"color":{"text":"var:preset|color|muted"}}} /-->
+<!-- wp:paragraph -->
+<p>Tools for generating, measuring, and interpreting aerosol and nanoparticle systems.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
 
-<!-- wp:post-title {"isLink":true,"fontSize":"lg"} /-->
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"className":"anee-capability-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-capability-card"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Nanocarbon and materials platforms</h3>
+<!-- /wp:heading -->
 
-<!-- wp:post-excerpt {"excerptLength":16,"moreText":"Read more"} /--></div>
-<!-- /wp:group -->
-<!-- /wp:post-template --></div>
-<!-- /wp:query --></div>
+<!-- wp:paragraph -->
+<p>Facilities for nanocarbon growth, materials characterization, and energy-system studies.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"className":"anee-capability-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-capability-card"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Emissions and air-quality testing</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Instrumentation for transport emissions, pollution, batteries, and air-quality applications.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
 <!-- /wp:group -->
@@ -120,26 +145,26 @@
 
 <!-- wp:group {"className":"anee-logo-grid","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-logo-grid"><!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"></figure>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"url":"<?php echo $anee_logo_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-logo-upload"} -->
+<figure class="wp-block-image size-medium anee-logo-upload"><img src="<?php echo $anee_logo_placeholder; ?>" alt="Replace with affiliation or partner logo"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"></figure>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"url":"<?php echo $anee_logo_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-logo-upload"} -->
+<figure class="wp-block-image size-medium anee-logo-upload"><img src="<?php echo $anee_logo_placeholder; ?>" alt="Replace with affiliation or partner logo"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"></figure>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"url":"<?php echo $anee_logo_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-logo-upload"} -->
+<figure class="wp-block-image size-medium anee-logo-upload"><img src="<?php echo $anee_logo_placeholder; ?>" alt="Replace with affiliation or partner logo"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"></figure>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"url":"<?php echo $anee_logo_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-logo-upload"} -->
+<figure class="wp-block-image size-medium anee-logo-upload"><img src="<?php echo $anee_logo_placeholder; ?>" alt="Replace with affiliation or partner logo"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
@@ -160,7 +185,7 @@
 <!-- wp:column {"width":"35%"} -->
 <div class="wp-block-column" style="flex-basis:35%"><!-- wp:buttons {"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:aboies@stanford.edu">Contact</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->

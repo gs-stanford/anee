@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+	<title id="title">Logo placeholder</title>
+	<desc id="desc">A neutral placeholder for an affiliation or partner logo.</desc>
+	<rect width="640" height="360" rx="32" fill="#f8fafc"/>
+	<rect x="28" y="28" width="584" height="304" rx="26" fill="none" stroke="#e5e7eb" stroke-width="4" stroke-dasharray="14 16"/>
+	<path d="M274 150h92a12 12 0 0 1 12 12v64a12 12 0 0 1-12 12h-92a12 12 0 0 1-12-12v-64a12 12 0 0 1 12-12Z" fill="#ffffff" stroke="#8c1515" stroke-width="4"/>
+	<path d="m284 220 28-34 24 27 17-19 15 26H284Z" fill="#f8eeee"/>
+	<circle cx="348" cy="174" r="9" fill="#b1040e"/>
+	<text x="320" y="286" text-anchor="middle" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2" fill="#5f6368">REPLACE WITH LOGO</text>
+</svg>
