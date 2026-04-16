@@ -8,6 +8,7 @@ body {
 	border-radius: 0 !important;
 	box-shadow: none;
 	box-sizing: border-box;
+	margin-bottom: 0 !important;
 	margin-left: calc(50% - 50vw) !important;
 	margin-right: calc(50% - 50vw) !important;
 	margin-top: 0;
@@ -83,6 +84,15 @@ body {
 	padding-block: 0.25rem;
 }
 
+.wp-site-blocks > .site-header-shell + main,
+.wp-site-blocks > header + main,
+.wp-site-blocks > .wp-block-template-part + main,
+.anee-front-page,
+.anee-front-page > .wp-block-post-content,
+.anee-front-page > .wp-block-post-content > :first-child {
+	margin-top: 0 !important;
+}
+
 .anee-eyebrow {
 	align-items: center;
 	background: var(--wp--preset--color--cardinal-soft);
@@ -98,6 +108,7 @@ body {
 
 .anee-motion-hero-shell {
 	background: #fff;
+	margin-top: 0 !important;
 	margin-left: calc(50% - 50vw) !important;
 	margin-right: calc(50% - 50vw) !important;
 	width: 100vw;
@@ -261,11 +272,12 @@ body.front-page .anee-research-themes {
 
 .anee-editor-home {
 	background: #fff;
+	margin-top: 0 !important;
 }
 
 .anee-editable-hero {
 	border-radius: 0 !important;
-	margin-top: 0;
+	margin-top: 0 !important;
 	min-height: clamp(50rem, 92vh, 72rem) !important;
 	overflow: hidden;
 }
@@ -432,12 +444,15 @@ body.front-page .anee-research-themes {
 }
 
 .anee-profile-card {
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	min-height: clamp(30rem, 34vw, 38rem);
+	min-height: 32rem;
+	max-width: 420px;
 	padding: clamp(1.6rem, 1.8vw, 2.25rem);
 	text-align: center;
 	transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+	width: 100%;
 }
 
 .anee-profile-card.has-clickable-bio {
@@ -627,7 +642,8 @@ body.front-page .anee-research-themes {
 }
 
 .anee-pi-card {
-	min-height: clamp(34rem, 40vw, 44rem);
+	max-width: 560px;
+	min-height: 37rem;
 }
 
 .anee-people-subheading {
@@ -674,29 +690,24 @@ body.front-page .anee-research-themes {
 	align-items: stretch !important;
 	display: grid !important;
 	gap: clamp(1.35rem, 2vw, 2.25rem) !important;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 420px));
+	justify-content: center;
 	width: 100%;
-}
-
-.anee-people-section-default > .anee-people-card-grid:not(.anee-member-grid) > .wp-block-column:first-child {
-	grid-column: 1 / -1;
-	justify-self: center;
-	max-width: 560px;
-	width: 100%;
-}
-
-.anee-people-section-default > .anee-people-card-grid:not(.anee-member-grid) > .wp-block-column:first-child .anee-profile-card {
-	min-height: clamp(34rem, 40vw, 44rem);
 }
 
 .anee-people-card-grid > .wp-block-column {
 	flex-basis: auto !important;
+	max-width: 420px;
 	min-width: 0;
 	width: 100%;
 }
 
 .anee-people-card-grid > .anee-profile-card,
-.anee-people-card-grid > .wp-block-group.anee-profile-card {
+.anee-people-card-grid > .wp-block-group.anee-profile-card,
+.anee-people-card-grid > .wp-block-column > .anee-profile-card,
+.anee-people-card-grid > .wp-block-column > .wp-block-group.anee-profile-card {
+	justify-self: stretch;
+	max-width: 420px;
 	width: 100%;
 }
 
@@ -828,7 +839,7 @@ body.front-page .anee-research-themes {
 	}
 
 	.anee-people-card-grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 420px));
 	}
 }
 
@@ -884,7 +895,7 @@ body.front-page .anee-research-themes {
 	}
 
 	.anee-people-card-grid {
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: minmax(0, min(100%, 420px));
 	}
 
 	.anee-header-logo {
