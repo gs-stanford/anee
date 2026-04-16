@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Stanford Member Card
+ * Title: Stanford Member Card - inside an existing row
  * Slug: anee-ollie-child/people-card-stanford
  * Categories: anee-sections, anee-pages
  * Keywords: people, member, Stanford, profile, bio

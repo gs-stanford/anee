@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Cambridge Member Card
+ * Title: Cambridge Member Card - inside an existing row
  * Slug: anee-ollie-child/people-card-cambridge
  * Categories: anee-sections, anee-pages
  * Keywords: people, member, Cambridge, profile, bio
