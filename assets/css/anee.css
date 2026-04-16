@@ -665,6 +665,11 @@ body.front-page .anee-research-themes {
 	width: 100%;
 }
 
+.anee-people-card-grid > .anee-profile-card,
+.anee-people-card-grid > .wp-block-group.anee-profile-card {
+	width: 100%;
+}
+
 .anee-people-list {
 	columns: 2;
 	column-gap: 3rem;
