@@ -14,8 +14,8 @@ $anee_logo_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/imag
 <p class="anee-hero-kicker">Stanford Mechanical Engineering</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"className":"anee-editable-hero-title"} -->
-<h1 class="wp-block-heading anee-editable-hero-title">The Boies Group</h1>
+<!-- wp:heading {"level":2,"className":"anee-editable-hero-title"} -->
+<h2 class="wp-block-heading anee-editable-hero-title">The Boies Group</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"anee-editable-hero-subtitle"} -->

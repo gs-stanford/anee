@@ -18,10 +18,10 @@
 	<div class="anee-motion-hero__overlay"></div>
 	<div class="anee-motion-hero__content">
 		<p class="anee-motion-hero__kicker">Stanford Mechanical Engineering</p>
-		<h1 class="anee-motion-hero__title">
+		<h2 class="anee-motion-hero__title">
 			<span>The Boies</span>
 			<span>Group</span>
-		</h1>
+		</h2>
 		<p class="anee-motion-hero__dek">Aerosol and Nanotechnology for Energy and the Environment (ANEE)</p>
 		<div class="anee-motion-hero__actions">
 			<a href="/research/">Explore research</a>
