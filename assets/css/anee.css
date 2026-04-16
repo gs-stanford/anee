@@ -324,6 +324,13 @@ body.front-page .anee-research-themes {
 	padding: 1.5rem;
 }
 
+.anee-affiliations-section > .anee-eyebrow,
+.anee-contact-section .anee-eyebrow,
+.anee-editor-home > .anee-section-shell:nth-of-type(4) > .anee-eyebrow,
+.anee-editor-home > .anee-card:last-child .anee-eyebrow {
+	display: none !important;
+}
+
 .anee-research-themes {
 	margin-left: auto;
 	margin-right: auto;
@@ -385,8 +392,21 @@ body.front-page .anee-research-themes {
 	text-align: center;
 }
 
-.anee-profile-card img {
+.anee-profile-card figure {
+	aspect-ratio: 1 / 1;
+	background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
 	border-radius: 22px;
+	margin: 0 0 1rem;
+	overflow: hidden;
+	width: 100%;
+}
+
+.anee-profile-card img {
+	aspect-ratio: 1 / 1;
+	border-radius: 22px;
+	display: block;
+	height: 100%;
+	object-fit: cover;
 	width: 100%;
 }
 
@@ -395,8 +415,67 @@ body.front-page .anee-research-themes {
 	display: flex;
 	font-weight: 700;
 	justify-content: center;
-	min-height: 7rem;
+	min-height: clamp(8.5rem, 10vw, 11rem);
+	padding: 1.25rem;
 	text-align: center;
+}
+
+.anee-logo-card figure,
+.anee-logo-card img {
+	display: block;
+	margin: 0;
+	max-height: 100%;
+	width: 100%;
+}
+
+.anee-logo-card figure {
+	aspect-ratio: 16 / 9;
+}
+
+.anee-logo-card img {
+	height: 100%;
+	object-fit: contain;
+}
+
+.anee-contact-section .wp-block-buttons,
+.anee-editor-home > .anee-card:last-child .wp-block-buttons {
+	align-items: stretch;
+	gap: 0.85rem;
+}
+
+.anee-contact-section .wp-block-button,
+.anee-editor-home > .anee-card:last-child .wp-block-button {
+	min-width: 12rem;
+}
+
+.anee-contact-section .wp-block-button__link,
+.anee-contact-section .wp-element-button,
+.anee-editor-home > .anee-card:last-child .wp-block-button__link,
+.anee-editor-home > .anee-card:last-child .wp-element-button {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
+	min-height: 3.1rem;
+	min-width: 12rem;
+}
+
+.anee-people-directory {
+	padding-block: 1rem;
+}
+
+.anee-people-section {
+	border-top: 1px solid var(--wp--preset--color--line);
+	padding-top: 1.6rem;
+}
+
+.anee-people-card-grid {
+	gap: 1.25rem;
+}
+
+.anee-people-list {
+	columns: 2;
+	column-gap: 3rem;
+	line-height: 1.8;
 }
 
 .anee-section-shell {
@@ -434,18 +513,34 @@ body.front-page .anee-research-themes {
 
 .anee-inline-list {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 0.85rem;
+	flex-wrap: nowrap;
+	gap: 0.55rem;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	white-space: nowrap;
 }
 
 .anee-inline-list li {
 	background: var(--wp--preset--color--surface);
 	border: 1px solid var(--wp--preset--color--line);
 	border-radius: 999px;
-	padding: 0.7rem 1rem;
+	padding: 0.58rem 0.85rem;
+}
+
+.site-footer-shell {
+	max-width: min(calc(100vw - 3rem), var(--wp--style--global--wide-size)) !important;
+}
+
+.site-footer-shell .wp-block-site-title,
+.site-footer-shell .wp-block-site-title a {
+	letter-spacing: 0.05em;
+	line-height: 1.05;
+}
+
+.anee-footer-columns {
+	align-items: flex-start;
+	gap: clamp(1.4rem, 3vw, 3rem);
 }
 
 .wp-block-post-template.is-layout-grid > li {
@@ -508,5 +603,14 @@ body.front-page .anee-research-themes {
 	.anee-research-card-grid,
 	.anee-logo-grid {
 		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.anee-inline-list {
+		flex-wrap: wrap;
+		white-space: normal;
+	}
+
+	.anee-people-list {
+		columns: 1;
 	}
 }

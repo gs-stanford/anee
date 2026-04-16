@@ -68,7 +68,7 @@
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:boies@stanford.edu">Contact the lab</a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact the lab</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
@@ -114,49 +114,41 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"align":"wide","className":"anee-section-shell","style":{"spacing":{"margin":{"bottom":"2.4rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide anee-section-shell" style="margin-bottom:2.4rem"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
-<p class="anee-eyebrow">Affiliations</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"fontSize":"xl"} -->
+<div class="wp-block-group alignwide anee-section-shell anee-affiliations-section" style="margin-bottom:2.4rem"><!-- wp:heading {"fontSize":"xl"} -->
 <h2 class="wp-block-heading has-xl-font-size">Affiliations and partners</h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"className":"anee-logo-grid","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-logo-grid"><!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Stanford Mechanical Engineering</p>
-<!-- /wp:paragraph --></div>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
+<figure class="wp-block-image size-medium"></figure>
+<!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Stanford University</p>
-<!-- /wp:paragraph --></div>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
+<figure class="wp-block-image size-medium"></figure>
+<!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Collaborators</p>
-<!-- /wp:paragraph --></div>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
+<figure class="wp-block-image size-medium"></figure>
+<!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"anee-logo-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-logo-card"><!-- wp:paragraph -->
-<p>Industry partners</p>
-<!-- /wp:paragraph --></div>
+<div class="wp-block-group anee-logo-card"><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
+<figure class="wp-block-image size-medium"></figure>
+<!-- /wp:image --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"align":"wide","className":"anee-card anee-surface","style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem","left":"2rem","right":"2rem"},"margin":{"bottom":"2rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide anee-card anee-surface" style="margin-bottom:2rem;padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem"><!-- wp:columns {"align":"wide","verticalAlignment":"center"} -->
+<div class="wp-block-group alignwide anee-card anee-surface anee-contact-section" style="margin-bottom:2rem;padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem"><!-- wp:columns {"align":"wide","verticalAlignment":"center"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"width":"65%"} -->
-<div class="wp-block-column" style="flex-basis:65%"><!-- wp:paragraph {"className":"anee-eyebrow"} -->
-<p class="anee-eyebrow">Contact and join</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"fontSize":"xl"} -->
+<div class="wp-block-column" style="flex-basis:65%"><!-- wp:heading {"fontSize":"xl"} -->
 <h2 class="wp-block-heading has-xl-font-size">Connect with the Boies Group.</h2>
 <!-- /wp:heading -->
 
@@ -168,7 +160,7 @@
 <!-- wp:column {"width":"35%"} -->
 <div class="wp-block-column" style="flex-basis:35%"><!-- wp:buttons {"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:boies@stanford.edu">Email the lab</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->

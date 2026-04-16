@@ -11,7 +11,7 @@
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"width":"32%"} -->
 <div class="wp-block-column" style="flex-basis:32%"><!-- wp:group {"className":"anee-profile-card","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-profile-card"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-large has-custom-border"><img alt="Primary investigator portrait placeholder" style="border-radius:22px"/></figure>
+<figure class="wp-block-image size-large has-custom-border"></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.84rem","letterSpacing":"0.12em","textTransform":"uppercase"},"color":{"text":"var:preset|color|muted"}}} -->
@@ -43,7 +43,7 @@
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:boies@stanford.edu">Contact the lab</a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="mailto:amboies@stanford.edu">Contact the lab</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
