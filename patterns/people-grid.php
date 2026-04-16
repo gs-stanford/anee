@@ -38,7 +38,13 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 
 <!-- wp:paragraph -->
 <p><a href="mailto:aboies@stanford.edu">aboies@stanford.edu</a></p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+
+<!-- wp:details {"className":"anee-profile-bio"} -->
+<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
+<p>Adam Boies leads the Boies Group at Stanford, with research spanning aerosols, nanomaterials, energy systems, emissions, and environmental technologies.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
@@ -58,7 +64,13 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 
 <!-- wp:paragraph -->
 <p>stanford-email@stanford.edu</p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+
+<!-- wp:details {"className":"anee-profile-bio"} -->
+<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
+<p>Add a short member bio here: research focus, project area, methods, and what they work on in the lab.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
@@ -78,7 +90,13 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 
 <!-- wp:paragraph -->
 <p>stanford-email@stanford.edu</p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+
+<!-- wp:details {"className":"anee-profile-bio"} -->
+<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
+<p>Add a short member bio here: research focus, project area, methods, and what they work on in the lab.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -98,7 +116,13 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 
 <!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
 <p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+
+<!-- wp:details {"className":"anee-profile-bio"} -->
+<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
+<p>Add a short Cambridge member bio here: role, research focus, collaboration area, and current project.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
@@ -114,7 +138,13 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 
 <!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
 <p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+
+<!-- wp:details {"className":"anee-profile-bio"} -->
+<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
+<p>Add a short Cambridge member bio here: role, research focus, collaboration area, and current project.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></details>
