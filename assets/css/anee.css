@@ -16,7 +16,7 @@ body {
 	margin-right: calc(50% - 50vw) !important;
 	margin-top: 0;
 	max-width: none !important;
-	padding: 0.5rem max(1.5rem, calc((100vw - var(--wp--style--global--wide-size)) / 2)) !important;
+	padding: 0.75rem max(1.5rem, calc((100vw - var(--wp--style--global--wide-size)) / 2)) !important;
 	width: 100vw !important;
 }
 
@@ -49,7 +49,7 @@ body {
 	border-radius: 0;
 	display: inline-flex;
 	flex: 0 0 auto;
-	height: clamp(3.2rem, 3.6vw, 4.25rem);
+	height: clamp(3.55rem, 3.9vw, 4.7rem);
 	line-height: 0;
 	margin: 0;
 	overflow: hidden;
@@ -983,7 +983,7 @@ body.front-page .anee-research-themes {
 	}
 
 	.anee-header-logo {
-		height: 3.6rem;
-		width: min(58vw, 10.5rem);
+		height: 3.9rem;
+		width: min(58vw, 11rem);
 	}
 }
