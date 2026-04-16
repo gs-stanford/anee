@@ -1,6 +1,6 @@
 body {
-	--anee-member-grid-width: 1280px;
-	--anee-member-card-width: 420px;
+	--anee-member-grid-width: 1180px;
+	--anee-member-card-width: 360px;
 	background: #fff;
 }
 
@@ -708,7 +708,7 @@ body.front-page .anee-research-themes {
 	align-items: stretch !important;
 	display: grid !important;
 	gap: clamp(1.35rem, 2vw, 2.25rem) !important;
-	grid-template-columns: repeat(3, minmax(0, var(--anee-member-card-width))) !important;
+	grid-template-columns: repeat(auto-fit, minmax(var(--anee-member-card-width), var(--anee-member-card-width))) !important;
 	justify-content: center;
 	margin-left: auto !important;
 	margin-right: auto !important;
@@ -723,7 +723,7 @@ body.front-page .anee-research-themes {
 	align-items: stretch !important;
 	display: grid !important;
 	gap: clamp(1.35rem, 2vw, 2.25rem) !important;
-	grid-template-columns: repeat(3, minmax(0, var(--anee-member-card-width))) !important;
+	grid-template-columns: repeat(auto-fit, minmax(var(--anee-member-card-width), var(--anee-member-card-width))) !important;
 	justify-content: center !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
@@ -908,14 +908,14 @@ body.front-page .anee-research-themes {
 	}
 
 	.anee-people-card-grid {
-		grid-template-columns: repeat(2, minmax(0, var(--anee-member-card-width))) !important;
+		grid-template-columns: repeat(auto-fit, minmax(var(--anee-member-card-width), var(--anee-member-card-width))) !important;
 	}
 
 	.anee-people-directory .wp-block-columns:has(.anee-profile-card),
 	.wp-block-columns:has(.anee-member-card),
 	.wp-block-columns:has(> .wp-block-column:only-child > .anee-profile-card),
 	.wp-block-columns:has(> .wp-block-column:first-child > .anee-profile-card):has(> .wp-block-column:nth-child(2) > .anee-profile-card) {
-		grid-template-columns: repeat(2, minmax(0, var(--anee-member-card-width))) !important;
+		grid-template-columns: repeat(auto-fit, minmax(var(--anee-member-card-width), var(--anee-member-card-width))) !important;
 	}
 }
 
