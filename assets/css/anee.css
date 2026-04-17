@@ -5,7 +5,7 @@ body {
 	--anee-logo-card-width: 16rem;
 	--anee-logo-card-height: 8.25rem;
 	--anee-logo-grid-gap: clamp(1rem, 1.6vw, 1.35rem);
-	--anee-logo-grid-width: 69rem;
+	--anee-logo-grid-width: 86rem;
 	background: #fff;
 }
 
@@ -584,6 +584,15 @@ body.front-page .anee-research-themes {
 	width: min(100%, var(--anee-logo-grid-width));
 }
 
+.anee-logo-grid > *,
+.anee-affiliations-section .wp-block-group:has(> .anee-logo-card) > *,
+.wp-block-columns:has(.anee-logo-card) > *,
+.wp-block-columns:has(.anee-logo-card) > .wp-block-column > * {
+	align-self: stretch;
+	margin-block-start: 0 !important;
+	margin-top: 0 !important;
+}
+
 .anee-logo-grid > .block-editor-inner-blocks > .block-editor-block-list__layout,
 .anee-affiliations-section .wp-block-group:has(> .anee-logo-card) > .block-editor-inner-blocks > .block-editor-block-list__layout,
 .wp-block-columns:has(.anee-logo-card) > .block-editor-inner-blocks > .block-editor-block-list__layout {
@@ -600,17 +609,26 @@ body.front-page .anee-research-themes {
 	width: var(--anee-logo-card-width) !important;
 }
 
+.wp-block-columns:has(.anee-logo-card) > .wp-block-column > .anee-logo-card {
+	height: var(--anee-logo-card-height);
+	width: var(--anee-logo-card-width) !important;
+}
+
 .anee-logo-card {
 	align-items: center;
 	box-shadow: none;
 	box-sizing: border-box;
 	display: flex;
+	flex: 0 0 var(--anee-logo-card-width);
 	font-weight: 700;
 	height: var(--anee-logo-card-height);
 	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 0 !important;
+	margin-block-start: 0 !important;
 	max-width: var(--anee-logo-card-width);
+	min-width: var(--anee-logo-card-width);
 	min-height: 0;
 	overflow: hidden;
 	padding: clamp(0.9rem, 1.2vw, 1.2rem);
@@ -629,6 +647,7 @@ body.front-page .anee-research-themes {
 .anee-logo-card img {
 	display: block;
 	margin: 0 auto;
+	margin-block-start: 0 !important;
 }
 
 .anee-logo-card figure {
