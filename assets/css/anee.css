@@ -384,10 +384,6 @@ body.front-page .anee-research-themes {
 	padding-block: 0.5rem;
 }
 
-.anee-logo-grid {
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-}
-
 .anee-logo-card,
 .anee-profile-card,
 .anee-theme-card {
@@ -402,6 +398,18 @@ body.front-page .anee-research-themes {
 .anee-editor-home > .anee-section-shell:nth-of-type(4) > .anee-eyebrow,
 .anee-editor-home > .anee-card:last-child .anee-eyebrow {
 	display: none !important;
+}
+
+.anee-affiliations-section {
+	max-width: 1240px;
+	padding-block: clamp(1.5rem, 3vw, 3rem);
+}
+
+.anee-affiliations-section h2 {
+	font-size: clamp(3rem, 5.8vw, 5.8rem);
+	letter-spacing: -0.055em;
+	line-height: 0.95;
+	margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 .anee-research-themes {
@@ -559,13 +567,27 @@ body.front-page .anee-research-themes {
 	margin: 0.9rem 0 0;
 }
 
+.anee-logo-grid {
+	align-items: stretch;
+	display: grid !important;
+	gap: clamp(1rem, 1.6vw, 1.5rem);
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1120px;
+	width: 100%;
+}
+
 .anee-logo-card {
 	align-items: center;
+	aspect-ratio: 16 / 9;
+	box-shadow: none;
 	display: flex;
 	font-weight: 700;
 	justify-content: center;
-	min-height: clamp(13rem, 15vw, 17rem);
-	padding: clamp(1.8rem, 2vw, 2.6rem);
+	min-height: 0;
+	overflow: hidden;
+	padding: clamp(1.2rem, 1.6vw, 1.8rem);
 	position: relative;
 	text-align: center;
 }
@@ -577,21 +599,23 @@ body.front-page .anee-research-themes {
 .anee-logo-card figure,
 .anee-logo-card img {
 	display: block;
-	margin: 0;
-	width: 100%;
+	margin: 0 auto;
 }
 
 .anee-logo-card figure {
 	aspect-ratio: 16 / 9;
+	align-items: center;
 	display: flex;
-	place-items: center;
+	justify-content: center;
+	width: min(100%, 16rem);
 }
 
 .anee-logo-card img {
 	height: auto;
-	max-height: clamp(8rem, 10vw, 12rem);
+	max-height: clamp(3.8rem, 5vw, 6.25rem);
+	max-width: 100%;
 	object-fit: contain;
-	width: 100%;
+	width: auto;
 }
 
 .anee-logo-upload img[src*="logo-placeholder.svg"] {
@@ -960,6 +984,10 @@ body.front-page .anee-research-themes {
 	.anee-research-card-grid,
 	.anee-logo-grid {
 		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.anee-logo-card {
+		aspect-ratio: 2 / 1;
 	}
 
 	.anee-inline-list {
