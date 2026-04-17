@@ -3,7 +3,7 @@
  * Title: Affiliations and Logos
  * Slug: anee-ollie-child/affiliations
  * Categories: anee-sections, anee-pages
- * Inserter: yes
+ * Inserter: no
  */
 $anee_logo_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/images/logo-placeholder.svg' );
 ?>
