@@ -10,8 +10,26 @@ get_header();
 $hero_video       = boies_theme_mod( 'hero_video_url' );
 $hero_poster      = boies_theme_mod( 'hero_poster_url' );
 $goals_image      = boies_theme_mod( 'goals_image_url' );
+$capabilities_image = boies_theme_mod( 'capabilities_image_url' );
 $show_page_blocks = (bool) boies_theme_mod( 'show_editor_content' );
 $has_page_content = false;
+$capability_cards = array(
+	array(
+		'number' => boies_theme_mod( 'capability_1_number' ),
+		'title'  => boies_theme_mod( 'capability_1_title' ),
+		'body'   => boies_theme_mod( 'capability_1_body' ),
+	),
+	array(
+		'number' => boies_theme_mod( 'capability_2_number' ),
+		'title'  => boies_theme_mod( 'capability_2_title' ),
+		'body'   => boies_theme_mod( 'capability_2_body' ),
+	),
+	array(
+		'number' => boies_theme_mod( 'capability_3_number' ),
+		'title'  => boies_theme_mod( 'capability_3_title' ),
+		'body'   => boies_theme_mod( 'capability_3_body' ),
+	),
+);
 
 if ( have_posts() ) {
 	the_post();
@@ -61,26 +79,28 @@ if ( have_posts() ) {
 	</section>
 
 	<section id="capabilities" class="boies-section boies-capabilities">
-		<div class="boies-section__intro">
-			<p class="boies-section-label"><?php esc_html_e( 'Capabilities', 'boies-group' ); ?></p>
-			<h2><?php esc_html_e( 'From aerosol synthesis to deployment-scale measurement.', 'boies-group' ); ?></h2>
+		<div class="boies-capabilities__lead">
+			<div class="boies-section__intro">
+				<p class="boies-section-label"><?php echo esc_html( boies_theme_mod( 'capabilities_label' ) ); ?></p>
+				<h2><?php echo esc_html( boies_theme_mod( 'capabilities_title' ) ); ?></h2>
+				<p><?php echo esc_html( boies_theme_mod( 'capabilities_body' ) ); ?></p>
+			</div>
+			<div class="boies-capabilities__visual <?php echo $capabilities_image ? '' : 'boies-capabilities__visual--empty'; ?>" aria-hidden="<?php echo $capabilities_image ? 'false' : 'true'; ?>">
+				<?php if ( $capabilities_image ) : ?>
+					<img src="<?php echo esc_url( $capabilities_image ); ?>" alt="<?php esc_attr_e( 'Boies Group capabilities visual', 'boies-group' ); ?>">
+				<?php else : ?>
+					<span></span><span></span><span></span>
+				<?php endif; ?>
+			</div>
 		</div>
 		<div class="boies-capability-grid">
-			<article>
-				<span><?php esc_html_e( '01', 'boies-group' ); ?></span>
-				<h3><?php esc_html_e( 'Aerosol metrology', 'boies-group' ); ?></h3>
-				<p><?php esc_html_e( 'Instrumentation and modeling for particles, emissions, air quality, and evolving gas-phase systems.', 'boies-group' ); ?></p>
-			</article>
-			<article>
-				<span><?php esc_html_e( '02', 'boies-group' ); ?></span>
-				<h3><?php esc_html_e( 'Nanocarbon synthesis', 'boies-group' ); ?></h3>
-				<p><?php esc_html_e( 'Aerosol and flow-based methods for carbon nanotubes, catalysts, and self-assembled materials.', 'boies-group' ); ?></p>
-			</article>
-			<article>
-				<span><?php esc_html_e( '03', 'boies-group' ); ?></span>
-				<h3><?php esc_html_e( 'Energy systems', 'boies-group' ); ?></h3>
-				<p><?php esc_html_e( 'Materials and diagnostics for batteries, storage, combustion, transportation, and environmental technologies.', 'boies-group' ); ?></p>
-			</article>
+			<?php foreach ( $capability_cards as $card ) : ?>
+				<article>
+					<span><?php echo esc_html( $card['number'] ); ?></span>
+					<h3><?php echo esc_html( $card['title'] ); ?></h3>
+					<p><?php echo esc_html( $card['body'] ); ?></p>
+				</article>
+			<?php endforeach; ?>
 		</div>
 	</section>
 

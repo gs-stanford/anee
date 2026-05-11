@@ -1276,3 +1276,173 @@ input[type="submit"]:hover {
 		width: min(100%, var(--boies-member-card)) !important;
 	}
 }
+
+/* Decisive live-site people grid: JS moves every member card into this wrapper. */
+.anee-normalized-card-grid {
+	display: grid !important;
+	flex: 0 0 100% !important;
+	gap: var(--boies-member-gap) !important;
+	grid-column: 1 / -1 !important;
+	grid-template-columns: repeat(3, minmax(0, var(--boies-member-card))) !important;
+	justify-content: center !important;
+	margin: 0 auto !important;
+	max-width: var(--boies-member-grid) !important;
+	width: min(100%, var(--boies-member-grid)) !important;
+}
+
+.anee-normalized-card-grid .anee-profile-card,
+.anee-normalized-card-grid .anee-member-card {
+	align-self: start !important;
+	height: auto !important;
+	justify-self: center !important;
+	margin: 0 !important;
+	max-width: var(--boies-member-card) !important;
+	min-height: 0 !important;
+	width: var(--boies-member-card) !important;
+}
+
+.anee-normalized-card-grid .anee-profile-card figure,
+.anee-normalized-card-grid .anee-profile-card .wp-block-image {
+	align-items: center !important;
+	aspect-ratio: 1.42 / 1 !important;
+	display: flex !important;
+	justify-content: center !important;
+	margin-inline: auto !important;
+	overflow: hidden !important;
+	width: 100% !important;
+}
+
+.anee-normalized-card-grid .anee-profile-card img {
+	display: block !important;
+	height: 100% !important;
+	margin: 0 auto !important;
+	max-width: none !important;
+	object-fit: cover !important;
+	object-position: center center !important;
+	width: 100% !important;
+}
+
+.anee-people-section-default .wp-block-columns:empty,
+.anee-people-panel .wp-block-columns:empty,
+.anee-people-section-default .wp-block-column:empty,
+.anee-people-panel .wp-block-column:empty,
+.anee-people-section-default .wp-block-group:empty,
+.anee-people-panel .wp-block-group:empty {
+	display: none !important;
+}
+
+/* Homepage capabilities are now a full-width editable feature, not a half-page orphan. */
+.boies-capabilities {
+	display: grid;
+	gap: clamp(1.8rem, 4vw, 3.5rem);
+	padding-top: clamp(2rem, 5vw, 4.5rem);
+}
+
+.boies-capabilities__lead {
+	align-items: stretch;
+	display: grid;
+	gap: clamp(1.5rem, 4vw, 4rem);
+	grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.75fr);
+}
+
+.boies-capabilities .boies-section__intro {
+	max-width: none;
+}
+
+.boies-capabilities .boies-section__intro h2 {
+	color: var(--boies-ink);
+	font-size: clamp(3.2rem, 7vw, 7.4rem);
+	max-width: 13ch;
+}
+
+.boies-capabilities .boies-section__intro p:not(.boies-section-label) {
+	color: var(--boies-muted);
+	font-size: clamp(1.08rem, 1.6vw, 1.4rem);
+	margin-top: 1.25rem;
+	max-width: 43rem;
+}
+
+.boies-capabilities__visual {
+	border: 1px solid var(--boies-line);
+	border-radius: var(--boies-radius-lg);
+	min-height: clamp(18rem, 28vw, 28rem);
+	overflow: hidden;
+	position: relative;
+}
+
+.boies-capabilities__visual img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+.boies-capabilities__visual--empty {
+	background:
+		radial-gradient(circle at 24% 24%, rgba(216, 195, 255, 0.9), transparent 9rem),
+		radial-gradient(circle at 74% 38%, rgba(227, 58, 31, 0.18), transparent 10rem),
+		linear-gradient(135deg, #0a0710, #281238 55%, #fff 55.4%, #fff);
+}
+
+.boies-capabilities__visual--empty span {
+	background: rgba(255, 255, 255, 0.72);
+	border-radius: 999px;
+	filter: blur(1px);
+	position: absolute;
+}
+
+.boies-capabilities__visual--empty span:nth-child(1) {
+	height: 9rem;
+	left: 16%;
+	top: 18%;
+	width: 9rem;
+}
+
+.boies-capabilities__visual--empty span:nth-child(2) {
+	background: rgba(255, 138, 28, 0.38);
+	height: 5rem;
+	right: 18%;
+	top: 28%;
+	width: 5rem;
+}
+
+.boies-capabilities__visual--empty span:nth-child(3) {
+	background: rgba(123, 63, 201, 0.22);
+	bottom: 14%;
+	height: 12rem;
+	right: 14%;
+	width: 12rem;
+}
+
+.boies-capabilities .boies-capability-grid {
+	margin-top: 0;
+}
+
+.boies-capabilities .boies-capability-grid h3 {
+	margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+@media (max-width: 1080px) {
+	.anee-normalized-card-grid {
+		grid-template-columns: repeat(2, minmax(0, var(--boies-member-card))) !important;
+		max-width: calc((var(--boies-member-card) * 2) + var(--boies-member-gap)) !important;
+		width: min(100%, calc((var(--boies-member-card) * 2) + var(--boies-member-gap))) !important;
+	}
+
+	.boies-capabilities__lead {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 720px) {
+	.anee-normalized-card-grid {
+		grid-template-columns: minmax(0, var(--boies-member-card)) !important;
+		max-width: var(--boies-member-card) !important;
+		width: min(100%, var(--boies-member-card)) !important;
+	}
+
+	.anee-normalized-card-grid .anee-profile-card,
+	.anee-normalized-card-grid .anee-member-card {
+		width: min(100%, var(--boies-member-card)) !important;
+	}
+}
