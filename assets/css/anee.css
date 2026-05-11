@@ -16,7 +16,7 @@
 	--boies-width: min(100% - 2rem, 1180px);
 	--boies-wide: min(100% - 2rem, 1480px);
 	--boies-shadow: 0 28px 80px rgba(18, 15, 28, 0.12);
-	--boies-member-card: 18.75rem;
+	--boies-member-card: 20rem;
 	--boies-member-gap: clamp(1.25rem, 2.6vw, 2.25rem);
 	--boies-member-grid: calc((var(--boies-member-card) * 3) + (var(--boies-member-gap) * 2));
 }
@@ -1075,5 +1075,131 @@ input[type="submit"]:hover {
 
 	.anee-people-list {
 		columns: 1;
+	}
+}
+
+/* Final cascade guardrails for editor-built pages and the messy legacy People markup. */
+.boies-page-header h1 {
+	color: var(--boies-flame) !important;
+	font-size: clamp(3.2rem, 6vw, 5.4rem) !important;
+	letter-spacing: -0.045em;
+	line-height: 0.9;
+}
+
+.boies-page-content h1,
+.boies-page-content h2 {
+	color: var(--boies-flame) !important;
+	font-size: clamp(2.6rem, 4.4vw, 4.5rem) !important;
+	letter-spacing: -0.035em;
+	line-height: 0.95;
+}
+
+.anee-people-panel > summary {
+	color: var(--boies-flame) !important;
+	font-family: var(--boies-display);
+	font-size: clamp(2.35rem, 4vw, 4rem) !important;
+	letter-spacing: -0.03em;
+	line-height: 0.95;
+	margin-block: 1.6rem;
+}
+
+.anee-people-section-default:has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] {
+	align-items: start !important;
+	display: grid !important;
+	gap: var(--boies-member-gap) !important;
+	grid-template-columns: repeat(3, var(--boies-member-card)) !important;
+	justify-content: center !important;
+	max-width: var(--boies-member-grid) !important;
+	width: min(100%, var(--boies-member-grid)) !important;
+}
+
+.anee-people-panel:has(.anee-profile-card)[open] > summary {
+	grid-column: 1 / -1;
+}
+
+.anee-people-section-default .wp-block-columns:has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] .wp-block-columns:has(.anee-profile-card),
+.anee-people-section-default .wp-block-column:has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] .wp-block-column:has(.anee-profile-card),
+.anee-people-section-default .wp-block-group:not(.anee-profile-card):has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] .wp-block-group:not(.anee-profile-card):has(.anee-profile-card) {
+	display: contents !important;
+	flex: initial !important;
+	max-width: none !important;
+	min-width: 0 !important;
+	width: auto !important;
+}
+
+.anee-people-directory .anee-profile-card {
+	align-self: start !important;
+	box-sizing: border-box !important;
+	height: auto !important;
+	justify-self: stretch !important;
+	margin: 0 !important;
+	max-width: var(--boies-member-card) !important;
+	min-height: 0 !important;
+	width: var(--boies-member-card) !important;
+}
+
+.anee-people-directory .anee-profile-card figure {
+	align-items: center !important;
+	aspect-ratio: 1.42 / 1 !important;
+	display: flex !important;
+	justify-content: center !important;
+	margin-inline: auto !important;
+	max-width: none !important;
+	overflow: hidden !important;
+	width: 100% !important;
+}
+
+.anee-people-directory .anee-profile-card figure img {
+	display: block !important;
+	height: 100% !important;
+	margin: 0 auto !important;
+	max-width: none !important;
+	object-fit: cover !important;
+	object-position: center center !important;
+	width: 100% !important;
+}
+
+.anee-people-directory .anee-profile-card .anee-profile-bio {
+	margin-top: 1rem !important;
+}
+
+.anee-people-directory .anee-profile-card .anee-profile-bio p {
+	font-size: 0.98rem;
+	line-height: 1.65;
+}
+
+@media (max-width: 1080px) {
+	.anee-people-section-default:has(.anee-profile-card),
+	.anee-people-panel:has(.anee-profile-card)[open] {
+		grid-template-columns: repeat(2, var(--boies-member-card)) !important;
+		max-width: calc((var(--boies-member-card) * 2) + var(--boies-member-gap)) !important;
+		width: min(100%, calc((var(--boies-member-card) * 2) + var(--boies-member-gap))) !important;
+	}
+}
+
+@media (max-width: 720px) {
+	.boies-page-header h1 {
+		font-size: clamp(2.8rem, 14vw, 4.2rem) !important;
+	}
+
+	.boies-page-content h1,
+	.boies-page-content h2,
+	.anee-people-panel > summary {
+		font-size: clamp(2.2rem, 12vw, 3.4rem) !important;
+	}
+
+	.anee-people-section-default:has(.anee-profile-card),
+	.anee-people-panel:has(.anee-profile-card)[open] {
+		grid-template-columns: minmax(0, var(--boies-member-card)) !important;
+		max-width: var(--boies-member-card) !important;
+		width: min(100%, var(--boies-member-card)) !important;
+	}
+
+	.anee-people-directory .anee-profile-card {
+		width: min(100%, var(--boies-member-card)) !important;
 	}
 }
