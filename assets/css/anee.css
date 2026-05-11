@@ -16,6 +16,9 @@
 	--boies-width: min(100% - 2rem, 1180px);
 	--boies-wide: min(100% - 2rem, 1480px);
 	--boies-shadow: 0 28px 80px rgba(18, 15, 28, 0.12);
+	--boies-member-card: 20.25rem;
+	--boies-member-gap: clamp(1.35rem, 2.8vw, 2.4rem);
+	--boies-member-grid: calc((var(--boies-member-card) * 3) + (var(--boies-member-gap) * 2));
 }
 
 * {
@@ -107,7 +110,11 @@ p + p {
 }
 
 .boies-site-header {
-	background: rgba(6, 7, 11, 0.96);
+	background:
+		radial-gradient(circle at 16% -40%, rgba(216, 195, 255, 0.34), transparent 18rem),
+		radial-gradient(circle at 84% 0%, rgba(227, 58, 31, 0.28), transparent 20rem),
+		linear-gradient(112deg, #05060a 0%, #12091d 38%, #321050 72%, #5b1834 118%);
+	box-shadow: 0 14px 50px rgba(10, 6, 18, 0.22);
 	color: #fff;
 	position: sticky;
 	top: 0;
@@ -120,8 +127,8 @@ p + p {
 	gap: clamp(1.25rem, 4vw, 4rem);
 	justify-content: space-between;
 	margin: 0 auto;
-	min-height: clamp(5.6rem, 8vw, 7.2rem);
-	padding: 0.9rem 0;
+	min-height: clamp(5.2rem, 7vw, 6.8rem);
+	padding: 0.75rem 0;
 	width: var(--boies-wide);
 }
 
@@ -138,10 +145,10 @@ p + p {
 }
 
 .boies-brand--text span {
-	font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-	font-size: clamp(2rem, 3vw, 3.4rem);
+	font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: clamp(1.9rem, 3vw, 3.15rem);
 	font-weight: 900;
-	letter-spacing: -0.055em;
+	letter-spacing: 0.045em;
 	text-transform: uppercase;
 }
 
@@ -191,9 +198,9 @@ p + p {
 
 .boies-nav__list a {
 	color: rgba(255, 255, 255, 0.86);
-	font-size: 0.98rem;
-	font-weight: 800;
-	letter-spacing: -0.01em;
+	font-size: 0.95rem;
+	font-weight: 850;
+	letter-spacing: 0.01em;
 }
 
 .boies-nav__list a:hover,
@@ -614,7 +621,9 @@ input[type="submit"]:hover {
 }
 
 .anee-people-directory {
+	margin-inline: auto;
 	padding-block: 1rem 2rem;
+	width: min(100%, var(--boies-wide));
 }
 
 .anee-people-directory > h2 {
@@ -663,18 +672,52 @@ input[type="submit"]:hover {
 	display: none;
 }
 
+.anee-people-section-default:has(.anee-member-card),
+.anee-people-panel:has(.anee-member-card) {
+	display: grid;
+	gap: var(--boies-member-gap);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--boies-member-card)), var(--boies-member-card)));
+	justify-content: center;
+	margin-inline: auto;
+	max-width: var(--boies-member-grid);
+	width: 100%;
+}
+
+.anee-people-section-default:has(.anee-member-card) > :not(.anee-member-card, .wp-block-columns, .anee-people-card-grid, .anee-member-grid),
+.anee-people-panel:has(.anee-member-card) > :not(.anee-member-card, .wp-block-columns, .anee-people-card-grid, .anee-member-grid) {
+	grid-column: 1 / -1;
+}
+
+.anee-people-section-default:has(.anee-member-card) > .wp-block-columns:has(.anee-member-card),
+.anee-people-section-default:has(.anee-member-card) > .anee-people-card-grid,
+.anee-people-section-default:has(.anee-member-card) > .anee-member-grid,
+.anee-people-panel:has(.anee-member-card) > .wp-block-columns:has(.anee-member-card),
+.anee-people-panel:has(.anee-member-card) > .anee-people-card-grid,
+.anee-people-panel:has(.anee-member-card) > .anee-member-grid {
+	display: contents !important;
+}
+
+.anee-people-section-default:has(.anee-member-card) .wp-block-columns:has(.anee-member-card) > .wp-block-column,
+.anee-people-panel:has(.anee-member-card) .wp-block-columns:has(.anee-member-card) > .wp-block-column,
+.anee-people-section-default:has(.anee-member-card) .anee-people-card-grid > .wp-block-column,
+.anee-people-panel:has(.anee-member-card) .anee-people-card-grid > .wp-block-column,
+.anee-people-section-default:has(.anee-member-card) .anee-member-grid > .wp-block-column,
+.anee-people-panel:has(.anee-member-card) .anee-member-grid > .wp-block-column {
+	display: contents !important;
+}
+
 .anee-people-card-grid,
 .anee-member-grid,
 .anee-people-directory .wp-block-columns:has(.anee-profile-card),
 .wp-block-columns:has(.anee-member-card) {
 	align-items: stretch !important;
 	display: grid !important;
-	gap: clamp(1.2rem, 2vw, 2rem) !important;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 22rem)) !important;
+	gap: var(--boies-member-gap) !important;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--boies-member-card)), var(--boies-member-card))) !important;
 	justify-content: center !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
-	max-width: 76rem !important;
+	max-width: var(--boies-member-grid) !important;
 	width: 100% !important;
 }
 
@@ -683,8 +726,8 @@ input[type="submit"]:hover {
 .wp-block-columns:has(.anee-member-card) > .wp-block-column {
 	flex: none !important;
 	margin: 0 !important;
-	max-width: 22rem !important;
-	width: 22rem !important;
+	max-width: var(--boies-member-card) !important;
+	width: var(--boies-member-card) !important;
 }
 
 .anee-profile-card,
@@ -698,11 +741,13 @@ input[type="submit"]:hover {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	min-height: 34rem;
-	padding: 1.4rem;
+	justify-self: center;
+	min-height: 31rem;
+	padding: 1.15rem;
 	text-align: center;
 	transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-	width: 100% !important;
+	max-width: var(--boies-member-card) !important;
+	width: min(100%, var(--boies-member-card)) !important;
 }
 
 .anee-profile-card:hover,
@@ -713,16 +758,16 @@ input[type="submit"]:hover {
 }
 
 .anee-pi-card {
-	max-width: 30rem;
+	max-width: 30rem !important;
 	min-height: 36rem;
 	width: min(100%, 30rem) !important;
 }
 
 .anee-profile-card figure {
-	aspect-ratio: 1 / 1;
+	aspect-ratio: 4 / 3;
 	background: #f7f7fb;
 	border-radius: 1.2rem;
-	margin: 0 0 1.35rem;
+	margin: 0 0 1.15rem;
 	overflow: hidden;
 	width: 100%;
 }
@@ -735,7 +780,7 @@ input[type="submit"]:hover {
 }
 
 .anee-profile-card h4 {
-	font-size: clamp(1.65rem, 2.2vw, 2.3rem);
+	font-size: clamp(1.45rem, 1.9vw, 2rem);
 	margin-bottom: 0.4rem;
 }
 
@@ -882,6 +927,11 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 680px) {
+	:root {
+		--boies-member-card: min(100%, 24rem);
+		--boies-member-grid: 100%;
+	}
+
 	body {
 		font-size: 16px;
 	}
