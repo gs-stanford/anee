@@ -35,7 +35,7 @@ function boies_theme_mod( $key ) {
 }
 
 function boies_setup() {
-	load_theme_textdomain( 'boies-group', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'boies-group', get_stylesheet_directory() . '/languages' );
 
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
@@ -79,8 +79,8 @@ add_action( 'after_setup_theme', 'boies_setup' );
 function boies_enqueue_assets() {
 	$theme_version = wp_get_theme()->get( 'Version' );
 	$root_css_path = get_stylesheet_directory() . '/style.css';
-	$css_path      = get_template_directory() . '/assets/css/anee.css';
-	$js_path       = get_template_directory() . '/assets/js/people-cards.js';
+	$css_path      = get_stylesheet_directory() . '/assets/css/anee.css';
+	$js_path       = get_stylesheet_directory() . '/assets/js/people-cards.js';
 
 	wp_enqueue_style(
 		'boies-root',
@@ -91,14 +91,14 @@ function boies_enqueue_assets() {
 
 	wp_enqueue_style(
 		'boies-theme-assets',
-		get_template_directory_uri() . '/assets/css/anee.css',
+		get_stylesheet_directory_uri() . '/assets/css/anee.css',
 		array( 'boies-root' ),
 		file_exists( $css_path ) ? (string) filemtime( $css_path ) : $theme_version
 	);
 
 	wp_enqueue_script(
 		'boies-people-cards',
-		get_template_directory_uri() . '/assets/js/people-cards.js',
+		get_stylesheet_directory_uri() . '/assets/js/people-cards.js',
 		array(),
 		file_exists( $js_path ) ? (string) filemtime( $js_path ) : $theme_version,
 		true
