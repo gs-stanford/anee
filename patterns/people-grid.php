@@ -1,38 +1,34 @@
 <?php
 /**
- * Title: People Sections Starter
+ * Title: People Directory Starter
  * Slug: anee-ollie-child/people-grid
  * Categories: anee-sections, anee-pages
  * Inserter: yes
  */
 $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/images/headshot-placeholder.svg' );
 ?>
-<!-- wp:group {"align":"wide","className":"anee-section-shell anee-people-directory","style":{"spacing":{"margin":{"bottom":"2.2rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide anee-section-shell anee-people-directory" style="margin-bottom:2.2rem"><!-- wp:heading {"fontSize":"xl"} -->
+<!-- wp:group {"align":"wide","className":"anee-section-shell anee-people-directory","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide anee-section-shell anee-people-directory"><!-- wp:heading {"fontSize":"xl"} -->
 <h2 class="wp-block-heading has-xl-font-size">People</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|muted"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--muted)">The Boies Group is a Stanford lab. Stanford members are shown by default, while Cambridge collaborators and past members are available below as expandable sections.</p>
+<!-- wp:paragraph -->
+<p>The Boies Group is a Stanford lab. Stanford members are shown first, with Cambridge collaborators and past members in expandable sections below.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"className":"anee-people-section anee-people-section-default","style":{"spacing":{"margin":{"top":"2rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-people-section anee-people-section-default" style="margin-top:2rem"><!-- wp:heading {"level":3,"fontSize":"lg"} -->
-<h3 class="wp-block-heading has-lg-font-size">Stanford</h3>
-<!-- /wp:heading -->
-
-<!-- wp:group {"className":"anee-pi-feature","layout":{"type":"constrained"}} -->
+<!-- wp:group {"className":"anee-people-section-default","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-people-section-default"><!-- wp:group {"className":"anee-pi-feature","layout":{"type":"constrained"}} -->
 <div class="wp-block-group anee-pi-feature"><!-- wp:group {"className":"anee-profile-card anee-pi-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-pi-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Adam Boies headshot" style="border-radius:22px"/></figure>
+<div class="wp-block-group anee-profile-card anee-pi-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload"} -->
+<figure class="wp-block-image size-medium anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Adam Boies headshot"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:heading {"level":4} -->
 <h4 class="wp-block-heading">Adam Boies</h4>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Professor, Stanford Mechanical Engineering</p>
+<!-- wp:paragraph -->
+<p><strong>Professor, Stanford Mechanical Engineering</strong></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -41,7 +37,7 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 
 <!-- wp:details {"className":"anee-profile-bio"} -->
 <details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Adam Boies leads the Boies Group at Stanford, with research spanning aerosols, nanomaterials, energy systems, emissions, and environmental technologies.</p>
+<p>Add Adam's PI bio here.</p>
 <!-- /wp:paragraph --></details>
 <!-- /wp:details --></div>
 <!-- /wp:group --></div>
@@ -51,162 +47,51 @@ $anee_headshot_placeholder = esc_url( get_stylesheet_directory_uri() . '/assets/
 <h4 class="wp-block-heading anee-people-subheading">Stanford members</h4>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"align":"wide","className":"anee-people-card-grid anee-member-grid"} -->
-<div class="wp-block-columns alignwide anee-people-card-grid anee-member-grid">
-
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Stanford member headshot" style="border-radius:22px"/></figure>
+<!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload"} -->
+<figure class="wp-block-image size-medium anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Stanford member headshot"/></figure>
 <!-- /wp:image -->
+<!-- wp:heading {"level":4} --><h4 class="wp-block-heading">Stanford member</h4><!-- /wp:heading -->
+<!-- wp:paragraph --><p><strong>Role / program</strong></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>stanford-email@stanford.edu</p><!-- /wp:paragraph -->
+<!-- wp:details {"className":"anee-profile-bio"} --><details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph --><p>Add a short member bio here.</p><!-- /wp:paragraph --></details><!-- /wp:details --></div>
+<!-- /wp:group -->
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Stanford member</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>stanford-email@stanford.edu</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:details {"className":"anee-profile-bio"} -->
-<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Add a short member bio here: research focus, project area, methods, and what they work on in the lab.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Stanford member headshot" style="border-radius:22px"/></figure>
+<!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload"} -->
+<figure class="wp-block-image size-medium anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Stanford member headshot"/></figure>
 <!-- /wp:image -->
+<!-- wp:heading {"level":4} --><h4 class="wp-block-heading">Stanford member</h4><!-- /wp:heading -->
+<!-- wp:paragraph --><p><strong>Role / program</strong></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>stanford-email@stanford.edu</p><!-- /wp:paragraph -->
+<!-- wp:details {"className":"anee-profile-bio"} --><details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph --><p>Add a short member bio here.</p><!-- /wp:paragraph --></details><!-- /wp:details --></div>
+<!-- /wp:group -->
 
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Stanford member</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>stanford-email@stanford.edu</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:details {"className":"anee-profile-bio"} -->
-<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Add a short member bio here: research focus, project area, methods, and what they work on in the lab.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Stanford member headshot" style="border-radius:22px"/></figure>
+<!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload"} -->
+<figure class="wp-block-image size-medium anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Stanford member headshot"/></figure>
 <!-- /wp:image -->
-
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Stanford member</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>stanford-email@stanford.edu</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:details {"className":"anee-profile-bio"} -->
-<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Add a short member bio here: research focus, project area, methods, and what they work on in the lab.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details --></div>
+<!-- wp:heading {"level":4} --><h4 class="wp-block-heading">Stanford member</h4><!-- /wp:heading -->
+<!-- wp:paragraph --><p><strong>Role / program</strong></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>stanford-email@stanford.edu</p><!-- /wp:paragraph -->
+<!-- wp:details {"className":"anee-profile-bio"} --><details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph --><p>Add a short member bio here.</p><!-- /wp:paragraph --></details><!-- /wp:details --></div>
 <!-- /wp:group --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns --></div>
 <!-- /wp:group -->
 
 <!-- wp:details {"className":"anee-people-panel"} -->
-<details class="wp-block-details anee-people-panel"><summary>Cambridge</summary><!-- wp:columns {"align":"wide","className":"anee-people-card-grid anee-member-grid"} -->
-<div class="wp-block-columns alignwide anee-people-card-grid anee-member-grid"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Cambridge member headshot" style="border-radius:22px"/></figure>
+<details class="wp-block-details anee-people-panel"><summary>Cambridge</summary><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload"} -->
+<figure class="wp-block-image size-medium anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Cambridge member headshot"/></figure>
 <!-- /wp:image -->
-
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Cambridge member</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:details {"className":"anee-profile-bio"} -->
-<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Add a short Cambridge member bio here: role, research focus, collaboration area, and current project.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Cambridge member headshot" style="border-radius:22px"/></figure>
-<!-- /wp:image -->
-
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Cambridge member</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:details {"className":"anee-profile-bio"} -->
-<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Add a short Cambridge member bio here: role, research focus, collaboration area, and current project.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"anee-profile-card anee-member-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group anee-profile-card anee-member-card"><!-- wp:image {"url":"<?php echo $anee_headshot_placeholder; ?>","sizeSlug":"medium","linkDestination":"none","className":"anee-headshot-upload","style":{"border":{"radius":"22px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border anee-headshot-upload"><img src="<?php echo $anee_headshot_placeholder; ?>" alt="Replace with Cambridge member headshot" style="border-radius:22px"/></figure>
-<!-- /wp:image -->
-
-<!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Cambridge member</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|cardinal"},"typography":{"fontWeight":"600"}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--cardinal);font-weight:600">Role / program</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:details {"className":"anee-profile-bio"} -->
-<details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph -->
-<p>Add a short Cambridge member bio here: role, research focus, collaboration area, and current project.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns --></details>
+<!-- wp:heading {"level":4} --><h4 class="wp-block-heading">Cambridge member</h4><!-- /wp:heading -->
+<!-- wp:paragraph --><p><strong>Role / program</strong></p><!-- /wp:paragraph -->
+<!-- wp:details {"className":"anee-profile-bio"} --><details class="wp-block-details anee-profile-bio"><summary>Bio</summary><!-- wp:paragraph --><p>Add a short Cambridge member bio here.</p><!-- /wp:paragraph --></details><!-- /wp:details --></div>
+<!-- /wp:group --></details>
 <!-- /wp:details -->
 
 <!-- wp:details {"className":"anee-people-panel"} -->
 <details class="wp-block-details anee-people-panel"><summary>Past Members</summary><!-- wp:list {"className":"anee-people-list"} -->
-<ul class="anee-people-list"><li>Name, role, years, current destination</li><li>Name, role, years, current destination</li><li>Name, role, years, current destination</li></ul>
+<ul class="anee-people-list"><li>Name, role, years, current destination</li><li>Name, role, years, current destination</li></ul>
 <!-- /wp:list --></details>
 <!-- /wp:details --></div>
 <!-- /wp:group -->

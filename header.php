@@ -24,8 +24,6 @@
 
 <header class="boies-site-header" role="banner">
 	<div class="boies-site-header__inner">
-		<?php boies_brand_markup(); ?>
-
 		<nav class="boies-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'boies-group' ); ?>">
 			<?php boies_primary_menu(); ?>
 		</nav>

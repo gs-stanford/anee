@@ -16,8 +16,8 @@
 	--boies-width: min(100% - 2rem, 1180px);
 	--boies-wide: min(100% - 2rem, 1480px);
 	--boies-shadow: 0 28px 80px rgba(18, 15, 28, 0.12);
-	--boies-member-card: 20.25rem;
-	--boies-member-gap: clamp(1.35rem, 2.8vw, 2.4rem);
+	--boies-member-card: 18.75rem;
+	--boies-member-gap: clamp(1.25rem, 2.6vw, 2.25rem);
 	--boies-member-grid: calc((var(--boies-member-card) * 3) + (var(--boies-member-gap) * 2));
 }
 
@@ -111,9 +111,9 @@ p + p {
 
 .boies-site-header {
 	background:
-		radial-gradient(circle at 16% -40%, rgba(216, 195, 255, 0.34), transparent 18rem),
-		radial-gradient(circle at 84% 0%, rgba(227, 58, 31, 0.28), transparent 20rem),
-		linear-gradient(112deg, #05060a 0%, #12091d 38%, #321050 72%, #5b1834 118%);
+		radial-gradient(circle at 38% -80%, rgba(216, 195, 255, 0.22), transparent 22rem),
+		radial-gradient(circle at 94% 0%, rgba(255, 111, 24, 0.48), transparent 20rem),
+		linear-gradient(103deg, #030407 0%, #06070b 42%, #201028 67%, #8c241c 88%, #ff6f18 120%);
 	box-shadow: 0 14px 50px rgba(10, 6, 18, 0.22);
 	color: #fff;
 	position: sticky;
@@ -124,12 +124,15 @@ p + p {
 .boies-site-header__inner {
 	align-items: center;
 	display: flex;
-	gap: clamp(1.25rem, 4vw, 4rem);
-	justify-content: space-between;
+	justify-content: center;
 	margin: 0 auto;
-	min-height: clamp(5.2rem, 7vw, 6.8rem);
-	padding: 0.75rem 0;
+	min-height: clamp(3.6rem, 5vw, 4.6rem);
+	padding: 0.45rem 0;
 	width: var(--boies-wide);
+}
+
+.boies-site-header .boies-brand {
+	display: none;
 }
 
 .boies-brand {
@@ -186,21 +189,22 @@ p + p {
 .boies-footer__links {
 	display: flex;
 	flex-wrap: wrap;
-	gap: clamp(0.9rem, 1.8vw, 1.6rem);
+	gap: clamp(1.2rem, 3vw, 2.4rem);
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
 .boies-nav__list {
-	justify-content: flex-end;
+	justify-content: center;
 }
 
 .boies-nav__list a {
-	color: rgba(255, 255, 255, 0.86);
-	font-size: 0.95rem;
-	font-weight: 850;
-	letter-spacing: 0.01em;
+	color: #fff;
+	font-size: clamp(1.08rem, 1.25vw, 1.28rem);
+	font-weight: 950;
+	letter-spacing: -0.02em;
+	text-shadow: 0 1px 20px rgba(0, 0, 0, 0.28);
 }
 
 .boies-nav__list a:hover,
@@ -831,6 +835,85 @@ input[type="submit"]:hover {
 	margin-top: 0.9rem;
 }
 
+/* Final people-layout system: every person is one card, old column wrappers flatten away. */
+.anee-people-section-default:has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] {
+	display: grid !important;
+	gap: var(--boies-member-gap);
+	grid-template-columns: repeat(3, minmax(0, var(--boies-member-card)));
+	justify-content: center;
+	margin-inline: auto;
+	max-width: var(--boies-member-grid);
+	width: min(100%, var(--boies-member-grid));
+}
+
+.anee-people-section-default > :not(.anee-profile-card):not(.anee-people-card-grid):not(.anee-member-grid):not(.wp-block-columns),
+.anee-people-panel:has(.anee-profile-card)[open] > :not(.anee-profile-card):not(.anee-people-card-grid):not(.anee-member-grid):not(.wp-block-columns) {
+	grid-column: 1 / -1;
+}
+
+.anee-people-section-default .anee-people-card-grid,
+.anee-people-panel:has(.anee-profile-card)[open] .anee-people-card-grid,
+.anee-people-section-default .anee-member-grid,
+.anee-people-panel:has(.anee-profile-card)[open] .anee-member-grid,
+.anee-people-section-default .wp-block-columns:has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] .wp-block-columns:has(.anee-profile-card),
+.anee-people-section-default .wp-block-column:has(.anee-profile-card),
+.anee-people-panel:has(.anee-profile-card)[open] .wp-block-column:has(.anee-profile-card) {
+	display: contents !important;
+	max-width: none !important;
+	width: auto !important;
+}
+
+.anee-people-section-default .anee-profile-card:not(.anee-pi-card),
+.anee-people-panel .anee-profile-card:not(.anee-pi-card) {
+	align-self: start !important;
+	height: auto !important;
+	justify-self: stretch;
+	min-height: 0 !important;
+	padding: clamp(0.95rem, 2vw, 1.15rem) !important;
+	width: 100% !important;
+}
+
+.anee-people-section-default .anee-profile-card .wp-block-image,
+.anee-people-panel .anee-profile-card .wp-block-image {
+	align-items: center;
+	aspect-ratio: 4 / 3;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1.1rem;
+	overflow: hidden;
+	width: 100%;
+}
+
+.anee-people-section-default .anee-profile-card .wp-block-image img,
+.anee-people-panel .anee-profile-card .wp-block-image img {
+	height: 100% !important;
+	max-width: none !important;
+	object-fit: cover;
+	object-position: center center !important;
+	width: 100% !important;
+}
+
+.anee-people-section-default .anee-profile-card h3,
+.anee-people-panel .anee-profile-card h3,
+.anee-people-section-default .anee-profile-card h4,
+.anee-people-panel .anee-profile-card h4 {
+	font-size: clamp(1.65rem, 3vw, 2.1rem);
+	line-height: 0.95;
+	margin-top: 1rem;
+}
+
+.anee-people-section-default .anee-profile-card .anee-profile-bio,
+.anee-people-panel .anee-profile-card .anee-profile-bio {
+	margin-top: 1rem !important;
+}
+
+.anee-people-section-default .anee-pi-feature,
+.anee-people-section-default .anee-pi-card {
+	grid-column: 1 / -1;
+}
+
 .anee-people-list {
 	columns: 2;
 	column-gap: 3rem;
@@ -908,12 +991,19 @@ input[type="submit"]:hover {
 	}
 
 	.boies-site-header__inner {
-		align-items: flex-start;
-		flex-direction: column;
+		align-items: center;
+		flex-direction: row;
 	}
 
 	.boies-nav__list {
-		justify-content: flex-start;
+		justify-content: center;
+	}
+
+	.anee-people-section-default:has(.anee-profile-card),
+	.anee-people-panel:has(.anee-profile-card)[open] {
+		grid-template-columns: repeat(2, minmax(0, var(--boies-member-card)));
+		max-width: calc((var(--boies-member-card) * 2) + var(--boies-member-gap));
+		width: min(100%, calc((var(--boies-member-card) * 2) + var(--boies-member-gap)));
 	}
 
 	.boies-capability-grid,
@@ -974,6 +1064,13 @@ input[type="submit"]:hover {
 	.anee-profile-card,
 	.anee-member-card {
 		min-height: 0;
+	}
+
+	.anee-people-section-default:has(.anee-profile-card),
+	.anee-people-panel:has(.anee-profile-card)[open] {
+		grid-template-columns: minmax(0, 1fr);
+		max-width: min(100%, 24rem);
+		width: min(100%, 24rem);
 	}
 
 	.anee-people-list {
