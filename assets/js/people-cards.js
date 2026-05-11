@@ -52,6 +52,60 @@
 			collectCards(panel, ".anee-profile-card");
 			removeEmptyPeopleWrappers(panel);
 		});
+
+		collectLooseStanfordCards();
+	}
+
+	function collectLooseStanfordCards() {
+		var directory = document.querySelector(".anee-people-directory");
+
+		if (!directory) {
+			return;
+		}
+
+		var stanfordGrid =
+			directory.querySelector(".anee-people-section-default .anee-normalized-card-grid") ||
+			Array.prototype.slice
+				.call(directory.querySelectorAll(".anee-normalized-card-grid"))
+				.filter(function (grid) {
+					return !grid.closest(".anee-people-panel");
+				})[0];
+
+		if (!stanfordGrid) {
+			return;
+		}
+
+		Array.prototype.slice
+			.call(directory.querySelectorAll(".anee-normalized-card-grid"))
+			.forEach(function (grid) {
+				if (grid === stanfordGrid || grid.closest(".anee-people-panel")) {
+					return;
+				}
+
+				Array.prototype.slice
+					.call(grid.querySelectorAll(".anee-profile-card:not(.anee-pi-card)"))
+					.forEach(function (card) {
+						stanfordGrid.appendChild(card);
+					});
+
+				if (!grid.children.length) {
+					grid.remove();
+				}
+			});
+
+		Array.prototype.slice
+			.call(directory.querySelectorAll(".anee-profile-card:not(.anee-pi-card)"))
+			.filter(function (card) {
+				return (
+					!card.closest(".anee-normalized-card-grid") &&
+					!card.closest(".anee-people-panel")
+				);
+			})
+			.forEach(function (card) {
+				stanfordGrid.appendChild(card);
+			});
+
+		removeEmptyPeopleWrappers(directory);
 	}
 
 	function removeEmptyPeopleWrappers(section) {

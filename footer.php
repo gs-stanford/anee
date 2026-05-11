@@ -9,7 +9,6 @@
 	<div class="boies-site-footer__inner">
 		<div class="boies-site-footer__brand">
 			<p class="boies-site-footer__title"><?php esc_html_e( 'The Boies Group', 'boies-group' ); ?></p>
-			<p><?php esc_html_e( 'Aerosol science, nanotechnology, and systems for energy and the environment.', 'boies-group' ); ?></p>
 		</div>
 
 		<nav class="boies-site-footer__nav" aria-label="<?php esc_attr_e( 'Footer navigation', 'boies-group' ); ?>">
