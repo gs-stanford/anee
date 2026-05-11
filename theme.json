@@ -28,7 +28,7 @@
         },
         {
           "slug": "ink",
-          "color": "#1d1714",
+          "color": "#141317",
           "name": "Ink"
         },
         {
@@ -38,22 +38,22 @@
         },
         {
           "slug": "cardinal",
-          "color": "#8c1515",
-          "name": "Cardinal"
+          "color": "#4b1d73",
+          "name": "Aerosol Purple"
         },
         {
           "slug": "cardinal-soft",
-          "color": "#f8eeee",
-          "name": "Cardinal Soft"
+          "color": "#f0e8ff",
+          "name": "Aerosol Soft"
         },
         {
           "slug": "gold",
-          "color": "#b38c44",
-          "name": "Gold"
+          "color": "#e33a1f",
+          "name": "Flame"
         },
         {
           "slug": "line",
-          "color": "#e5e7eb",
+          "color": "#e5e7ee",
           "name": "Line"
         }
       ]
@@ -134,7 +134,7 @@
           "radius": "999px"
         },
         "color": {
-          "background": "var(--wp--preset--color--cardinal)",
+          "background": "var(--wp--preset--color--gold)",
           "text": "var(--wp--preset--color--surface)"
         },
         "spacing": {
@@ -175,7 +175,7 @@
       },
       "core/group": {
         "border": {
-          "radius": "28px"
+          "radius": "0"
         }
       },
       "core/navigation": {
@@ -203,47 +203,5 @@
       "fontSize": "1.05rem",
       "lineHeight": "1.65"
     }
-  },
-  "customTemplates": [
-    {
-      "name": "research-overview",
-      "title": "Research Overview",
-      "postTypes": [
-        "page"
-      ]
-    },
-    {
-      "name": "people-directory",
-      "title": "People Directory",
-      "postTypes": [
-        "page"
-      ]
-    },
-    {
-      "name": "publications-index",
-      "title": "Publications Index",
-      "postTypes": [
-        "page"
-      ]
-    },
-    {
-      "name": "patents-library",
-      "title": "Patents Library",
-      "postTypes": [
-        "page"
-      ]
-    }
-  ],
-  "templateParts": [
-    {
-      "name": "header",
-      "title": "Header",
-      "area": "header"
-    },
-    {
-      "name": "footer",
-      "title": "Footer",
-      "area": "footer"
-    }
-  ]
+  }
 }
