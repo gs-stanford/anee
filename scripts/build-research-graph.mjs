@@ -67,8 +67,18 @@ const publicPersonNames = {
 	"Eli Fletes": "Elizabeth Fletes",
 };
 
+const excludedPeople = new Set([
+	"Aarav Seth",
+	"Pierre Boca",
+	"Sam Peterson",
+]);
+
 function publicPersonName(name) {
 	return publicPersonNames[name] || name;
+}
+
+function isExcludedPerson(name) {
+	return excludedPeople.has(publicPersonName(name));
 }
 
 function slug(value) {
@@ -120,6 +130,7 @@ const members = [];
 
 for (const group of memberGroups.filter((entry) => entry.isDirectory()).sort((a, b) => a.name.localeCompare(b.name))) {
 	for (const member of await readNamedFiles(path.join(memberRoot, group.name))) {
+		if (isExcludedPerson(member.name)) continue;
 		members.push({
 			name: publicPersonName(member.name),
 			projects: sectionLinks(member.markdown, "Projects Involved"),
@@ -134,6 +145,7 @@ const personByName = new Map(members.map((member) => [member.name, member]));
 
 for (const application of applications) {
 	for (const name of links(application.markdown)) {
+		if (isExcludedPerson(name)) continue;
 		const publicName = publicPersonName(name);
 		if (!personByName.has(publicName)) {
 			personByName.set(publicName, { name: publicName, projects: [], applications: [] });
@@ -143,6 +155,7 @@ for (const application of applications) {
 
 for (const project of projects) {
 	for (const name of links(project.markdown)) {
+		if (isExcludedPerson(name)) continue;
 		const publicName = publicPersonName(name);
 		if (!personByName.has(publicName)) {
 			personByName.set(publicName, { name: publicName, projects: [], applications: [] });
@@ -167,6 +180,7 @@ for (const application of applications) {
 	nodes.push({ id, label: copy.title, sourceLabel: application.name, type: "topic", description: copy.description });
 
 	for (const name of links(application.markdown)) {
+		if (isExcludedPerson(name)) continue;
 		addEdge(id, `person-${slug(publicPersonName(name))}`, "researcher");
 	}
 }
@@ -180,6 +194,7 @@ for (const project of projects.filter((item) => Object.hasOwn(projectCopy, item.
 	}
 
 	for (const name of links(project.markdown)) {
+		if (isExcludedPerson(name)) continue;
 		addEdge(id, `person-${slug(publicPersonName(name))}`, "researcher");
 	}
 }

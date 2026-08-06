@@ -105,12 +105,6 @@
       "description": "Translation of laboratory materials research into scalable climate and energy solutions."
     },
     {
-      "id": "person-aarav-seth",
-      "label": "Aarav Seth",
-      "type": "person",
-      "url": "/people/?person=aarav-seth#person-aarav-seth"
-    },
-    {
       "id": "person-adam-boies",
       "label": "Adam Boies",
       "type": "person",
@@ -217,18 +211,6 @@
       "label": "Omar Allahham",
       "type": "person",
       "url": "/people/?person=omar-allahham#person-omar-allahham"
-    },
-    {
-      "id": "person-pierre-boca",
-      "label": "Pierre Boca",
-      "type": "person",
-      "url": "/people/?person=pierre-boca#person-pierre-boca"
-    },
-    {
-      "id": "person-sam-peterson",
-      "label": "Sam Peterson",
-      "type": "person",
-      "url": "/people/?person=sam-peterson#person-sam-peterson"
     },
     {
       "id": "person-sophia-sonnert",
@@ -342,21 +324,6 @@
     },
     {
       "source": "topic-energy-materials",
-      "target": "person-pierre-boca",
-      "relation": "researcher"
-    },
-    {
-      "source": "topic-energy-materials",
-      "target": "person-sam-peterson",
-      "relation": "researcher"
-    },
-    {
-      "source": "topic-energy-materials",
-      "target": "person-aarav-seth",
-      "relation": "researcher"
-    },
-    {
-      "source": "topic-energy-materials",
       "target": "person-alexi-lindeman",
       "relation": "researcher"
     },
@@ -423,11 +390,6 @@
     {
       "source": "topic-solid-carbon",
       "target": "person-gibson-clark",
-      "relation": "researcher"
-    },
-    {
-      "source": "topic-solid-carbon",
-      "target": "person-pierre-boca",
       "relation": "researcher"
     },
     {
@@ -568,16 +530,6 @@
     {
       "source": "project-steer",
       "target": "person-omar-allahham",
-      "relation": "researcher"
-    },
-    {
-      "source": "project-steer",
-      "target": "person-sam-peterson",
-      "relation": "researcher"
-    },
-    {
-      "source": "project-steer",
-      "target": "person-pierre-boca",
       "relation": "researcher"
     },
     {

@@ -1,306 +1,277 @@
 (function () {
 	"use strict";
 
-	var SVG_NS = "http://www.w3.org/2000/svg";
-
-	function svg(tag, attributes) {
-		var element = document.createElementNS(SVG_NS, tag);
-		Object.keys(attributes || {}).forEach(function (key) {
-			element.setAttribute(key, attributes[key]);
-		});
-		return element;
-	}
-
-	function escapeHtml(value) {
-		var div = document.createElement("div");
-		div.textContent = value || "";
-		return div.innerHTML;
+	function element(tag, className, text) {
+		var node = document.createElement(tag);
+		if (className) node.className = className;
+		if (text !== undefined) node.textContent = text;
+		return node;
 	}
 
 	function byType(data, type) {
 		return data.nodes.filter(function (node) { return node.type === type; });
 	}
 
-	function connectedIds(data, id, relation) {
-		return data.edges
-			.filter(function (edge) {
-				return (!relation || edge.relation === relation) && (edge.source === id || edge.target === id);
-			})
-			.map(function (edge) { return edge.source === id ? edge.target : edge.source; });
-	}
-
 	function nodeMap(data) {
 		return new Map(data.nodes.map(function (node) { return [node.id, node]; }));
 	}
 
-	function distribute(index, total, start, end) {
-		if (total <= 1) return (start + end) / 2;
-		return start + ((end - start) * index) / (total - 1);
+	function connectedIds(data, id, relation) {
+		return data.edges
+			.filter(function (edge) {
+				return edge.relation === relation && (edge.source === id || edge.target === id);
+			})
+			.map(function (edge) { return edge.source === id ? edge.target : edge.source; });
 	}
 
-	function positionOverview(data) {
-		var positions = new Map();
-		var topics = byType(data, "topic");
-		var xPositions = [220, 700, 1180];
-		var yPositions = [245, 590];
-
-		topics.forEach(function (topic, index) {
-			positions.set(topic.id, {
-				x: xPositions[index % 3],
-				y: yPositions[Math.floor(index / 3)],
-			});
-		});
-
-		return positions;
+	function uniqueNodes(ids, map) {
+		return Array.from(new Set(ids))
+			.map(function (id) { return map.get(id); })
+			.filter(Boolean)
+			.sort(function (a, b) { return a.label.localeCompare(b.label); });
 	}
 
-	function focusData(data, topicId) {
-		var map = nodeMap(data);
-		var projectIds = connectedIds(data, topicId, "project");
-		var personIds = new Set(connectedIds(data, topicId, "researcher"));
+	function initials(label) {
+		return label.split(/\s+/).map(function (part) { return part.charAt(0); }).join("").slice(0, 2);
+	}
 
-		projectIds.forEach(function (projectId) {
-			connectedIds(data, projectId, "researcher").forEach(function (personId) { personIds.add(personId); });
-		});
+	function slug(value) {
+		return value
+			.normalize("NFKD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.toLowerCase()
+			.replace(/&/g, " and ")
+			.replace(/[^a-z0-9]+/g, "-")
+			.replace(/^-|-$/g, "");
+	}
 
-		return {
-			topic: map.get(topicId),
-			projects: projectIds.map(function (id) { return map.get(id); }).filter(Boolean).sort(function (a, b) { return a.label.localeCompare(b.label); }),
-			people: Array.from(personIds).map(function (id) { return map.get(id); }).filter(Boolean).sort(function (a, b) { return a.label.localeCompare(b.label); }),
+	function profileSlugsFromHtml(html) {
+		var page = new DOMParser().parseFromString(html, "text/html");
+		var profiles = new Set();
+		var emailProfiles = {
+			aboies: "adam-boies",
+			chall: "cheyenne-halverson",
+			cyprien: "cyprien-jourdain",
+			dakanmu: "david-akanmu",
+			hzhang29: "hao-zhang",
+			jpong: "julie-pongetti",
+			karimehp: "karime-hernandez",
+			larsonm: "michael-larson",
+			mswint: "maddie-swint",
+			nategies: "nate-giessner",
+			oallah: "omar-allahham",
+			sharmag: "gaurav-sharma",
+			sonnert: "sophia-sonnert"
 		};
-	}
 
-	function positionFocus(focus) {
-		var positions = new Map();
-		var peopleColumns = focus.people.length > 10 ? 3 : (focus.people.length > 1 ? 2 : 1);
-		var peopleRows = Math.ceil(focus.people.length / peopleColumns);
-		var peopleX = peopleColumns === 3 ? [830, 1045, 1240] : (peopleColumns === 2 ? [900, 1180] : [1035]);
+		page.querySelectorAll(".anee-profile-card").forEach(function (card) {
+			var heading = card.querySelector("h2, h3, h4, h5");
+			var profileSlug = card.dataset.person || card.id.replace(/^person-/, "") || (heading ? slug(heading.textContent.trim()) : "");
+			if (profileSlug) profiles.add(profileSlug);
 
-		positions.set(focus.topic.id, { x: 165, y: 405 });
-
-		focus.projects.forEach(function (project, index) {
-			positions.set(project.id, {
-				x: 525,
-				y: distribute(index, focus.projects.length, 160, 650),
-			});
+			var emailMatch = card.textContent.match(/\b([a-z0-9._%+-]+)@(stanford\.edu|cam\.ac\.uk)\b/i);
+			if (emailMatch && emailProfiles[emailMatch[1].toLowerCase()]) {
+				profiles.add(emailProfiles[emailMatch[1].toLowerCase()]);
+			}
 		});
 
-		focus.people.forEach(function (person, index) {
-			var column = index % peopleColumns;
-			var row = Math.floor(index / peopleColumns);
-			positions.set(person.id, {
-				x: peopleX[column],
-				y: distribute(row, peopleRows, 130, 680),
-			});
-		});
-
-		return positions;
+		return profiles;
 	}
 
-	function edgePath(start, end) {
-		var controlX = (start.x + end.x) / 2;
-		return "M " + start.x + " " + start.y + " C " + controlX + " " + start.y + ", " + controlX + " " + end.y + ", " + end.x + " " + end.y;
+	function loadProfileSlugs() {
+		if (!window.BoiesResearch.peopleUrl) return Promise.resolve(new Set());
+
+		return fetch(window.BoiesResearch.peopleUrl, { credentials: "same-origin" })
+			.then(function (response) {
+				if (!response.ok) throw new Error("People page could not be checked.");
+				return response.text();
+			})
+			.then(profileSlugsFromHtml)
+			.catch(function () { return new Set(); });
 	}
 
-	function textLines(label, max) {
-		var words = label.split(/\s+/);
-		var lines = [""];
-		words.forEach(function (word) {
-			var current = lines[lines.length - 1];
-			if ((current + " " + word).trim().length > max && current) lines.push(word);
-			else lines[lines.length - 1] = (current + " " + word).trim();
-		});
-		return lines.slice(0, 3);
-	}
+	function personMarkup(person, profileSlugs) {
+		var profileSlug = slug(person.label);
+		var hasProfile = profileSlugs.has(profileSlug);
+		var node = element(hasProfile ? "a" : "span", "boies-network-person" + (hasProfile ? "" : " is-static"));
 
-	function addLabel(group, node, y, max, className) {
-		var lines = textLines(node.label, max);
-		var firstLineY = y - ((lines.length - 1) * 10);
-		var text = svg("text", { x: "0", y: String(firstLineY), "text-anchor": "middle", class: className || "boies-network-node__label" });
-		lines.forEach(function (line, index) {
-			var tspan = svg("tspan", { x: "0", dy: index ? "1.05em" : "0" });
-			tspan.textContent = line;
-			text.appendChild(tspan);
-		});
-		group.appendChild(text);
-	}
-
-	function addLaneLabel(stage, x, label, className) {
-		var text = svg("text", { x: String(x), y: "52", "text-anchor": "middle", class: "boies-network-lane-label " + className });
-		text.textContent = label;
-		stage.appendChild(text);
-	}
-
-	function drawNode(stage, node, point, onSelect) {
-		var isInteractive = node.type !== "project";
-		var group = svg("g", {
-			class: "boies-network-node boies-network-node--" + node.type,
-			transform: "translate(" + point.x + " " + point.y + ")",
-			tabindex: isInteractive ? "0" : "-1",
-			role: isInteractive ? "button" : "group",
-			"aria-label": node.label,
-		});
-
-		if (node.type === "topic") {
-			group.appendChild(svg("circle", { r: "96" }));
-			addLabel(group, node, -2, 18);
-			var prompt = svg("text", { x: "0", y: "54", "text-anchor": "middle", class: "boies-network-node__meta" });
-			prompt.textContent = "Select";
-			group.appendChild(prompt);
-		} else if (node.type === "project") {
-			group.appendChild(svg("rect", { x: "-112", y: "-42", width: "224", height: "84", rx: "26" }));
-			addLabel(group, node, 1, 25, "boies-network-node__label boies-network-node__label--small");
+		if (hasProfile) {
+			node.href = person.url || window.BoiesResearch.peopleUrl + "?person=" + encodeURIComponent(profileSlug) + "#person-" + profileSlug;
+			node.setAttribute("aria-label", "Open " + person.label + " profile");
 		} else {
-			group.appendChild(svg("circle", { r: "29" }));
-			var initials = svg("text", { x: "0", y: "5", "text-anchor": "middle", class: "boies-network-node__initials" });
-			initials.textContent = node.label.split(/\s+/).map(function (part) { return part[0]; }).join("").slice(0, 2);
-			group.appendChild(initials);
-			var personLabel = svg("text", { x: "41", y: "5", class: "boies-network-node__person-label" });
-			personLabel.textContent = node.label;
-			group.appendChild(personLabel);
+			node.title = "Profile not currently published";
 		}
 
-		if (isInteractive) {
-			group.addEventListener("click", function () { onSelect(node); });
-			group.addEventListener("keydown", function (event) {
-				if (event.key === "Enter" || event.key === " ") {
-					event.preventDefault();
-					onSelect(node);
-				}
+		node.appendChild(element("span", "boies-network-person__initials", initials(person.label)));
+		node.appendChild(element("span", "boies-network-person__name", person.label));
+		return node;
+	}
+
+	function topicBranches(data, topic) {
+		var map = nodeMap(data);
+		var projects = uniqueNodes(connectedIds(data, topic.id, "project"), map);
+		var projectPeople = new Set();
+		var branches = projects.map(function (project) {
+			var people = uniqueNodes(connectedIds(data, project.id, "researcher"), map);
+			people.forEach(function (person) { projectPeople.add(person.id); });
+			return { project: project, people: people };
+		});
+		var collaborators = uniqueNodes(connectedIds(data, topic.id, "researcher"), map)
+			.filter(function (person) { return !projectPeople.has(person.id); });
+
+		return { branches: branches, collaborators: collaborators };
+	}
+
+	function branchMarkup(branch, index, profileSlugs) {
+		var section = element("section", "boies-network-branch");
+		section.style.setProperty("--branch-index", String(index));
+
+		var project = element("details", "boies-network-project");
+		var summary = element("summary", "boies-network-project__summary");
+		var summaryText = element("span", "boies-network-project__summary-text");
+		summaryText.appendChild(element("span", "boies-network-project__kind", "Project"));
+		summaryText.appendChild(element("span", "boies-network-project__title", branch.project.label));
+		summary.appendChild(summaryText);
+		summary.appendChild(element("span", "boies-network-project__toggle", "+"));
+		project.appendChild(summary);
+		if (branch.project.description) {
+			var body = element("div", "boies-network-project__body");
+			body.appendChild(element("p", "", branch.project.description));
+			project.appendChild(body);
+		}
+		section.appendChild(project);
+
+		var people = element("div", "boies-network-branch__people");
+		if (branch.people.length) {
+			branch.people.forEach(function (person) { people.appendChild(personMarkup(person, profileSlugs)); });
+		} else {
+			people.appendChild(element("p", "boies-network-branch__empty", "Project team details coming soon."));
+		}
+		section.appendChild(people);
+		return section;
+	}
+
+	function expandedPanel(data, topic, profileSlugs) {
+		var connections = topicBranches(data, topic);
+		var panel = element("div", "boies-network-tree");
+		panel.id = "network-panel-" + topic.id;
+
+		var intro = element("div", "boies-network-tree__intro");
+		intro.appendChild(element("span", "boies-network-tree__eyebrow", "Selected research theme"));
+		intro.appendChild(element("p", "", topic.description));
+		panel.appendChild(intro);
+
+		var branches = element("div", "boies-network-tree__branches");
+		if (connections.branches.length) {
+			connections.branches.forEach(function (branch, index) {
+				branches.appendChild(branchMarkup(branch, index, profileSlugs));
 			});
+		} else {
+			branches.appendChild(element("p", "boies-network-branch__empty", "Project details coming soon."));
+		}
+		panel.appendChild(branches);
+
+		if (connections.collaborators.length) {
+			var collaborators = element("section", "boies-network-collaborators");
+			collaborators.appendChild(element("h3", "", "Additional researchers across this theme"));
+			var people = element("div", "boies-network-collaborators__people");
+			connections.collaborators.forEach(function (person) { people.appendChild(personMarkup(person, profileSlugs)); });
+			collaborators.appendChild(people);
+			panel.appendChild(collaborators);
 		}
 
-		stage.appendChild(group);
+		return panel;
 	}
 
-	function renderOverview(svgElement, data, selectTopic) {
-		var positions = positionOverview(data);
-		var labelsLayer = svg("g", { class: "boies-network-lanes" });
-		var nodesLayer = svg("g", { class: "boies-network-nodes" });
+	function themeCard(data, topic, selectedId, profileSlugs, onSelect) {
+		var isOpen = topic.id === selectedId;
+		var article = element("article", "boies-network-theme" + (isOpen ? " is-open" : ""));
+		article.dataset.topicId = topic.id;
 
-		addLaneLabel(labelsLayer, 700, "RESEARCH THEMES", "is-theme");
-		byType(data, "topic").forEach(function (node) {
-			drawNode(nodesLayer, node, positions.get(node.id), selectTopic);
-		});
-		svgElement.replaceChildren(labelsLayer, nodesLayer);
-	}
+		var button = element("button", "boies-network-theme__button");
+		button.type = "button";
+		button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+		button.setAttribute("aria-controls", "network-panel-" + topic.id);
+		button.appendChild(element("span", "boies-network-theme__title", topic.label));
+		button.appendChild(element("span", "boies-network-theme__action", isOpen ? "Close branches" : "Explore"));
+		button.addEventListener("click", function () { onSelect(isOpen ? null : topic.id); });
+		article.appendChild(button);
 
-	function renderFocus(svgElement, data, topicId, selectNode) {
-		var focus = focusData(data, topicId);
-		var positions = positionFocus(focus);
-		var visibleIds = new Set([focus.topic].concat(focus.projects, focus.people).map(function (node) { return node.id; }));
-		var edgesLayer = svg("g", { class: "boies-network-edges" });
-		var labelsLayer = svg("g", { class: "boies-network-lanes" });
-		var nodesLayer = svg("g", { class: "boies-network-nodes" });
-
-		addLaneLabel(labelsLayer, 165, "RESEARCH THEME", "is-theme");
-		addLaneLabel(labelsLayer, 525, "PROJECTS", "is-project");
-		addLaneLabel(labelsLayer, 1040, "PEOPLE", "is-person");
-
-		data.edges.filter(function (edge) {
-			return visibleIds.has(edge.source) && visibleIds.has(edge.target);
-		}).forEach(function (edge) {
-			var start = positions.get(edge.source);
-			var end = positions.get(edge.target);
-			if (start && end) edgesLayer.appendChild(svg("path", { d: edgePath(start, end), class: "boies-network-edge boies-network-edge--" + edge.relation }));
-		});
-
-		[focus.topic].concat(focus.projects, focus.people).forEach(function (node) {
-			drawNode(nodesLayer, node, positions.get(node.id), selectNode);
-		});
-		svgElement.replaceChildren(edgesLayer, labelsLayer, nodesLayer);
-		return focus;
-	}
-
-	function detailMarkup(focus) {
-		var projectItems = focus.projects.map(function (project) {
-			return "<li><strong>" + escapeHtml(project.label) + "</strong><span>" + escapeHtml(project.description) + "</span></li>";
-		}).join("");
-		var people = focus.people.map(function (person) {
-			return "<a href='" + escapeHtml(person.url) + "'>" + escapeHtml(person.label) + "</a>";
-		}).join("");
-
-		return "<p class='boies-section-label'>Research theme</p>" +
-			"<h2>" + escapeHtml(focus.topic.label) + "</h2>" +
-			"<p>" + escapeHtml(focus.topic.description) + "</p>" +
-			(projectItems ? "<h3>Connected projects</h3><ul>" + projectItems + "</ul>" : "") +
-			(people ? "<h3>People</h3><div class='boies-network-detail__people'>" + people + "</div>" : "");
-	}
-
-	function buildMobile(root, data, selectTopic) {
-		var mobile = root.querySelector(".boies-network-mobile");
-		byType(data, "topic").forEach(function (topic) {
-			var item = document.createElement("button");
-			item.type = "button";
-			item.innerHTML = "<span>" + escapeHtml(topic.label) + "</span><small>Explore theme</small>";
-			item.addEventListener("click", function () { selectTopic(topic, true); });
-			mobile.appendChild(item);
-		});
+		if (isOpen) article.appendChild(expandedPanel(data, topic, profileSlugs));
+		return article;
 	}
 
 	function boot() {
 		var root = document.querySelector("[data-research-network]");
 		if (!root || !window.BoiesResearch) return;
 
-		var svgElement = root.querySelector("svg");
-		var detail = root.querySelector(".boies-network-detail");
-		var reset = root.querySelector("[data-network-reset]");
+		var explorer = root.querySelector("[data-network-explorer]");
 		var status = root.querySelector("[data-network-status]");
 
-		fetch(window.BoiesResearch.dataUrl)
-			.then(function (response) {
+		Promise.all([
+			fetch(window.BoiesResearch.dataUrl).then(function (response) {
 				if (!response.ok) throw new Error("Research data could not be loaded.");
 				return response.json();
-			})
-			.then(function (data) {
+			}),
+			loadProfileSlugs()
+		])
+			.then(function (results) {
+				var data = results[0];
+				var profileSlugs = results[1];
 				var map = nodeMap(data);
+				var topics = byType(data, "topic");
 
-				function overviewUrl() {
-					return window.location.pathname + window.location.search;
-				}
+				function render(selectedId, updateHistory) {
+					var selected = selectedId ? map.get(selectedId) : null;
+					if (!selected || selected.type !== "topic") selectedId = null;
+					root.classList.toggle("is-focused", Boolean(selectedId));
+					explorer.replaceChildren();
+					topics.forEach(function (topic) {
+						explorer.appendChild(themeCard(data, topic, selectedId, profileSlugs, selectTopic));
+					});
 
-				function showOverview(updateHistory) {
-					root.classList.remove("is-focused");
-					detail.innerHTML = "<p class='boies-network-detail__prompt'>Select a research theme to reveal its active projects and people.</p>";
-					status.textContent = "Showing six research themes.";
-					renderOverview(svgElement, data, selectNode);
-					if (updateHistory) window.history.pushState({ topic: null }, "", overviewUrl());
-				}
-
-				function showTopic(topic, updateHistory) {
-					root.classList.add("is-focused");
-					var focus = renderFocus(svgElement, data, topic.id, selectNode);
-					detail.innerHTML = detailMarkup(focus);
-					status.textContent = "Showing " + focus.topic.label + ", " + focus.projects.length + " projects, and " + focus.people.length + " people.";
-					if (updateHistory) window.history.pushState({ topic: topic.id }, "", "#" + topic.id);
-				}
-
-				function selectNode(node, updateHistory) {
-					if (node.type === "person") {
-						window.location.href = node.url;
-						return;
+					if (selectedId) {
+						var connections = topicBranches(data, map.get(selectedId));
+						var peopleIds = new Set(connections.collaborators.map(function (person) { return person.id; }));
+						connections.branches.forEach(function (branch) {
+							branch.people.forEach(function (person) { peopleIds.add(person.id); });
+						});
+						var peopleCount = peopleIds.size;
+						status.textContent = "Expanded " + map.get(selectedId).label + " with " + connections.branches.length + " projects and " + peopleCount + " researcher links.";
+					} else {
+						status.textContent = "Showing " + topics.length + " research themes.";
 					}
-					if (node.type === "topic") showTopic(node, updateHistory !== false);
+
+					if (updateHistory) {
+						var url = selectedId ? "#" + selectedId : window.location.pathname + window.location.search;
+						window.history.pushState({ topic: selectedId }, "", url);
+					}
+				}
+
+				function selectTopic(topicId) {
+					render(topicId, true);
+					if (topicId) {
+						window.requestAnimationFrame(function () {
+							var selected = explorer.querySelector('[data-topic-id="' + topicId + '"]');
+							if (selected) selected.scrollIntoView({ behavior: "smooth", block: "start" });
+						});
+					}
 				}
 
 				function renderLocation() {
 					var id = window.location.hash.replace(/^#/, "");
-					var node = map.get(id);
-					if (node && node.type === "topic") showTopic(node, false);
-					else showOverview(false);
+					render(id, false);
 				}
 
-				reset.addEventListener("click", function () { showOverview(true); });
 				window.addEventListener("popstate", renderLocation);
 				document.addEventListener("keydown", function (event) {
-					if (event.key === "Escape" && root.classList.contains("is-focused")) showOverview(true);
+					if (event.key === "Escape" && root.classList.contains("is-focused")) selectTopic(null);
 				});
-				buildMobile(root, data, selectNode);
 				renderLocation();
 			})
 			.catch(function (error) {
 				root.classList.add("has-error");
-				detail.textContent = error.message;
+				explorer.textContent = error.message;
 			});
 	}
 

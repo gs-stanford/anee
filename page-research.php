@@ -11,12 +11,9 @@ get_header();
 <main id="main" class="boies-main boies-research-page">
 	<section class="boies-network" data-research-network aria-labelledby="research-map-title">
 		<div class="boies-network-toolbar">
-			<div>
-				<p class="boies-section-label"><?php esc_html_e( 'Research network', 'boies-group' ); ?></p>
-				<h1 id="research-map-title"><?php esc_html_e( 'Explore the lab', 'boies-group' ); ?></h1>
-				<p class="boies-network-toolbar__intro"><?php esc_html_e( 'Choose a theme to see its projects and researchers.', 'boies-group' ); ?></p>
-			</div>
-			<button type="button" data-network-reset><?php esc_html_e( 'Back to all themes', 'boies-group' ); ?></button>
+			<p class="boies-section-label"><?php esc_html_e( 'Research network', 'boies-group' ); ?></p>
+			<h1 id="research-map-title"><?php esc_html_e( 'Explore the lab', 'boies-group' ); ?></h1>
+			<p class="boies-network-toolbar__intro"><?php esc_html_e( 'Select a theme to expand its projects and researchers.', 'boies-group' ); ?></p>
 		</div>
 
 		<div class="boies-network-legend" aria-label="<?php esc_attr_e( 'Map key', 'boies-group' ); ?>">
@@ -27,17 +24,8 @@ get_header();
 
 		<p class="screen-reader-text" data-network-status aria-live="polite"></p>
 
-		<div class="boies-network-layout">
-			<div class="boies-network-canvas">
-				<svg viewBox="0 0 1400 860" role="img" aria-labelledby="research-map-title research-map-description" preserveAspectRatio="xMidYMid meet"></svg>
-				<p id="research-map-description" class="screen-reader-text"><?php esc_html_e( 'An interactive diagram connecting research themes, active projects, and Boies Group researchers.', 'boies-group' ); ?></p>
-				<div class="boies-network-mobile" aria-label="<?php esc_attr_e( 'Research themes', 'boies-group' ); ?>"></div>
-			</div>
-
-			<aside class="boies-network-detail" aria-live="polite">
-				<p class="boies-network-detail__prompt"><?php esc_html_e( 'Select a research theme to reveal its active projects and people.', 'boies-group' ); ?></p>
-			</aside>
-		</div>
+		<div class="boies-network-explorer" data-network-explorer aria-describedby="research-map-description"></div>
+		<p id="research-map-description" class="screen-reader-text"><?php esc_html_e( 'An interactive hierarchy connecting research themes, active projects, and Boies Group researchers.', 'boies-group' ); ?></p>
 	</section>
 </main>
 
