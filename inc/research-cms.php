@@ -69,6 +69,21 @@ function boies_register_research_content_types() {
 add_action( 'init', 'boies_register_research_content_types', 5 );
 
 /**
+ * Keep the small research records in WordPress's straightforward editor.
+ *
+ * The block editor hides legacy media and relationship boxes below the canvas,
+ * which makes these records unnecessarily difficult to maintain.
+ */
+function boies_research_use_block_editor( $use_block_editor, $post_type ) {
+	if ( in_array( $post_type, array( 'boies_theme', 'boies_project', 'boies_person' ), true ) ) {
+		return false;
+	}
+
+	return $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post_type', 'boies_research_use_block_editor', 10, 2 );
+
+/**
  * Add a single editorial home for the network records.
  */
 function boies_research_admin_menu() {
@@ -138,6 +153,18 @@ function boies_research_choices( $post_type ) {
  * Add relationship and display controls to the editor.
  */
 function boies_research_meta_boxes() {
+	// Use one explicit image control instead of WordPress's inconsistently placed panel.
+	remove_meta_box( 'postimagediv', 'boies_theme', 'side' );
+
+	add_meta_box(
+		'boies-theme-image',
+		__( 'Research Image', 'boies-group' ),
+		'boies_theme_image_meta_box',
+		'boies_theme',
+		'side',
+		'high'
+	);
+
 	add_meta_box(
 		'boies-theme-display',
 		__( 'Theme Display', 'boies-group' ),
@@ -168,6 +195,31 @@ function boies_research_meta_boxes() {
 add_action( 'add_meta_boxes', 'boies_research_meta_boxes' );
 
 /**
+ * Load the WordPress Media Library picker on Research Theme edit screens.
+ */
+function boies_research_admin_assets( $hook_suffix ) {
+	if ( ! in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
+		return;
+	}
+
+	$screen = get_current_screen();
+	if ( ! $screen || 'boies_theme' !== $screen->post_type ) {
+		return;
+	}
+
+	$script_path = get_stylesheet_directory() . '/assets/js/research-admin.js';
+	wp_enqueue_media();
+	wp_enqueue_script(
+		'boies-research-admin',
+		get_stylesheet_directory_uri() . '/assets/js/research-admin.js',
+		array( 'jquery' ),
+		file_exists( $script_path ) ? (string) filemtime( $script_path ) : wp_get_theme()->get( 'Version' ),
+		true
+	);
+}
+add_action( 'admin_enqueue_scripts', 'boies_research_admin_assets' );
+
+/**
  * Shared nonce field for research metadata.
  */
 function boies_research_nonce_field() {
@@ -175,10 +227,39 @@ function boies_research_nonce_field() {
 }
 
 /**
+ * Dedicated image picker that does not depend on the Featured Image panel.
+ */
+function boies_theme_image_meta_box( $post ) {
+	boies_research_nonce_field();
+	$image_id  = get_post_thumbnail_id( $post );
+	$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : '';
+	?>
+	<div class="boies-research-image-control">
+		<input type="hidden" name="boies_research_image_id" value="<?php echo esc_attr( (string) $image_id ); ?>" data-boies-research-image-id>
+		<div data-boies-research-image-preview style="margin-bottom:10px;">
+			<?php if ( $image_url ) : ?>
+				<img src="<?php echo esc_url( $image_url ); ?>" alt="" style="display:block;width:100%;height:auto;max-height:180px;object-fit:cover;border-radius:6px;">
+			<?php else : ?>
+				<p class="description"><?php esc_html_e( 'No research image selected.', 'boies-group' ); ?></p>
+			<?php endif; ?>
+		</div>
+		<p style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0;">
+			<button type="button" class="button button-primary" data-boies-research-image-choose>
+				<?php echo $image_id ? esc_html__( 'Replace image', 'boies-group' ) : esc_html__( 'Choose image', 'boies-group' ); ?>
+			</button>
+			<button type="button" class="button" data-boies-research-image-remove <?php echo $image_id ? '' : 'hidden'; ?>>
+				<?php esc_html_e( 'Remove image', 'boies-group' ); ?>
+			</button>
+		</p>
+		<p class="description" style="margin-top:10px;"><?php esc_html_e( 'Choose an existing Media Library image or upload a new one, then click Update.', 'boies-group' ); ?></p>
+	</div>
+	<?php
+}
+
+/**
  * Theme image-position control.
  */
 function boies_theme_display_meta_box( $post ) {
-	boies_research_nonce_field();
 	$position = get_post_meta( $post->ID, '_boies_image_position', true );
 	$position = $position ? $position : 'center';
 	$options  = array(
@@ -189,7 +270,6 @@ function boies_theme_display_meta_box( $post ) {
 		'right center' => __( 'Right center', 'boies-group' ),
 	);
 	?>
-	<p><?php esc_html_e( 'Use the Featured image panel to choose this theme\'s public background image.', 'boies-group' ); ?></p>
 	<p>
 		<label for="boies-image-position"><strong><?php esc_html_e( 'Image focal position', 'boies-group' ); ?></strong></label><br>
 		<select id="boies-image-position" name="boies_image_position" style="width:100%;margin-top:6px;">
@@ -288,6 +368,15 @@ function boies_save_research_meta( $post_id, $post ) {
 	}
 
 	if ( 'boies_theme' === $post->post_type ) {
+		if ( isset( $_POST['boies_research_image_id'] ) ) {
+			$image_id = absint( wp_unslash( $_POST['boies_research_image_id'] ) );
+			if ( $image_id && wp_attachment_is_image( $image_id ) ) {
+				set_post_thumbnail( $post_id, $image_id );
+			} else {
+				delete_post_thumbnail( $post_id );
+			}
+		}
+
 		$allowed  = array( 'center', 'center top', 'center bottom', 'left center', 'right center' );
 		$position = isset( $_POST['boies_image_position'] ) ? sanitize_text_field( wp_unslash( $_POST['boies_image_position'] ) ) : 'center';
 		update_post_meta( $post_id, '_boies_image_position', in_array( $position, $allowed, true ) ? $position : 'center' );
@@ -366,7 +455,18 @@ function boies_research_admin_relationships( $post_id, $meta_key ) {
 function boies_research_admin_column_content( $column, $post_id ) {
 	if ( 'boies_image' === $column ) {
 		$image = get_the_post_thumbnail( $post_id, array( 72, 48 ), array( 'style' => 'width:72px;height:48px;object-fit:cover;border-radius:4px;' ) );
-		echo $image ? wp_kses_post( $image ) : esc_html__( 'Not set', 'boies-group' );
+		$edit_url = get_edit_post_link( $post_id );
+		if ( $edit_url ) {
+			printf(
+				'<a href="%1$s" aria-label="%2$s" style="display:inline-grid;gap:3px;text-decoration:none;">%3$s<span>%4$s</span></a>',
+				esc_url( $edit_url ),
+				esc_attr__( 'Change research image', 'boies-group' ),
+				$image ? wp_kses_post( $image ) : '<span>' . esc_html__( 'Not set', 'boies-group' ) . '</span>',
+				esc_html__( 'Change image', 'boies-group' )
+			);
+		} else {
+			echo $image ? wp_kses_post( $image ) : esc_html__( 'Not set', 'boies-group' );
+		}
 	}
 
 	if ( 'boies_order' === $column ) {
