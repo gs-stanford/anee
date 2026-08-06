@@ -161,6 +161,31 @@ function boies_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'boies_enqueue_assets' );
 
 /**
+ * Detect the publications route even when WordPress assigns that page as the
+ * Posts page. In that configuration WordPress reports the request as the blog
+ * home rather than a normal page, so is_page() alone cannot select our view.
+ */
+function boies_is_publications_request() {
+	if ( is_page( array( 'boies-publications', 'publications' ) ) ) {
+		return true;
+	}
+
+	$request_path = isset( $_SERVER['REQUEST_URI'] )
+		? (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH )
+		: '';
+	$home_path    = (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+
+	$request_path = trim( $request_path, '/' );
+	$home_path    = trim( $home_path, '/' );
+
+	if ( $home_path && 0 === strpos( $request_path, $home_path . '/' ) ) {
+		$request_path = substr( $request_path, strlen( $home_path ) + 1 );
+	}
+
+	return (bool) preg_match( '#^(boies-publications|publications)(?:/page/[0-9]+)?$#', $request_path );
+}
+
+/**
  * Keep the code-designed Research and Publications views active even if an
  * older WordPress page template remains selected in the database.
  */
@@ -171,7 +196,7 @@ function boies_page_template_override( $template ) {
 		return $theme_dir . '/page-research.php';
 	}
 
-	if ( is_page( array( 'boies-publications', 'publications' ) ) ) {
+	if ( boies_is_publications_request() ) {
 		return $theme_dir . '/page-boies-publications.php';
 	}
 

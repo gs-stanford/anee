@@ -9,24 +9,23 @@ get_header();
 ?>
 
 <main id="main" class="boies-main boies-research-page">
-	<header class="boies-research-hero">
-		<div>
-			<p class="boies-section-label"><?php esc_html_e( 'Research network', 'boies-group' ); ?></p>
-			<h1><?php esc_html_e( 'Connected work, not isolated projects.', 'boies-group' ); ?></h1>
-		</div>
-		<p><?php esc_html_e( 'Select a research theme to trace the active projects and people behind it. The map is generated from the lab\'s shared research vault and links every researcher back to their profile.', 'boies-group' ); ?></p>
-	</header>
-
 	<section class="boies-network" data-research-network aria-labelledby="research-map-title">
 		<div class="boies-network-toolbar">
 			<div>
-				<p class="boies-section-label"><?php esc_html_e( 'Interactive map', 'boies-group' ); ?></p>
-				<h2 id="research-map-title"><?php esc_html_e( 'Explore the lab', 'boies-group' ); ?></h2>
+				<p class="boies-section-label"><?php esc_html_e( 'Research network', 'boies-group' ); ?></p>
+				<h1 id="research-map-title"><?php esc_html_e( 'Explore the lab', 'boies-group' ); ?></h1>
+				<p class="boies-network-toolbar__intro"><?php esc_html_e( 'Choose a theme to see its projects and researchers.', 'boies-group' ); ?></p>
 			</div>
-			<button type="button" data-network-reset><?php esc_html_e( 'View all research', 'boies-group' ); ?></button>
+			<button type="button" data-network-reset><?php esc_html_e( 'Back to all themes', 'boies-group' ); ?></button>
 		</div>
 
-		<p class="boies-network-status" data-network-status aria-live="polite"></p>
+		<div class="boies-network-legend" aria-label="<?php esc_attr_e( 'Map key', 'boies-group' ); ?>">
+			<span><i class="is-theme" aria-hidden="true"></i><?php esc_html_e( 'Research theme', 'boies-group' ); ?></span>
+			<span><i class="is-project" aria-hidden="true"></i><?php esc_html_e( 'Project', 'boies-group' ); ?></span>
+			<span><i class="is-person" aria-hidden="true"></i><?php esc_html_e( 'Person', 'boies-group' ); ?></span>
+		</div>
+
+		<p class="screen-reader-text" data-network-status aria-live="polite"></p>
 
 		<div class="boies-network-layout">
 			<div class="boies-network-canvas">

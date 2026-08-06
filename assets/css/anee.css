@@ -5,6 +5,7 @@
 	--boies-grape: #442067;
 	--boies-violet: #8058b7;
 	--boies-electric: #a78bfa;
+	--boies-flame: #f45128;
 	--boies-aerosol: #58d7cf;
 	--boies-aerosol-dark: #197e80;
 	--boies-paper: #ffffff;
@@ -867,6 +868,7 @@ a {
 .anee-profile-card .wp-block-image,
 .anee-profile-card .anee-headshot-upload {
 	aspect-ratio: 4 / 3;
+	background: #f5f3f7;
 	border-radius: calc(var(--boies-radius) - 0.45rem);
 	margin: 0;
 	overflow: hidden;
@@ -878,8 +880,8 @@ a {
 .anee-profile-card .anee-headshot-upload img {
 	height: 100% !important;
 	margin: 0 !important;
-	object-fit: cover;
-	object-position: center;
+	object-fit: contain !important;
+	object-position: center center !important;
 	width: 100% !important;
 }
 
@@ -1025,37 +1027,52 @@ a {
 	margin-bottom: 0.8rem;
 }
 
-/* Research network */
-.boies-research-hero,
+/* Publications */
 .boies-publications-hero {
+	background:
+		radial-gradient(circle at 76% 20%, rgba(88, 215, 207, 0.16), transparent 22rem),
+		radial-gradient(circle at 18% 70%, rgba(128, 88, 183, 0.28), transparent 28rem),
+		var(--boies-carbon);
+	border-bottom: 1px solid rgba(88, 215, 207, 0.25);
+	color: #fff;
+	padding: clamp(3.5rem, 7vw, 6.5rem) 0;
+}
+
+.boies-publications-hero__inner {
 	display: grid;
-	gap: clamp(2rem, 7vw, 7rem);
-	grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.6fr);
+	gap: 1rem clamp(2rem, 7vw, 7rem);
+	grid-template-columns: minmax(11rem, 0.35fr) minmax(0, 1fr);
 	margin: 0 auto;
-	padding: clamp(5rem, 10vw, 9rem) 0 clamp(4rem, 8vw, 7rem);
 	width: var(--boies-wide);
 }
 
-.boies-research-hero h1,
+.boies-publications-hero .boies-section-label {
+	color: var(--boies-aerosol);
+	padding-top: 0.45rem;
+}
+
 .boies-publications-hero h1 {
-	font-size: clamp(3.5rem, 7vw, 6.6rem);
-	margin-top: 1rem;
-	max-width: 10ch;
+	color: #fff;
+	font-size: clamp(3.2rem, 6vw, 5.6rem);
+	grid-column: 2;
+	line-height: 0.92;
 }
 
-.boies-research-hero > p,
-.boies-publications-hero > p {
-	align-self: end;
-	color: var(--boies-muted);
-	font-size: clamp(1.02rem, 1.6vw, 1.3rem);
+.boies-publications-hero__inner > p:last-child {
+	color: rgba(255, 255, 255, 0.68);
+	font-size: clamp(1rem, 1.45vw, 1.2rem);
+	grid-column: 2;
+	max-width: 48rem;
 }
 
+/* Research network */
 .boies-network {
 	background:
 		radial-gradient(circle at 20% 20%, rgba(128, 88, 183, 0.28), transparent 28rem),
 		radial-gradient(circle at 78% 70%, rgba(88, 215, 207, 0.18), transparent 28rem),
 		var(--boies-carbon);
 	color: #fff;
+	min-height: calc(100svh - 5.5rem);
 	padding: clamp(2rem, 5vw, 4.5rem);
 }
 
@@ -1068,10 +1085,16 @@ a {
 	max-width: 1500px;
 }
 
-.boies-network-toolbar h2 {
+.boies-network-toolbar h1 {
 	color: #fff;
-	font-size: clamp(3rem, 6vw, 6rem);
+	font-size: clamp(3rem, 5.6vw, 5.6rem);
 	margin-top: 0.65rem;
+}
+
+.boies-network-toolbar__intro {
+	color: rgba(255, 255, 255, 0.66);
+	font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+	margin: 0.7rem 0 0;
 }
 
 .boies-network-toolbar .boies-section-label {
@@ -1088,17 +1111,54 @@ a {
 	padding: 0.85rem 1.2rem;
 }
 
+.boies-network:not(.is-focused) [data-network-reset] {
+	display: none;
+}
+
 .boies-network-toolbar button:hover,
 .boies-network-toolbar button:focus-visible {
 	background: #fff;
 	color: var(--boies-ink);
 }
 
-.boies-network-status {
-	color: rgba(255, 255, 255, 0.5);
-	font-size: 0.82rem;
-	margin: 1.5rem auto 0;
+.boies-network-legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem 1.5rem;
+	margin: 1.8rem auto 0;
 	max-width: 1500px;
+}
+
+.boies-network-legend span {
+	align-items: center;
+	color: rgba(255, 255, 255, 0.66);
+	display: inline-flex;
+	font-size: 0.74rem;
+	font-weight: 700;
+	gap: 0.55rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.boies-network-legend i {
+	border: 2px solid currentColor;
+	border-radius: 50%;
+	display: inline-block;
+	height: 0.82rem;
+	width: 0.82rem;
+}
+
+.boies-network-legend .is-theme {
+	color: var(--boies-electric);
+}
+
+.boies-network-legend .is-project {
+	border-radius: 0.25rem;
+	color: var(--boies-flame);
+}
+
+.boies-network-legend .is-person {
+	color: var(--boies-aerosol);
 }
 
 .boies-network-layout {
@@ -1109,12 +1169,21 @@ a {
 	max-width: 1500px;
 }
 
+.boies-network:not(.is-focused) .boies-network-layout {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.boies-network:not(.is-focused) .boies-network-detail {
+	display: none;
+}
+
 .boies-network-canvas {
 	min-width: 0;
 }
 
 .boies-network-canvas svg {
 	height: auto;
+	min-height: 32rem;
 	overflow: visible;
 	width: 100%;
 }
@@ -1147,8 +1216,9 @@ a {
 }
 
 .boies-network-node--project rect {
-	fill: rgba(255, 255, 255, 0.07);
-	stroke: rgba(255, 255, 255, 0.22);
+	fill: rgba(239, 79, 36, 0.15);
+	stroke: var(--boies-flame);
+	stroke-width: 2;
 }
 
 .boies-network-node--person circle {
@@ -1189,6 +1259,26 @@ a {
 
 .boies-network-node__person-label {
 	font-size: 14px;
+}
+
+.boies-network-lane-label {
+	fill: rgba(255, 255, 255, 0.56);
+	font-family: var(--boies-sans);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+}
+
+.boies-network-lane-label.is-theme {
+	fill: var(--boies-electric);
+}
+
+.boies-network-lane-label.is-project {
+	fill: var(--boies-flame);
+}
+
+.boies-network-lane-label.is-person {
+	fill: var(--boies-aerosol);
 }
 
 .boies-network-detail {
@@ -1269,58 +1359,194 @@ a {
 }
 
 /* Live bibliography */
-.boies-publications-hero {
-	border-bottom: 1px solid var(--boies-line);
-}
-
 .boies-bibliography {
 	margin: 0 auto;
 	min-height: 40rem;
-	padding: clamp(3rem, 7vw, 7rem) 0;
-	width: var(--boies-content);
+	padding: clamp(2.5rem, 6vw, 5.5rem) 0 clamp(5rem, 9vw, 8rem);
+	width: min(92vw, 1280px);
 }
 
 .boies-bibliography__loading {
 	color: var(--boies-muted);
+	font-size: 0.95rem;
 }
 
-#bibbase {
+.boies-bibliography__mount:has(#bibbase) > .boies-bibliography__loading {
+	display: none;
+}
+
+body .boies-bibliography #bibbase {
+	color: var(--boies-ink) !important;
 	font-family: var(--boies-sans) !important;
+	font-size: 0.98rem !important;
+	line-height: 1.6 !important;
+	width: 100% !important;
 }
 
-#bibbase .bibbase_group,
-#bibbase .bibbase_group_whole,
-#bibbase .bibbase_year {
-	border-bottom: 1px solid var(--boies-line) !important;
-	color: var(--boies-grape) !important;
-	font-family: var(--boies-serif) !important;
-	font-size: clamp(2.8rem, 5vw, 4.8rem) !important;
+body .boies-bibliography #bibbase,
+body .boies-bibliography #bibbase * {
+	box-sizing: border-box !important;
+}
+
+body .boies-bibliography #bibbase > div[style*="text-align: right"],
+body .boies-bibliography #bibbase_header,
+body .boies-bibliography #bibbase .bibbase_msg {
+	display: none !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_group_whole {
+	background: transparent !important;
+	border: 0 !important;
+	color: var(--boies-ink) !important;
+	font-family: var(--boies-sans) !important;
+	font-size: 0.98rem !important;
+	font-style: normal !important;
 	font-weight: 400 !important;
-	margin: 3.5rem 0 1.5rem !important;
-	padding-bottom: 0.75rem !important;
+	line-height: 1.6 !important;
+	margin: 0 0 clamp(2.5rem, 5vw, 4.5rem) !important;
+	padding: 0 !important;
 }
 
-#bibbase .bibbase_paper,
-#bibbase .bibbase_entry {
+body .boies-bibliography #bibbase .bibbase_group {
+	align-items: center !important;
+	background: linear-gradient(110deg, var(--boies-carbon), #21112f 72%, var(--boies-grape)) !important;
+	border: 0 !important;
+	border-radius: 1rem !important;
+	color: #fff !important;
+	cursor: pointer !important;
+	display: flex !important;
+	font-family: var(--boies-sans) !important;
+	font-size: clamp(1.25rem, 2vw, 1.65rem) !important;
+	font-style: normal !important;
+	font-weight: 700 !important;
+	gap: 0.7rem !important;
+	letter-spacing: -0.02em !important;
+	line-height: 1.2 !important;
+	margin: 0 0 0.3rem !important;
+	min-height: 4.25rem !important;
+	padding: 1rem 1.35rem !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_group_head_icon {
+	color: var(--boies-aerosol) !important;
+	font-size: 1.15rem !important;
+	margin: 0 !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_group_count {
+	color: rgba(255, 255, 255, 0.58) !important;
+	font-family: var(--boies-sans) !important;
+	font-size: 0.8rem !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.08em !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_group_body {
+	background: #fff !important;
+	border: 1px solid var(--boies-line) !important;
+	border-radius: 0 0 1rem 1rem !important;
+	font-family: var(--boies-sans) !important;
+	font-size: 0.98rem !important;
+	line-height: 1.6 !important;
+	overflow: hidden !important;
+	padding: 0 clamp(1rem, 2.7vw, 2rem) !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_paper,
+body .boies-bibliography #bibbase .bibbase_entry {
+	background: transparent !important;
 	border: 0 !important;
 	border-bottom: 1px solid var(--boies-line) !important;
 	box-shadow: none !important;
+	color: var(--boies-muted) !important;
+	font-family: var(--boies-sans) !important;
+	font-size: 0.94rem !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	line-height: 1.6 !important;
 	margin: 0 !important;
-	padding: 1.35rem 0 !important;
+	padding: clamp(1.2rem, 2.5vw, 1.75rem) 0 !important;
+	transition: background 160ms ease, padding 160ms ease !important;
 }
 
-#bibbase .bibbase_paper_title,
-#bibbase .bibbase_title {
+body .boies-bibliography #bibbase .bibbase_paper:last-child,
+body .boies-bibliography #bibbase .bibbase_entry:last-child {
+	border-bottom: 0 !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_paper:hover {
+	background: rgba(128, 88, 183, 0.045) !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_paper_titleauthoryear {
+	display: block !important;
+	font-family: var(--boies-sans) !important;
+	font-size: inherit !important;
+	line-height: inherit !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_paper_title,
+body .boies-bibliography #bibbase .bibbase_title {
 	color: var(--boies-ink) !important;
-	font-size: 1.1rem !important;
-	font-weight: 600 !important;
+	display: block !important;
+	font-family: var(--boies-sans) !important;
+	font-size: clamp(1.02rem, 1.4vw, 1.18rem) !important;
+	font-style: normal !important;
+	font-weight: 700 !important;
+	letter-spacing: -0.015em !important;
+	line-height: 1.35 !important;
+	margin-bottom: 0.28rem !important;
 }
 
-#bibbase a {
+body .boies-bibliography #bibbase .bibbase_paper_author {
+	color: var(--boies-muted) !important;
+	display: inline !important;
+	font-family: var(--boies-sans) !important;
+	font-size: 0.9rem !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	line-height: 1.55 !important;
+}
+
+body .boies-bibliography #bibbase a {
 	color: var(--boies-grape) !important;
+	font-family: inherit !important;
+	font-size: inherit !important;
 }
 
-#bibbase .bibbase_icon {
+body .boies-bibliography #bibbase a:hover,
+body .boies-bibliography #bibbase a:focus-visible {
+	color: var(--boies-aerosol-dark) !important;
+	text-decoration: underline !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_paper_content {
+	font-family: var(--boies-sans) !important;
+	font-size: 0.78rem !important;
+	line-height: 1.8 !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_paper_content a {
+	font-weight: 700 !important;
+	letter-spacing: 0.03em !important;
+	text-transform: uppercase !important;
+}
+
+body .boies-bibliography #bibbase .well,
+body .boies-bibliography #bibbase pre {
+	background: var(--boies-smoke) !important;
+	border: 1px solid var(--boies-line) !important;
+	border-radius: 0.7rem !important;
+	color: var(--boies-ink) !important;
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+	font-size: 0.75rem !important;
+	line-height: 1.55 !important;
+	max-width: 100% !important;
+	overflow-x: auto !important;
+	white-space: pre-wrap !important;
+}
+
+body .boies-bibliography #bibbase .bibbase_icon {
 	filter: grayscale(1);
 	opacity: 0.55;
 }
@@ -1508,10 +1734,17 @@ a {
 	.boies-capabilities__lead,
 	.boies-network-teaser,
 	.boies-page-header,
-	.boies-research-hero,
-	.boies-publications-hero,
 	.boies-network-layout {
 		grid-template-columns: 1fr;
+	}
+
+	.boies-publications-hero__inner {
+		grid-template-columns: 1fr;
+	}
+
+	.boies-publications-hero h1,
+	.boies-publications-hero__inner > p:last-child {
+		grid-column: 1;
 	}
 
 	.boies-goals__visual {
@@ -1533,6 +1766,10 @@ a {
 		gap: 0.75rem;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		padding: 2rem 0;
+	}
+
+	.boies-network.is-focused .boies-network-mobile {
+		display: none;
 	}
 
 	.boies-network-mobile button {
