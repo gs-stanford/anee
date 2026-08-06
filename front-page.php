@@ -42,7 +42,7 @@ if ( have_posts() ) {
 	<section class="boies-hero" aria-label="<?php esc_attr_e( 'Homepage hero', 'boies-group' ); ?>">
 		<div class="boies-hero__media" aria-hidden="true">
 			<?php if ( $hero_video ) : ?>
-				<video class="boies-hero__video" autoplay muted loop playsinline <?php echo $hero_poster ? 'poster="' . esc_url( $hero_poster ) . '"' : ''; ?>>
+				<video class="boies-hero__video" autoplay muted loop playsinline preload="metadata" <?php echo $hero_poster ? 'poster="' . esc_url( $hero_poster ) . '"' : ''; ?>>
 					<source src="<?php echo esc_url( $hero_video ); ?>" type="video/mp4">
 				</video>
 			<?php endif; ?>
@@ -101,6 +101,18 @@ if ( have_posts() ) {
 					<p><?php echo esc_html( $card['body'] ); ?></p>
 				</article>
 			<?php endforeach; ?>
+		</div>
+	</section>
+
+	<section class="boies-section boies-network-teaser">
+		<div class="boies-network-teaser__visual" aria-hidden="true">
+			<span></span><span></span><span></span><span></span><span></span><span></span>
+		</div>
+		<div class="boies-network-teaser__copy">
+			<p class="boies-section-label"><?php echo esc_html( boies_theme_mod( 'research_label' ) ); ?></p>
+			<h2><?php echo esc_html( boies_theme_mod( 'research_title' ) ); ?></h2>
+			<p><?php echo esc_html( boies_theme_mod( 'research_body' ) ); ?></p>
+			<a class="boies-text-link" href="<?php echo esc_url( home_url( '/research/' ) ); ?>"><?php esc_html_e( 'Open the research map', 'boies-group' ); ?><span aria-hidden="true">&rarr;</span></a>
 		</div>
 	</section>
 

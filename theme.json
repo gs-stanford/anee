@@ -5,11 +5,11 @@
     "appearanceTools": true,
     "custom": {
       "radius": {
-        "card": "28px",
+        "card": "24px",
         "pill": "999px"
       },
       "shadow": {
-        "soft": "0 24px 60px rgba(86, 42, 18, 0.08)"
+        "soft": "0 28px 80px rgba(28, 18, 43, 0.11)"
       }
     },
     "color": {
@@ -28,7 +28,7 @@
         },
         {
           "slug": "ink",
-          "color": "#141317",
+          "color": "#12131a",
           "name": "Ink"
         },
         {
@@ -38,22 +38,22 @@
         },
         {
           "slug": "cardinal",
-          "color": "#4b1d73",
-          "name": "Aerosol Purple"
+          "color": "#442067",
+          "name": "Grape"
         },
         {
           "slug": "cardinal-soft",
-          "color": "#f0e8ff",
-          "name": "Aerosol Soft"
+          "color": "#a78bfa",
+          "name": "Electric Violet"
         },
         {
           "slug": "gold",
-          "color": "#e33a1f",
-          "name": "Flame"
+          "color": "#58d7cf",
+          "name": "Aerosol Cyan"
         },
         {
           "slug": "line",
-          "color": "#e5e7ee",
+          "color": "#dedfe7",
           "name": "Line"
         }
       ]
@@ -84,12 +84,12 @@
       "fluid": true,
       "fontFamilies": [
         {
-          "fontFamily": "\"Iowan Old Style\", \"Palatino Linotype\", \"Book Antiqua\", Georgia, serif",
+          "fontFamily": "\"Instrument Serif\", \"Iowan Old Style\", Georgia, serif",
           "name": "Editorial Serif",
           "slug": "editorial"
         },
         {
-          "fontFamily": "\"Avenir Next\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+          "fontFamily": "\"Space Grotesk\", \"Avenir Next\", sans-serif",
           "name": "Clean Sans",
           "slug": "clean"
         }

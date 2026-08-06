@@ -13,7 +13,7 @@ get_header();
 	while ( have_posts() ) :
 		the_post();
 		?>
-		<article id="post-<?php the_ID(); ?>" <?php post_class( 'boies-page-article' ); ?>>
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'boies-page-article boies-page-article--' . sanitize_html_class( get_post_field( 'post_name', get_the_ID() ) ) ); ?>>
 			<header class="boies-page-header">
 				<h1><?php the_title(); ?></h1>
 			</header>

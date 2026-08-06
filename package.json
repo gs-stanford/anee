@@ -1,0 +1,10 @@
+{
+  "name": "boies-group-wordpress-theme",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "build:research": "node scripts/build-research-graph.mjs",
+    "check": "node --check assets/js/site.js && node --check assets/js/people-cards.js && node --check assets/js/research-network.js"
+  }
+}

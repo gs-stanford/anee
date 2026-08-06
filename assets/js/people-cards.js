@@ -1,165 +1,153 @@
 (function () {
 	"use strict";
 
-	function isInteractiveElement(element) {
-		return Boolean(
-			element.closest(
-				'a, button, input, textarea, select, summary, [contenteditable="true"]'
-			)
-		);
+	function slug(value) {
+		return value
+			.normalize("NFKD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.toLowerCase()
+			.replace(/&/g, " and ")
+			.replace(/[^a-z0-9]+/g, "-")
+			.replace(/^-|-$/g, "");
 	}
 
-	function setCardState(card, bio) {
-		card.classList.toggle("is-expanded", bio.open);
+	function isInteractive(element) {
+		return Boolean(element.closest("a, button, input, textarea, select, summary, [contenteditable='true']"));
+	}
+
+	function cardName(card) {
+		var heading = card.querySelector("h2, h3, h4, h5");
+		return heading ? heading.textContent.trim() : "Group member";
+	}
+
+	function prepareCard(card) {
+		var name = cardName(card);
+		var id = "person-" + slug(name);
+		var bio = card.querySelector(".anee-profile-bio, details");
+
+		card.id = id;
+		card.dataset.person = slug(name);
+
+		if (!bio) return;
+
+		card.classList.add("has-clickable-bio");
+		card.tabIndex = 0;
 		card.setAttribute("aria-expanded", bio.open ? "true" : "false");
-	}
 
-	function collectCards(section, selector) {
-		var cards = Array.prototype.slice
-			.call(section.querySelectorAll(selector))
-			.filter(function (card) {
-				return !card.closest(".anee-normalized-card-grid");
-			});
+		bio.addEventListener("toggle", function () {
+			card.classList.toggle("is-expanded", bio.open);
+			card.setAttribute("aria-expanded", bio.open ? "true" : "false");
+		});
 
-		if (!cards.length) {
-			return;
-		}
+		card.addEventListener("click", function (event) {
+			if (isInteractive(event.target)) return;
+			bio.open = !bio.open;
+		});
 
-		var grid = document.createElement("div");
-		grid.className = "anee-normalized-card-grid";
-
-		var anchor = section.querySelector(".anee-people-subheading, summary");
-		if (anchor && anchor.parentNode === section) {
-			anchor.insertAdjacentElement("afterend", grid);
-		} else {
-			section.appendChild(grid);
-		}
-
-		cards.forEach(function (card) {
-			grid.appendChild(card);
+		card.addEventListener("keydown", function (event) {
+			if (event.target !== card || (event.key !== "Enter" && event.key !== " ")) return;
+			event.preventDefault();
+			bio.open = !bio.open;
 		});
 	}
 
-	function normalizePeopleLayouts() {
-		normalizeStanfordCards();
-		normalizePanelCards();
+	function grid() {
+		var element = document.createElement("div");
+		element.className = "anee-normalized-card-grid";
+		return element;
 	}
 
-	function normalizeStanfordCards() {
-		var directory = document.querySelector(".anee-people-directory");
+	function heading(text, className) {
+		var element = document.createElement("h2");
+		element.className = className || "anee-live-heading";
+		element.textContent = text;
+		return element;
+	}
 
-		if (!directory) {
-			return;
+	function introFrom(root) {
+		var paragraphs = Array.prototype.slice.call(root.querySelectorAll("p"));
+		return paragraphs.find(function (paragraph) {
+			return !paragraph.closest(".anee-profile-card, .anee-people-panel") && paragraph.textContent.trim().length > 45;
+		});
+	}
+
+	function normalizePeoplePage() {
+		var content = document.querySelector(".boies-page-content");
+		if (!content || content.dataset.peopleNormalized === "true") return;
+
+		var allCards = Array.prototype.slice.call(content.querySelectorAll(".anee-profile-card"));
+		if (!allCards.length) return;
+
+		var pi = allCards.find(function (card) { return card.classList.contains("anee-pi-card"); });
+		var panels = Array.prototype.slice.call(content.querySelectorAll("details.anee-people-panel"));
+		var panelCards = new Set();
+
+		panels.forEach(function (panel) {
+			panel.querySelectorAll(".anee-profile-card").forEach(function (card) { panelCards.add(card); });
+		});
+
+		var stanfordCards = allCards.filter(function (card) {
+			return card !== pi && !panelCards.has(card);
+		});
+		var live = document.createElement("div");
+		live.className = "anee-live-directory";
+
+		var intro = introFrom(content);
+		if (intro) {
+			var introCopy = document.createElement("p");
+			introCopy.className = "anee-live-intro";
+			introCopy.textContent = intro.textContent.trim();
+			live.appendChild(introCopy);
 		}
 
-		var section = directory.querySelector(".anee-people-section-default");
-
-		if (!section) {
-			return;
+		if (pi) {
+			var piSection = document.createElement("section");
+			piSection.className = "anee-live-pi";
+			piSection.setAttribute("aria-label", "Principal investigator");
+			piSection.appendChild(pi);
+			live.appendChild(piSection);
 		}
 
-		var cards = Array.prototype.slice
-			.call(directory.querySelectorAll(".anee-profile-card:not(.anee-pi-card)"))
-			.filter(function (card) {
-				return !card.closest(".anee-people-panel");
-			});
-
-		if (!cards.length) {
-			return;
+		if (stanfordCards.length) {
+			var stanfordSection = document.createElement("section");
+			stanfordSection.className = "anee-live-section";
+			stanfordSection.appendChild(heading("Stanford members", "anee-people-subheading"));
+			var stanfordGrid = grid();
+			stanfordCards.forEach(function (card) { stanfordGrid.appendChild(card); });
+			stanfordSection.appendChild(stanfordGrid);
+			live.appendChild(stanfordSection);
 		}
 
-		var stanfordGrid = section.querySelector(".anee-normalized-card-grid");
-
-		if (!stanfordGrid) {
-			stanfordGrid = document.createElement("div");
-			stanfordGrid.className = "anee-normalized-card-grid";
-
-			var anchor = section.querySelector(".anee-people-subheading");
-			if (anchor) {
-				anchor.insertAdjacentElement("afterend", stanfordGrid);
-			} else {
-				section.appendChild(stanfordGrid);
+		panels.forEach(function (panel) {
+			var cards = Array.prototype.slice.call(panel.querySelectorAll(".anee-profile-card"));
+			if (cards.length) {
+				var panelGrid = grid();
+				cards.forEach(function (card) { panelGrid.appendChild(card); });
+				panel.appendChild(panelGrid);
 			}
-		}
-
-		cards.forEach(function (card) {
-			stanfordGrid.appendChild(card);
+			live.appendChild(panel);
 		});
 
-		Array.prototype.slice
-			.call(directory.querySelectorAll(".anee-normalized-card-grid"))
-			.filter(function (card) {
-				return card !== stanfordGrid && !card.closest(".anee-people-panel");
-			})
-			.forEach(function (grid) {
-				grid.remove();
-			});
+		allCards.forEach(prepareCard);
+		content.prepend(live);
+		content.dataset.peopleNormalized = "true";
+		content.classList.add("anee-people-is-normalized");
 
-		removeEmptyPeopleWrappers(directory);
+		var requested = new URLSearchParams(window.location.search).get("person");
+		var hash = window.location.hash.replace(/^#(?:person-)?/, "");
+		var targetSlug = slug(requested || hash || "");
+		if (!targetSlug) return;
+
+		window.setTimeout(function () {
+			var target = live.querySelector("[data-person='" + CSS.escape(targetSlug) + "']");
+			if (!target) return;
+			var parentPanel = target.closest("details.anee-people-panel");
+			var bio = target.querySelector(".anee-profile-bio, details");
+			if (parentPanel) parentPanel.open = true;
+			if (bio) bio.open = true;
+			target.scrollIntoView({ behavior: "smooth", block: "center" });
+		}, 120);
 	}
 
-	function normalizePanelCards() {
-		document.querySelectorAll(".anee-people-panel").forEach(function (panel) {
-			collectCards(panel, ".anee-profile-card");
-			removeEmptyPeopleWrappers(panel);
-		});
-	}
-
-	function removeEmptyPeopleWrappers(section) {
-		section
-			.querySelectorAll(".wp-block-columns, .wp-block-column, .wp-block-group")
-			.forEach(function (wrapper) {
-				if (
-					wrapper.classList.contains("anee-normalized-card-grid") ||
-					wrapper.classList.contains("anee-pi-feature") ||
-					wrapper.classList.contains("anee-pi-card") ||
-					wrapper.classList.contains("anee-profile-card")
-				) {
-					return;
-				}
-
-				if (!wrapper.querySelector(".anee-profile-card") && wrapper.textContent.trim() === "") {
-					wrapper.remove();
-				}
-			});
-	}
-
-	document.addEventListener("DOMContentLoaded", function () {
-		normalizePeopleLayouts();
-
-		document.querySelectorAll(".anee-profile-card").forEach(function (card) {
-			var bio = card.querySelector(".anee-profile-bio");
-
-			if (!bio) {
-				return;
-			}
-
-			card.classList.add("has-clickable-bio");
-			card.setAttribute("tabindex", "0");
-			setCardState(card, bio);
-
-			bio.addEventListener("toggle", function () {
-				setCardState(card, bio);
-			});
-
-			card.addEventListener("click", function (event) {
-				if (isInteractiveElement(event.target)) {
-					return;
-				}
-
-				bio.open = !bio.open;
-				setCardState(card, bio);
-			});
-
-			card.addEventListener("keydown", function (event) {
-				if (event.target !== card || (event.key !== "Enter" && event.key !== " ")) {
-					return;
-				}
-
-				event.preventDefault();
-				bio.open = !bio.open;
-				setCardState(card, bio);
-			});
-		});
-	});
+	document.addEventListener("DOMContentLoaded", normalizePeoplePage);
 })();

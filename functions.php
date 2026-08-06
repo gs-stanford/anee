@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function boies_theme_defaults() {
 	return array(
-		'hero_video_url'       => 'https://videos.files.wordpress.com/zYu7Y5LH/boies-hero.mp4',
-		'hero_poster_url'      => '',
+		'hero_video_url'       => 'https://videos.files.wordpress.com/vTtAYNzS/boies_hero.mp4',
+		'hero_poster_url'      => 'https://videos.files.wordpress.com/vTtAYNzS/boies_hero_mp4_hd_1080p.original.jpg',
 		'hero_kicker'          => 'Stanford Mechanical Engineering',
 		'hero_title'           => 'The Boies Group',
 		'hero_subtitle'        => 'Aerosol and Nanotechnology for Energy and the Environment (ANEE)',
@@ -37,6 +37,9 @@ function boies_theme_defaults() {
 		'capability_3_number'  => '03',
 		'capability_3_title'   => 'Energy systems',
 		'capability_3_body'    => 'Materials and diagnostics for batteries, storage, combustion, transportation, and environmental technologies.',
+		'research_label'       => 'Research network',
+		'research_title'       => 'Follow the connections behind the work.',
+		'research_body'        => 'Explore how research themes, active projects, experimental methods, and group members connect across the lab.',
 		'contact_email'        => 'aboies@stanford.edu',
 		'show_editor_content'  => false,
 	);
@@ -93,12 +96,21 @@ function boies_enqueue_assets() {
 	$theme_version = wp_get_theme()->get( 'Version' );
 	$root_css_path = get_stylesheet_directory() . '/style.css';
 	$css_path      = get_stylesheet_directory() . '/assets/css/anee.css';
-	$js_path       = get_stylesheet_directory() . '/assets/js/people-cards.js';
+	$site_js_path     = get_stylesheet_directory() . '/assets/js/site.js';
+	$people_js_path   = get_stylesheet_directory() . '/assets/js/people-cards.js';
+	$research_js_path = get_stylesheet_directory() . '/assets/js/research-network.js';
+
+	wp_enqueue_style(
+		'boies-fonts',
+		'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap',
+		array(),
+		null
+	);
 
 	wp_enqueue_style(
 		'boies-root',
 		get_stylesheet_uri(),
-		array(),
+		array( 'boies-fonts' ),
 		file_exists( $root_css_path ) ? (string) filemtime( $root_css_path ) : $theme_version
 	);
 
@@ -110,14 +122,62 @@ function boies_enqueue_assets() {
 	);
 
 	wp_enqueue_script(
-		'boies-people-cards',
-		get_stylesheet_directory_uri() . '/assets/js/people-cards.js',
+		'boies-site',
+		get_stylesheet_directory_uri() . '/assets/js/site.js',
 		array(),
-		file_exists( $js_path ) ? (string) filemtime( $js_path ) : $theme_version,
+		file_exists( $site_js_path ) ? (string) filemtime( $site_js_path ) : $theme_version,
 		true
 	);
+
+	if ( is_page( 'people' ) ) {
+		wp_enqueue_script(
+			'boies-people-cards',
+			get_stylesheet_directory_uri() . '/assets/js/people-cards.js',
+			array(),
+			file_exists( $people_js_path ) ? (string) filemtime( $people_js_path ) : $theme_version,
+			true
+		);
+	}
+
+	if ( is_page( 'research' ) ) {
+		wp_enqueue_script(
+			'boies-research-network',
+			get_stylesheet_directory_uri() . '/assets/js/research-network.js',
+			array(),
+			file_exists( $research_js_path ) ? (string) filemtime( $research_js_path ) : $theme_version,
+			true
+		);
+
+		wp_localize_script(
+			'boies-research-network',
+			'BoiesResearch',
+			array(
+				'dataUrl'   => get_stylesheet_directory_uri() . '/assets/data/research-network.json',
+				'peopleUrl' => home_url( '/people/' ),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'boies_enqueue_assets' );
+
+/**
+ * Keep the code-designed Research and Publications views active even if an
+ * older WordPress page template remains selected in the database.
+ */
+function boies_page_template_override( $template ) {
+	$theme_dir = get_stylesheet_directory();
+
+	if ( is_page( 'research' ) ) {
+		return $theme_dir . '/page-research.php';
+	}
+
+	if ( is_page( array( 'boies-publications', 'publications' ) ) ) {
+		return $theme_dir . '/page-boies-publications.php';
+	}
+
+	return $template;
+}
+add_filter( 'template_include', 'boies_page_template_override', 99 );
 
 function boies_primary_menu() {
 	if ( has_nav_menu( 'primary' ) ) {
@@ -138,7 +198,7 @@ function boies_primary_menu() {
 		array( 'People', home_url( '/people/' ) ),
 		array( 'Research', home_url( '/research/' ) ),
 		array( 'Capabilities', home_url( '/#capabilities' ) ),
-		array( 'Publications', home_url( '/publications/' ) ),
+		array( 'Publications', home_url( '/boies-publications/' ) ),
 		array( 'Patents', home_url( '/patents/' ) ),
 	);
 
@@ -171,7 +231,7 @@ function boies_footer_menu() {
 		array( 'People', home_url( '/people/' ) ),
 		array( 'Research', home_url( '/research/' ) ),
 		array( 'Capabilities', home_url( '/#capabilities' ) ),
-		array( 'Publications', home_url( '/publications/' ) ),
+		array( 'Publications', home_url( '/boies-publications/' ) ),
 		array( 'Patents', home_url( '/patents/' ) ),
 	);
 
@@ -254,6 +314,9 @@ function boies_customize_register( $wp_customize ) {
 		'capability_3_number'  => array( 'Capability 3 number', 'text' ),
 		'capability_3_title'   => array( 'Capability 3 title', 'text' ),
 		'capability_3_body'    => array( 'Capability 3 body', 'textarea' ),
+		'research_label'       => array( 'Research network label', 'text' ),
+		'research_title'       => array( 'Research network title', 'text' ),
+		'research_body'        => array( 'Research network intro', 'textarea' ),
 		'contact_email'        => array( 'Contact email', 'email' ),
 	);
 
