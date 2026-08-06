@@ -18,9 +18,6 @@
 
 <header class="boies-site-header" role="banner">
 	<div class="boies-site-header__inner">
-		<a class="boies-header-mark" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php esc_attr_e( 'The Boies Group home', 'boies-group' ); ?>">
-			<span>B</span><small>ANEE</small>
-		</a>
 		<nav id="boies-primary-menu" class="boies-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'boies-group' ); ?>">
 			<?php boies_primary_menu(); ?>
 		</nav>

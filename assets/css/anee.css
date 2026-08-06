@@ -171,51 +171,14 @@ a {
 	align-items: center;
 	display: flex;
 	gap: clamp(1.25rem, 3vw, 3rem);
-	justify-content: space-between;
+	justify-content: center;
 	margin: 0 auto;
 	min-height: 5rem;
 	width: var(--boies-wide);
 }
 
-.boies-header-mark {
-	align-items: center;
-	background:
-		radial-gradient(circle at 68% 25%, rgba(88, 215, 207, 0.95), transparent 22%),
-		linear-gradient(145deg, #161922, #321c48);
-	border: 1px solid rgba(255, 255, 255, 0.18);
-	border-radius: 50%;
-	color: #fff;
-	display: inline-flex;
-	flex: 0 0 3.1rem;
-	flex-direction: column;
-	height: 3.1rem;
-	justify-content: center;
-	line-height: 0.75;
-	position: relative;
-	width: 3.1rem;
-}
-
-.boies-header-mark span {
-	font-family: var(--boies-serif);
-	font-size: 1.9rem;
-}
-
-.boies-header-mark small {
-	font-size: 0.45rem;
-	font-weight: 700;
-	letter-spacing: 0.15em;
-	margin-top: 0.2rem;
-}
-
-.boies-header-mark:hover,
-.boies-header-mark:focus-visible {
-	border-color: var(--boies-aerosol);
-	color: #fff;
-	transform: rotate(-3deg);
-}
-
 .boies-nav {
-	margin-left: auto;
+	margin-left: 0;
 }
 
 .boies-nav__list,
@@ -1808,6 +1771,10 @@ body .boies-bibliography #bibbase .bibbase_icon {
 		top: 32px;
 	}
 
+	.boies-site-header__inner {
+		justify-content: flex-end;
+	}
+
 	.boies-nav-toggle {
 		display: grid;
 	}
@@ -1935,12 +1902,6 @@ body .boies-bibliography #bibbase .bibbase_icon {
 
 	.boies-nav {
 		inset: 4.5rem 0 auto;
-	}
-
-	.boies-header-mark {
-		flex-basis: 2.85rem;
-		height: 2.85rem;
-		width: 2.85rem;
 	}
 
 	.boies-hero,
