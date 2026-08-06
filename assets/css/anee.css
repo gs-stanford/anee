@@ -1177,30 +1177,6 @@ a {
 		var(--boies-theme-image);
 }
 
-.boies-network-theme[data-topic-id="topic-1d-materials"] {
-	--boies-theme-image: url("../images/research/one-dimensional-materials.jpg");
-}
-
-.boies-network-theme[data-topic-id="topic-autonomous-experimentation"] {
-	--boies-theme-image: url("../images/research/autonomous-experimentation.jpg");
-}
-
-.boies-network-theme[data-topic-id="topic-climate-pollution"] {
-	--boies-theme-image: url("../images/research/climate-pollution.jpg");
-}
-
-.boies-network-theme[data-topic-id="topic-energy-materials"] {
-	--boies-theme-image: url("../images/research/energy-materials.jpg");
-}
-
-.boies-network-theme[data-topic-id="topic-methane"] {
-	--boies-theme-image: url("../images/research/methane-conversion.jpg");
-}
-
-.boies-network-theme[data-topic-id="topic-solid-carbon"] {
-	--boies-theme-image: url("../images/research/sustainable-nanocarbon.jpg");
-}
-
 .boies-network-theme__title {
 	font-size: clamp(1.25rem, 2vw, 1.7rem);
 	font-weight: 700;

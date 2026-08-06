@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once get_stylesheet_directory() . '/inc/research-cms.php';
+
 function boies_theme_defaults() {
 	return array(
 		'hero_video_url'       => 'https://videos.files.wordpress.com/vTtAYNzS/boies_hero.mp4',
@@ -152,8 +154,7 @@ function boies_enqueue_assets() {
 			'boies-research-network',
 			'BoiesResearch',
 			array(
-				'dataUrl'   => get_stylesheet_directory_uri() . '/assets/data/research-network.json',
-				'peopleUrl' => home_url( '/people/' ),
+				'dataUrl' => rest_url( 'boies/v1/research-network' ),
 			)
 		);
 	}

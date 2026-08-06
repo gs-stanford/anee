@@ -35,68 +35,16 @@
 		return label.split(/\s+/).map(function (part) { return part.charAt(0); }).join("").slice(0, 2);
 	}
 
-	function slug(value) {
-		return value
-			.normalize("NFKD")
-			.replace(/[\u0300-\u036f]/g, "")
-			.toLowerCase()
-			.replace(/&/g, " and ")
-			.replace(/[^a-z0-9]+/g, "-")
-			.replace(/^-|-$/g, "");
+	function cssUrl(value) {
+		return 'url("' + String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '")';
 	}
 
-	function profileSlugsFromHtml(html) {
-		var page = new DOMParser().parseFromString(html, "text/html");
-		var profiles = new Set();
-		var emailProfiles = {
-			aboies: "adam-boies",
-			chall: "cheyenne-halverson",
-			cyprien: "cyprien-jourdain",
-			dakanmu: "david-akanmu",
-			hzhang29: "hao-zhang",
-			jpong: "julie-pongetti",
-			karimehp: "karime-hernandez",
-			larsonm: "michael-larson",
-			mswint: "maddie-swint",
-			nategies: "nate-giessner",
-			oallah: "omar-allahham",
-			sharmag: "gaurav-sharma",
-			sonnert: "sophia-sonnert"
-		};
-
-		page.querySelectorAll(".anee-profile-card").forEach(function (card) {
-			var heading = card.querySelector("h2, h3, h4, h5");
-			var profileSlug = card.dataset.person || card.id.replace(/^person-/, "") || (heading ? slug(heading.textContent.trim()) : "");
-			if (profileSlug) profiles.add(profileSlug);
-
-			var emailMatch = card.textContent.match(/\b([a-z0-9._%+-]+)@(stanford\.edu|cam\.ac\.uk)\b/i);
-			if (emailMatch && emailProfiles[emailMatch[1].toLowerCase()]) {
-				profiles.add(emailProfiles[emailMatch[1].toLowerCase()]);
-			}
-		});
-
-		return profiles;
-	}
-
-	function loadProfileSlugs() {
-		if (!window.BoiesResearch.peopleUrl) return Promise.resolve(new Set());
-
-		return fetch(window.BoiesResearch.peopleUrl, { credentials: "same-origin" })
-			.then(function (response) {
-				if (!response.ok) throw new Error("People page could not be checked.");
-				return response.text();
-			})
-			.then(profileSlugsFromHtml)
-			.catch(function () { return new Set(); });
-	}
-
-	function personMarkup(person, profileSlugs) {
-		var profileSlug = slug(person.label);
-		var hasProfile = profileSlugs.has(profileSlug);
+	function personMarkup(person) {
+		var hasProfile = Boolean(person.url);
 		var node = element(hasProfile ? "a" : "span", "boies-network-person" + (hasProfile ? "" : " is-static"));
 
 		if (hasProfile) {
-			node.href = person.url || window.BoiesResearch.peopleUrl + "?person=" + encodeURIComponent(profileSlug) + "#person-" + profileSlug;
+			node.href = person.url;
 			node.setAttribute("aria-label", "Open " + person.label + " profile");
 		} else {
 			node.title = "Profile not currently published";
@@ -122,7 +70,7 @@
 		return { branches: branches, collaborators: collaborators };
 	}
 
-	function branchMarkup(branch, index, profileSlugs) {
+	function branchMarkup(branch, index) {
 		var section = element("section", "boies-network-branch");
 		section.style.setProperty("--branch-index", String(index));
 
@@ -143,7 +91,7 @@
 
 		var people = element("div", "boies-network-branch__people");
 		if (branch.people.length) {
-			branch.people.forEach(function (person) { people.appendChild(personMarkup(person, profileSlugs)); });
+			branch.people.forEach(function (person) { people.appendChild(personMarkup(person)); });
 		} else {
 			people.appendChild(element("p", "boies-network-branch__empty", "Project team details coming soon."));
 		}
@@ -151,7 +99,7 @@
 		return section;
 	}
 
-	function expandedPanel(data, topic, profileSlugs) {
+	function expandedPanel(data, topic) {
 		var connections = topicBranches(data, topic);
 		var panel = element("div", "boies-network-tree");
 		panel.id = "network-panel-" + topic.id;
@@ -164,7 +112,7 @@
 		var branches = element("div", "boies-network-tree__branches");
 		if (connections.branches.length) {
 			connections.branches.forEach(function (branch, index) {
-				branches.appendChild(branchMarkup(branch, index, profileSlugs));
+				branches.appendChild(branchMarkup(branch, index));
 			});
 		} else {
 			branches.appendChild(element("p", "boies-network-branch__empty", "Project details coming soon."));
@@ -175,7 +123,7 @@
 			var collaborators = element("section", "boies-network-collaborators");
 			collaborators.appendChild(element("h3", "", "Additional researchers across this theme"));
 			var people = element("div", "boies-network-collaborators__people");
-			connections.collaborators.forEach(function (person) { people.appendChild(personMarkup(person, profileSlugs)); });
+			connections.collaborators.forEach(function (person) { people.appendChild(personMarkup(person)); });
 			collaborators.appendChild(people);
 			panel.appendChild(collaborators);
 		}
@@ -183,10 +131,12 @@
 		return panel;
 	}
 
-	function themeCard(data, topic, selectedId, profileSlugs, onSelect) {
+	function themeCard(data, topic, selectedId, onSelect) {
 		var isOpen = topic.id === selectedId;
 		var article = element("article", "boies-network-theme" + (isOpen ? " is-open" : ""));
 		article.dataset.topicId = topic.id;
+		if (topic.imageUrl) article.style.setProperty("--boies-theme-image", cssUrl(topic.imageUrl));
+		if (topic.imagePosition) article.style.setProperty("--boies-theme-position", topic.imagePosition);
 
 		var button = element("button", "boies-network-theme__button");
 		button.type = "button";
@@ -197,7 +147,7 @@
 		button.addEventListener("click", function () { onSelect(isOpen ? null : topic.id); });
 		article.appendChild(button);
 
-		if (isOpen) article.appendChild(expandedPanel(data, topic, profileSlugs));
+		if (isOpen) article.appendChild(expandedPanel(data, topic));
 		return article;
 	}
 
@@ -208,16 +158,12 @@
 		var explorer = root.querySelector("[data-network-explorer]");
 		var status = root.querySelector("[data-network-status]");
 
-		Promise.all([
-			fetch(window.BoiesResearch.dataUrl).then(function (response) {
+		fetch(window.BoiesResearch.dataUrl)
+			.then(function (response) {
 				if (!response.ok) throw new Error("Research data could not be loaded.");
 				return response.json();
-			}),
-			loadProfileSlugs()
-		])
-			.then(function (results) {
-				var data = results[0];
-				var profileSlugs = results[1];
+			})
+			.then(function (data) {
 				var map = nodeMap(data);
 				var topics = byType(data, "topic");
 
@@ -227,7 +173,7 @@
 					root.classList.toggle("is-focused", Boolean(selectedId));
 					explorer.replaceChildren();
 					topics.forEach(function (topic) {
-						explorer.appendChild(themeCard(data, topic, selectedId, profileSlugs, selectTopic));
+						explorer.appendChild(themeCard(data, topic, selectedId, selectTopic));
 					});
 
 					if (selectedId) {
