@@ -1036,9 +1036,8 @@ a {
 /* Research network */
 .boies-network {
 	background:
-		radial-gradient(circle at 16% 16%, rgba(128, 88, 183, 0.3), transparent 31rem),
-		radial-gradient(circle at 84% 66%, rgba(88, 215, 207, 0.15), transparent 34rem),
-		var(--boies-carbon);
+		linear-gradient(115deg, rgba(4, 5, 8, 0.9), rgba(15, 10, 24, 0.8) 50%, rgba(4, 10, 12, 0.88)),
+		url("../images/research/lab-network-background.jpg") center 48% / cover no-repeat;
 	color: #fff;
 	min-height: calc(100svh - 5.5rem);
 	padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 4vw, 4rem) clamp(4rem, 7vw, 7rem);
