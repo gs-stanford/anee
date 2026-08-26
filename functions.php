@@ -26,6 +26,9 @@ function boies_theme_defaults() {
 		'goals_title'          => 'Aerosols, nanotechnology, energy, and the environment.',
 		'goals_body'           => 'The Aerosol and Nanotechnology for Energy and the Environment (ANEE) group focuses on developing energy and environmental technologies through aerosol and nano-scale approaches that can either synthesize or measure aerosols, nanoparticles, or pollution. We have dedicated interests in sustainable nanocarbons, energy storage, and self-assembled materials, as well as metrology and modeling approaches to understand new phenomena related to the structure, evolution, dynamics, and impacts of gas-phase nanoparticles. The applications of our research extend from engineered nanoparticles, catalysts and carbon nanotubes for energy applications to transportation emissions, batteries and air quality.',
 		'goals_image_url'      => '',
+		'openings_label'       => 'Open positions',
+		'openings_title'       => 'Join the Boies Group.',
+		'openings_body'        => 'Work at the intersection of aerosol science, nanotechnology, and energy systems, with fundamental research translated toward environmental and industrial impact.',
 		'capabilities_label'   => 'Capabilities',
 		'capabilities_title'   => 'From aerosol synthesis to deployment-scale measurement.',
 		'capabilities_body'    => 'A practical view of the experimental platforms, diagnostics, and materials workflows that support research across the lab.',
@@ -187,11 +190,168 @@ function boies_is_publications_request() {
 }
 
 /**
+ * Opening pages stay normal WordPress Pages so their full copy remains editable.
+ */
+function boies_opening_page_slugs() {
+	return array(
+		'postdoctoral-scholar-methane-pyrolysis-hydrogen-and-carbon-nanotube-synthesis',
+	);
+}
+
+function boies_is_opening_page( $post_id = 0 ) {
+	$post_id = $post_id ? (int) $post_id : (int) get_queried_object_id();
+	if ( ! $post_id || 'page' !== get_post_type( $post_id ) ) {
+		return false;
+	}
+
+	$flag = get_post_meta( $post_id, '_boies_is_opening', true );
+	if ( '1' === $flag ) {
+		return true;
+	}
+	if ( '0' === $flag ) {
+		return false;
+	}
+
+	return in_array( get_post_field( 'post_name', $post_id ), boies_opening_page_slugs(), true );
+}
+
+function boies_get_opening_pages() {
+	$openings = get_posts(
+		array(
+			'post_type'      => 'page',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'meta_key'       => '_boies_is_opening',
+			'meta_value'     => '1',
+			'orderby'        => array(
+				'menu_order' => 'ASC',
+				'title'      => 'ASC',
+			),
+		)
+	);
+
+	$indexed = array();
+	foreach ( $openings as $opening ) {
+		$indexed[ $opening->ID ] = $opening;
+	}
+
+	foreach ( boies_opening_page_slugs() as $slug ) {
+		$page = get_page_by_path( $slug );
+		if ( $page && 'publish' === $page->post_status && boies_is_opening_page( $page->ID ) ) {
+			$indexed[ $page->ID ] = $page;
+		}
+	}
+
+	$openings = array_values( $indexed );
+	usort(
+		$openings,
+		function ( $first, $second ) {
+			$order = (int) $first->menu_order <=> (int) $second->menu_order;
+			return 0 !== $order ? $order : strcasecmp( $first->post_title, $second->post_title );
+		}
+	);
+
+	return $openings;
+}
+
+function boies_opening_meta( $post_id, $key, $fallback = '' ) {
+	$value = trim( (string) get_post_meta( $post_id, '_boies_opening_' . $key, true ) );
+	if ( '' !== $value ) {
+		return $value;
+	}
+
+	$known_slug = 'postdoctoral-scholar-methane-pyrolysis-hydrogen-and-carbon-nanotube-synthesis';
+	if ( $known_slug === get_post_field( 'post_name', $post_id ) ) {
+		$known = array(
+			'type'     => 'Postdoctoral scholar',
+			'timing'   => 'Anticipated start: Fall 2026',
+			'deadline' => 'Review begins September 1, 2026',
+			'email'    => 'PostDocApply1@ANEEstanford.com',
+		);
+		if ( isset( $known[ $key ] ) ) {
+			return $known[ $key ];
+		}
+	}
+
+	return $fallback;
+}
+
+function boies_opening_excerpt( $opening ) {
+	if ( has_excerpt( $opening->ID ) ) {
+		return get_the_excerpt( $opening->ID );
+	}
+
+	return wp_trim_words( wp_strip_all_tags( strip_shortcodes( $opening->post_content ) ), 34, '...' );
+}
+
+function boies_is_openings_request() {
+	if ( get_query_var( 'boies_openings' ) ) {
+		return true;
+	}
+
+	$request_path = isset( $_SERVER['REQUEST_URI'] )
+		? (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH )
+		: '';
+	$home_path = (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+	$request_path = trim( $request_path, '/' );
+	$home_path    = trim( $home_path, '/' );
+
+	if ( $home_path && 0 === strpos( $request_path, $home_path . '/' ) ) {
+		$request_path = substr( $request_path, strlen( $home_path ) + 1 );
+	}
+
+	return 'openings' === $request_path;
+}
+
+function boies_register_openings_route() {
+	add_rewrite_rule( '^openings/?$', 'index.php?boies_openings=1', 'top' );
+
+	if ( '1' !== get_option( 'boies_openings_rewrite_version' ) ) {
+		flush_rewrite_rules( false );
+		update_option( 'boies_openings_rewrite_version', '1' );
+	}
+}
+add_action( 'init', 'boies_register_openings_route', 20 );
+
+function boies_openings_query_vars( $vars ) {
+	$vars[] = 'boies_openings';
+	return $vars;
+}
+add_filter( 'query_vars', 'boies_openings_query_vars' );
+
+function boies_prepare_openings_request() {
+	if ( ! boies_is_openings_request() ) {
+		return;
+	}
+
+	global $wp_query;
+	$wp_query->is_404 = false;
+	status_header( 200 );
+}
+add_action( 'template_redirect', 'boies_prepare_openings_request', 1 );
+
+function boies_openings_document_title( $parts ) {
+	if ( boies_is_openings_request() ) {
+		$parts['title'] = __( 'Openings', 'boies-group' );
+	}
+	return $parts;
+}
+add_filter( 'document_title_parts', 'boies_openings_document_title' );
+
+/**
  * Keep the code-designed Research and Publications views active even if an
  * older WordPress page template remains selected in the database.
  */
 function boies_page_template_override( $template ) {
 	$theme_dir = get_stylesheet_directory();
+
+	if ( boies_is_openings_request() ) {
+		return $theme_dir . '/page-openings.php';
+	}
+
+	if ( boies_is_opening_page() ) {
+		return $theme_dir . '/page-opening.php';
+	}
 
 	if ( is_page( 'research' ) ) {
 		return $theme_dir . '/page-research.php';
@@ -223,7 +383,7 @@ function boies_primary_menu() {
 		array( 'Home', home_url( '/' ) ),
 		array( 'People', home_url( '/people/' ) ),
 		array( 'Research', home_url( '/research/' ) ),
-		array( 'Capabilities', home_url( '/#capabilities' ) ),
+		array( 'Openings', home_url( '/openings/' ) ),
 		array( 'Publications', home_url( '/boies-publications/' ) ),
 		array( 'Patents', home_url( '/patents/' ) ),
 	);
@@ -256,7 +416,7 @@ function boies_footer_menu() {
 	$items = array(
 		array( 'People', home_url( '/people/' ) ),
 		array( 'Research', home_url( '/research/' ) ),
-		array( 'Capabilities', home_url( '/#capabilities' ) ),
+		array( 'Openings', home_url( '/openings/' ) ),
 		array( 'Publications', home_url( '/boies-publications/' ) ),
 		array( 'Patents', home_url( '/patents/' ) ),
 	);
@@ -271,6 +431,91 @@ function boies_footer_menu() {
 	}
 	echo '</ul>';
 }
+
+/**
+ * Replace legacy assigned-menu links without requiring a database migration.
+ */
+function boies_replace_capabilities_menu_item( $items, $args ) {
+	if ( empty( $args->theme_location ) || ! in_array( $args->theme_location, array( 'primary', 'footer' ), true ) ) {
+		return $items;
+	}
+
+	foreach ( $items as $item ) {
+		$title = strtolower( wp_strip_all_tags( $item->title ) );
+		$url   = strtolower( (string) $item->url );
+		if ( 'capabilities' === $title || false !== strpos( $url, '#capabilities' ) || false !== strpos( $url, '/capabilities/' ) ) {
+			$item->title = __( 'Openings', 'boies-group' );
+			$item->url   = home_url( '/openings/' );
+		}
+	}
+
+	return $items;
+}
+add_filter( 'wp_nav_menu_objects', 'boies_replace_capabilities_menu_item', 10, 2 );
+
+function boies_opening_meta_box() {
+	add_meta_box(
+		'boies-opening-details',
+		__( 'Opening details', 'boies-group' ),
+		'boies_render_opening_meta_box',
+		'page',
+		'side',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes_page', 'boies_opening_meta_box' );
+
+function boies_render_opening_meta_box( $post ) {
+	wp_nonce_field( 'boies_save_opening_details', 'boies_opening_nonce' );
+	$fields = array(
+		'type'     => __( 'Position type', 'boies-group' ),
+		'location' => __( 'Location', 'boies-group' ),
+		'timing'   => __( 'Timing', 'boies-group' ),
+		'deadline' => __( 'Deadline', 'boies-group' ),
+		'email'    => __( 'Application email', 'boies-group' ),
+	);
+	?>
+	<p>
+		<label>
+			<input type="checkbox" name="boies_is_opening" value="1" <?php checked( boies_is_opening_page( $post->ID ) ); ?>>
+			<?php esc_html_e( 'List this page on the Openings hub', 'boies-group' ); ?>
+		</label>
+	</p>
+	<?php foreach ( $fields as $key => $label ) : ?>
+		<p>
+			<label for="boies-opening-<?php echo esc_attr( $key ); ?>"><strong><?php echo esc_html( $label ); ?></strong></label>
+			<input class="widefat" id="boies-opening-<?php echo esc_attr( $key ); ?>" name="boies_opening_<?php echo esc_attr( $key ); ?>" type="<?php echo 'email' === $key ? 'email' : 'text'; ?>" value="<?php echo esc_attr( boies_opening_meta( $post->ID, $key ) ); ?>">
+		</p>
+	<?php endforeach; ?>
+	<p class="description"><?php esc_html_e( 'The page title, excerpt, featured image, and main editor content are used automatically.', 'boies-group' ); ?></p>
+	<?php
+}
+
+function boies_save_opening_details( $post_id ) {
+	if ( ! isset( $_POST['boies_opening_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['boies_opening_nonce'] ) ), 'boies_save_opening_details' ) ) {
+		return;
+	}
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_page', $post_id ) ) {
+		return;
+	}
+
+	update_post_meta( $post_id, '_boies_is_opening', isset( $_POST['boies_is_opening'] ) ? '1' : '0' );
+
+	foreach ( array( 'type', 'location', 'timing', 'deadline', 'email' ) as $key ) {
+		$field = 'boies_opening_' . $key;
+		$value = isset( $_POST[ $field ] ) ? wp_unslash( $_POST[ $field ] ) : '';
+		$value = 'email' === $key ? sanitize_email( $value ) : sanitize_text_field( $value );
+		if ( '' === $value ) {
+			delete_post_meta( $post_id, '_boies_opening_' . $key );
+		} else {
+			update_post_meta( $post_id, '_boies_opening_' . $key, $value );
+		}
+	}
+}
+add_action( 'save_post_page', 'boies_save_opening_details' );
 
 function boies_brand_markup() {
 	$home_url = esc_url( home_url( '/' ) );
@@ -327,19 +572,9 @@ function boies_customize_register( $wp_customize ) {
 		'goals_title'          => array( 'Goals title', 'text' ),
 		'goals_body'           => array( 'Goals body', 'textarea' ),
 		'goals_image_url'      => array( 'Goals image URL', 'url' ),
-		'capabilities_label'   => array( 'Capabilities label', 'text' ),
-		'capabilities_title'   => array( 'Capabilities title', 'text' ),
-		'capabilities_body'    => array( 'Capabilities intro', 'textarea' ),
-		'capabilities_image_url' => array( 'Capabilities image URL', 'url' ),
-		'capability_1_number'  => array( 'Capability 1 number', 'text' ),
-		'capability_1_title'   => array( 'Capability 1 title', 'text' ),
-		'capability_1_body'    => array( 'Capability 1 body', 'textarea' ),
-		'capability_2_number'  => array( 'Capability 2 number', 'text' ),
-		'capability_2_title'   => array( 'Capability 2 title', 'text' ),
-		'capability_2_body'    => array( 'Capability 2 body', 'textarea' ),
-		'capability_3_number'  => array( 'Capability 3 number', 'text' ),
-		'capability_3_title'   => array( 'Capability 3 title', 'text' ),
-		'capability_3_body'    => array( 'Capability 3 body', 'textarea' ),
+		'openings_label'       => array( 'Openings label', 'text' ),
+		'openings_title'       => array( 'Openings title', 'text' ),
+		'openings_body'        => array( 'Openings intro', 'textarea' ),
 		'research_label'       => array( 'Research network label', 'text' ),
 		'research_title'       => array( 'Research network title', 'text' ),
 		'research_body'        => array( 'Research network intro', 'textarea' ),
