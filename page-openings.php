@@ -9,21 +9,25 @@ get_header();
 
 $openings      = boies_get_opening_pages();
 $contact_email = boies_theme_mod( 'contact_email' );
+$hub           = boies_openings_hub_content();
 ?>
 
 <main id="main" class="boies-main boies-openings-page">
 	<header class="boies-openings-hero">
 		<div class="boies-openings-hero__inner">
-			<p class="boies-section-label"><?php esc_html_e( 'Join the lab', 'boies-group' ); ?></p>
-			<h1><?php esc_html_e( 'Openings.', 'boies-group' ); ?></h1>
-			<p class="boies-openings-hero__dek"><?php esc_html_e( 'We recruit researchers who want to connect fundamental aerosol and nanoscale science with energy and environmental impact.', 'boies-group' ); ?></p>
+			<p class="boies-section-label"><?php echo esc_html( $hub['hero_label'] ); ?></p>
+			<h1><?php echo esc_html( $hub['hero_title'] ); ?></h1>
+			<p class="boies-openings-hero__dek"><?php echo esc_html( $hub['hero_body'] ); ?></p>
 		</div>
 	</header>
 
 	<section class="boies-openings-index" aria-labelledby="current-openings-title">
 		<div class="boies-openings-index__head">
-			<p class="boies-section-label"><?php esc_html_e( 'Current opportunities', 'boies-group' ); ?></p>
-			<h2 id="current-openings-title"><?php esc_html_e( 'Work with us.', 'boies-group' ); ?></h2>
+			<p class="boies-section-label"><?php echo esc_html( $hub['listing_label'] ); ?></p>
+			<div>
+				<h2 id="current-openings-title"><?php echo esc_html( $hub['listing_title'] ); ?></h2>
+				<p class="boies-openings-index__intro"><?php echo esc_html( $hub['listing_body'] ); ?></p>
+			</div>
 		</div>
 
 		<?php if ( $openings ) : ?>
@@ -55,19 +59,19 @@ $contact_email = boies_theme_mod( 'contact_email' );
 			</div>
 		<?php else : ?>
 			<div class="boies-openings-empty">
-				<h3><?php esc_html_e( 'No positions are currently listed.', 'boies-group' ); ?></h3>
-				<p><?php esc_html_e( 'New opportunities will appear here as they become available.', 'boies-group' ); ?></p>
+				<h3><?php echo esc_html( $hub['empty_title'] ); ?></h3>
+				<p><?php echo esc_html( $hub['empty_body'] ); ?></p>
 			</div>
 		<?php endif; ?>
 	</section>
 
 	<section class="boies-openings-contact">
 		<div>
-			<p class="boies-section-label"><?php esc_html_e( 'Other inquiries', 'boies-group' ); ?></p>
-			<h2><?php esc_html_e( 'Interested in the group?', 'boies-group' ); ?></h2>
+			<p class="boies-section-label"><?php echo esc_html( $hub['contact_label'] ); ?></p>
+			<h2><?php echo esc_html( $hub['contact_title'] ); ?></h2>
 		</div>
-		<p><?php esc_html_e( 'For research collaborations and inquiries not covered by a current listing, contact the group directly.', 'boies-group' ); ?></p>
-		<a class="boies-button boies-button--primary" href="mailto:<?php echo esc_attr( $contact_email ); ?>"><?php esc_html_e( 'Email the group', 'boies-group' ); ?></a>
+		<p><?php echo esc_html( $hub['contact_body'] ); ?></p>
+		<a class="boies-button boies-button--primary" href="mailto:<?php echo esc_attr( $contact_email ); ?>"><?php echo esc_html( $hub['contact_button'] ); ?></a>
 	</section>
 </main>
 

@@ -190,8 +190,47 @@ function boies_is_publications_request() {
 }
 
 /**
- * Opening pages stay normal WordPress Pages so their full copy remains editable.
+ * Register openings as first-class, editor-managed content.
+ *
+ * Existing opening Pages remain supported so live permalinks do not change.
  */
+function boies_register_opening_post_type() {
+	$labels = array(
+		'name'               => __( 'Openings', 'boies-group' ),
+		'singular_name'      => __( 'Opening', 'boies-group' ),
+		'menu_name'          => __( 'Openings', 'boies-group' ),
+		'name_admin_bar'     => __( 'Opening', 'boies-group' ),
+		'add_new'            => __( 'Add New', 'boies-group' ),
+		'add_new_item'       => __( 'Add New Opening', 'boies-group' ),
+		'edit_item'          => __( 'Edit Opening', 'boies-group' ),
+		'new_item'           => __( 'New Opening', 'boies-group' ),
+		'view_item'          => __( 'View Opening', 'boies-group' ),
+		'search_items'       => __( 'Search Openings', 'boies-group' ),
+		'not_found'          => __( 'No openings found.', 'boies-group' ),
+		'not_found_in_trash' => __( 'No openings found in Trash.', 'boies-group' ),
+		'all_items'          => __( 'All Openings', 'boies-group' ),
+	);
+
+	register_post_type(
+		'boies_opening',
+		array(
+			'labels'            => $labels,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_in_rest'      => true,
+			'show_in_nav_menus' => false,
+			'has_archive'       => false,
+			'menu_icon'         => 'dashicons-megaphone',
+			'rewrite'           => array(
+				'slug'       => 'openings',
+				'with_front' => false,
+			),
+			'supports'          => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'page-attributes' ),
+		)
+	);
+}
+add_action( 'init', 'boies_register_opening_post_type', 10 );
+
 function boies_opening_page_slugs() {
 	return array(
 		'postdoctoral-scholar-methane-pyrolysis-hydrogen-and-carbon-nanotube-synthesis',
@@ -200,7 +239,15 @@ function boies_opening_page_slugs() {
 
 function boies_is_opening_page( $post_id = 0 ) {
 	$post_id = $post_id ? (int) $post_id : (int) get_queried_object_id();
-	if ( ! $post_id || 'page' !== get_post_type( $post_id ) ) {
+	if ( ! $post_id ) {
+		return false;
+	}
+
+	if ( 'boies_opening' === get_post_type( $post_id ) ) {
+		return true;
+	}
+
+	if ( 'page' !== get_post_type( $post_id ) ) {
 		return false;
 	}
 
@@ -215,8 +262,24 @@ function boies_is_opening_page( $post_id = 0 ) {
 	return in_array( get_post_field( 'post_name', $post_id ), boies_opening_page_slugs(), true );
 }
 
+function boies_opening_is_active( $post_id ) {
+	return 'closed' !== get_post_meta( $post_id, '_boies_opening_status', true );
+}
+
 function boies_get_opening_pages() {
 	$openings = get_posts(
+		array(
+			'post_type'      => 'boies_opening',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => array(
+				'menu_order' => 'ASC',
+				'title'      => 'ASC',
+			),
+		)
+	);
+
+	$legacy_openings = get_posts(
 		array(
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
@@ -232,12 +295,20 @@ function boies_get_opening_pages() {
 
 	$indexed = array();
 	foreach ( $openings as $opening ) {
-		$indexed[ $opening->ID ] = $opening;
+		if ( boies_opening_is_active( $opening->ID ) ) {
+			$indexed[ $opening->ID ] = $opening;
+		}
+	}
+
+	foreach ( $legacy_openings as $opening ) {
+		if ( boies_opening_is_active( $opening->ID ) ) {
+			$indexed[ $opening->ID ] = $opening;
+		}
 	}
 
 	foreach ( boies_opening_page_slugs() as $slug ) {
 		$page = get_page_by_path( $slug );
-		if ( $page && 'publish' === $page->post_status && boies_is_opening_page( $page->ID ) ) {
+		if ( $page && 'publish' === $page->post_status && boies_is_opening_page( $page->ID ) && boies_opening_is_active( $page->ID ) ) {
 			$indexed[ $page->ID ] = $page;
 		}
 	}
@@ -306,9 +377,9 @@ function boies_is_openings_request() {
 function boies_register_openings_route() {
 	add_rewrite_rule( '^openings/?$', 'index.php?boies_openings=1', 'top' );
 
-	if ( '1' !== get_option( 'boies_openings_rewrite_version' ) ) {
+	if ( '2' !== get_option( 'boies_openings_rewrite_version' ) ) {
 		flush_rewrite_rules( false );
-		update_option( 'boies_openings_rewrite_version', '1' );
+		update_option( 'boies_openings_rewrite_version', '2' );
 	}
 }
 add_action( 'init', 'boies_register_openings_route', 20 );
@@ -453,17 +524,21 @@ function boies_replace_capabilities_menu_item( $items, $args ) {
 }
 add_filter( 'wp_nav_menu_objects', 'boies_replace_capabilities_menu_item', 10, 2 );
 
-function boies_opening_meta_box() {
+function boies_opening_meta_box( $post_type ) {
+	if ( ! in_array( $post_type, array( 'page', 'boies_opening' ), true ) ) {
+		return;
+	}
+
 	add_meta_box(
 		'boies-opening-details',
 		__( 'Opening details', 'boies-group' ),
 		'boies_render_opening_meta_box',
-		'page',
+		$post_type,
 		'side',
 		'high'
 	);
 }
-add_action( 'add_meta_boxes_page', 'boies_opening_meta_box' );
+add_action( 'add_meta_boxes', 'boies_opening_meta_box', 10, 1 );
 
 function boies_render_opening_meta_box( $post ) {
 	wp_nonce_field( 'boies_save_opening_details', 'boies_opening_nonce' );
@@ -475,11 +550,20 @@ function boies_render_opening_meta_box( $post ) {
 		'email'    => __( 'Application email', 'boies-group' ),
 	);
 	?>
+	<?php if ( 'page' === $post->post_type ) : ?>
+		<p>
+			<label>
+				<input type="checkbox" name="boies_is_opening" value="1" <?php checked( boies_is_opening_page( $post->ID ) ); ?>>
+				<?php esc_html_e( 'List this page on the Openings hub', 'boies-group' ); ?>
+			</label>
+		</p>
+	<?php endif; ?>
 	<p>
-		<label>
-			<input type="checkbox" name="boies_is_opening" value="1" <?php checked( boies_is_opening_page( $post->ID ) ); ?>>
-			<?php esc_html_e( 'List this page on the Openings hub', 'boies-group' ); ?>
-		</label>
+		<label for="boies-opening-status"><strong><?php esc_html_e( 'Listing status', 'boies-group' ); ?></strong></label>
+		<select class="widefat" id="boies-opening-status" name="boies_opening_status">
+			<option value="open" <?php selected( boies_opening_is_active( $post->ID ), true ); ?>><?php esc_html_e( 'Open', 'boies-group' ); ?></option>
+			<option value="closed" <?php selected( boies_opening_is_active( $post->ID ), false ); ?>><?php esc_html_e( 'Closed - hide from hub', 'boies-group' ); ?></option>
+		</select>
 	</p>
 	<?php foreach ( $fields as $key => $label ) : ?>
 		<p>
@@ -498,11 +582,18 @@ function boies_save_opening_details( $post_id ) {
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return;
 	}
-	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_page', $post_id ) ) {
+	if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 
-	update_post_meta( $post_id, '_boies_is_opening', isset( $_POST['boies_is_opening'] ) ? '1' : '0' );
+	if ( 'boies_opening' === get_post_type( $post_id ) ) {
+		update_post_meta( $post_id, '_boies_is_opening', '1' );
+	} else {
+		update_post_meta( $post_id, '_boies_is_opening', isset( $_POST['boies_is_opening'] ) ? '1' : '0' );
+	}
+
+	$status = isset( $_POST['boies_opening_status'] ) ? sanitize_key( wp_unslash( $_POST['boies_opening_status'] ) ) : 'open';
+	update_post_meta( $post_id, '_boies_opening_status', 'closed' === $status ? 'closed' : 'open' );
 
 	foreach ( array( 'type', 'location', 'timing', 'deadline', 'email' ) as $key ) {
 		$field = 'boies_opening_' . $key;
@@ -516,6 +607,118 @@ function boies_save_opening_details( $post_id ) {
 	}
 }
 add_action( 'save_post_page', 'boies_save_opening_details' );
+add_action( 'save_post_boies_opening', 'boies_save_opening_details' );
+
+/**
+ * Editable copy for the Openings landing page.
+ */
+function boies_openings_hub_defaults() {
+	return array(
+		'hero_label'     => __( 'Join the lab', 'boies-group' ),
+		'hero_title'     => __( 'Openings.', 'boies-group' ),
+		'hero_body'      => __( 'We recruit researchers who want to connect fundamental aerosol and nanoscale science with energy and environmental impact.', 'boies-group' ),
+		'listing_label'  => __( 'Current opportunities', 'boies-group' ),
+		'listing_title'  => __( 'Work with us.', 'boies-group' ),
+		'listing_body'   => __( 'Current positions are listed below. Open a listing for the full role description and application instructions.', 'boies-group' ),
+		'empty_title'    => __( 'No positions are currently listed.', 'boies-group' ),
+		'empty_body'     => __( 'New opportunities will appear here as they become available.', 'boies-group' ),
+		'contact_label'  => __( 'Other inquiries', 'boies-group' ),
+		'contact_title'  => __( 'Interested in the group?', 'boies-group' ),
+		'contact_body'   => __( 'For research collaborations and inquiries not covered by a current listing, contact the group directly.', 'boies-group' ),
+		'contact_button' => __( 'Email the group', 'boies-group' ),
+	);
+}
+
+function boies_openings_hub_content() {
+	$content = get_option( 'boies_openings_hub_content', array() );
+	return wp_parse_args( is_array( $content ) ? $content : array(), boies_openings_hub_defaults() );
+}
+
+function boies_sanitize_openings_hub_content( $value ) {
+	$sanitized = array();
+	$defaults  = boies_openings_hub_defaults();
+	$value     = is_array( $value ) ? $value : array();
+
+	foreach ( $defaults as $key => $default ) {
+		$field             = isset( $value[ $key ] ) ? wp_unslash( $value[ $key ] ) : $default;
+		$sanitized[ $key ] = in_array( $key, array( 'hero_body', 'listing_body', 'empty_body', 'contact_body' ), true )
+			? sanitize_textarea_field( $field )
+			: sanitize_text_field( $field );
+	}
+
+	return $sanitized;
+}
+
+function boies_register_openings_hub_settings() {
+	register_setting(
+		'boies_openings_hub',
+		'boies_openings_hub_content',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'boies_sanitize_openings_hub_content',
+			'default'           => boies_openings_hub_defaults(),
+		)
+	);
+}
+add_action( 'admin_init', 'boies_register_openings_hub_settings' );
+
+function boies_add_openings_hub_page() {
+	add_submenu_page(
+		'edit.php?post_type=boies_opening',
+		__( 'Openings Hub Content', 'boies-group' ),
+		__( 'Hub Content', 'boies-group' ),
+		'edit_pages',
+		'boies-openings-hub',
+		'boies_render_openings_hub_page'
+	);
+}
+add_action( 'admin_menu', 'boies_add_openings_hub_page' );
+
+function boies_render_openings_hub_page() {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		return;
+	}
+
+	$content = boies_openings_hub_content();
+	$fields  = array(
+		'hero_label'     => __( 'Hero eyebrow', 'boies-group' ),
+		'hero_title'     => __( 'Hero title', 'boies-group' ),
+		'hero_body'      => __( 'Hero description', 'boies-group' ),
+		'listing_label'  => __( 'Listings eyebrow', 'boies-group' ),
+		'listing_title'  => __( 'Listings title', 'boies-group' ),
+		'listing_body'   => __( 'Listings introduction', 'boies-group' ),
+		'empty_title'    => __( 'Empty-state title', 'boies-group' ),
+		'empty_body'     => __( 'Empty-state message', 'boies-group' ),
+		'contact_label'  => __( 'Contact eyebrow', 'boies-group' ),
+		'contact_title'  => __( 'Contact title', 'boies-group' ),
+		'contact_body'   => __( 'Contact description', 'boies-group' ),
+		'contact_button' => __( 'Contact button text', 'boies-group' ),
+	);
+	?>
+	<div class="wrap">
+		<h1><?php esc_html_e( 'Openings Hub Content', 'boies-group' ); ?></h1>
+		<p><?php esc_html_e( 'Edit the landing-page copy here. Add and close individual positions under Openings.', 'boies-group' ); ?></p>
+		<form method="post" action="options.php">
+			<?php settings_fields( 'boies_openings_hub' ); ?>
+			<table class="form-table" role="presentation">
+				<?php foreach ( $fields as $key => $label ) : ?>
+					<tr>
+						<th scope="row"><label for="boies-hub-<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></label></th>
+						<td>
+							<?php if ( in_array( $key, array( 'hero_body', 'listing_body', 'empty_body', 'contact_body' ), true ) ) : ?>
+								<textarea class="large-text" id="boies-hub-<?php echo esc_attr( $key ); ?>" name="boies_openings_hub_content[<?php echo esc_attr( $key ); ?>]" rows="3"><?php echo esc_textarea( $content[ $key ] ); ?></textarea>
+							<?php else : ?>
+								<input class="regular-text" id="boies-hub-<?php echo esc_attr( $key ); ?>" name="boies_openings_hub_content[<?php echo esc_attr( $key ); ?>]" type="text" value="<?php echo esc_attr( $content[ $key ] ); ?>">
+							<?php endif; ?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+			<?php submit_button(); ?>
+		</form>
+	</div>
+	<?php
+}
 
 function boies_brand_markup() {
 	$home_url = esc_url( home_url( '/' ) );

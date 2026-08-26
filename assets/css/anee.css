@@ -1836,10 +1836,15 @@ body .boies-bibliography #bibbase .bibbase_icon {
 	right: 0;
 }
 
-.boies-openings-hero__inner,
+.boies-openings-hero__inner {
+	margin: 0 auto;
+	padding: clamp(2.75rem, 5vw, 4.75rem) 0;
+	width: var(--boies-wide);
+}
+
 .boies-opening-hero__inner {
 	margin: 0 auto;
-	padding: clamp(5.5rem, 10vw, 10rem) 0;
+	padding: clamp(4rem, 7vw, 6.5rem) 0;
 	width: var(--boies-wide);
 }
 
@@ -1856,7 +1861,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 .boies-openings-hero h1,
 .boies-opening-hero h1 {
 	color: #fff;
-	font-size: clamp(4.3rem, 10vw, 9rem);
+	font-size: clamp(3.4rem, 7vw, 6.4rem);
 	line-height: 0.86;
 	margin: 0;
 	max-width: 12ch;
@@ -1864,7 +1869,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 }
 
 .boies-opening-hero h1 {
-	font-size: clamp(3.3rem, 7.5vw, 7.2rem);
+	font-size: clamp(3.2rem, 6.5vw, 5.8rem);
 	max-width: 15ch;
 }
 
@@ -1872,7 +1877,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 	color: rgba(255, 255, 255, 0.66);
 	font-size: clamp(1.05rem, 1.7vw, 1.35rem);
 	line-height: 1.75;
-	margin: 2.5rem 0 0;
+	margin: 1.4rem 0 0;
 	max-width: 53rem;
 }
 
@@ -1912,6 +1917,14 @@ body .boies-bibliography #bibbase .bibbase_icon {
 	font-size: clamp(3.4rem, 7vw, 7rem);
 	line-height: 0.9;
 	margin: 0;
+}
+
+.boies-openings-index__intro {
+	color: var(--boies-muted);
+	font-size: clamp(1rem, 1.4vw, 1.18rem);
+	line-height: 1.75;
+	margin: 1.5rem 0 0;
+	max-width: 46rem;
 }
 
 .boies-openings-list {
@@ -2229,9 +2242,12 @@ body .boies-bibliography #bibbase .bibbase_icon {
 		content: none;
 	}
 
-	.boies-openings-hero__inner,
+	.boies-openings-hero__inner {
+		padding: 3rem 0;
+	}
+
 	.boies-opening-hero__inner {
-		padding: 4.5rem 0;
+		padding: 3.75rem 0;
 	}
 
 	.boies-openings-row {
