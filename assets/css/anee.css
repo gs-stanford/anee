@@ -16,8 +16,8 @@
 	--boies-smoke: #f5f5f8;
 	--boies-muted: #686b75;
 	--boies-line: #dedfe7;
-	--boies-stanford-gradient: linear-gradient(115deg, var(--boies-cardinal) 0%, var(--boies-charcoal) 100%);
-	--boies-stanford-gradient-horizontal: linear-gradient(90deg, var(--boies-cardinal) 0%, var(--boies-charcoal) 100%);
+	--boies-stanford-gradient: linear-gradient(115deg, var(--boies-carbon) 0%, var(--boies-charcoal) 68%, var(--boies-cardinal) 100%);
+	--boies-stanford-gradient-horizontal: linear-gradient(90deg, var(--boies-carbon) 0%, var(--boies-charcoal) 68%, var(--boies-cardinal) 100%);
 	--boies-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
 	--boies-sans: "Space Grotesk", "Avenir Next", sans-serif;
 	--boies-wide: min(92vw, 1500px);
@@ -379,7 +379,7 @@ a {
 
 .boies-hero__fallback {
 	background:
-		radial-gradient(circle at 24% 25%, rgba(130, 0, 0, 0.7), transparent 23rem),
+		radial-gradient(circle at 82% 25%, rgba(130, 0, 0, 0.22), transparent 23rem),
 		radial-gradient(circle at 80% 60%, rgba(88, 215, 207, 0.35), transparent 22rem),
 		var(--boies-stanford-gradient);
 	z-index: 0;
@@ -1054,7 +1054,7 @@ a {
 /* Research network */
 .boies-network {
 	background:
-		linear-gradient(115deg, rgba(46, 45, 41, 0.94), rgba(130, 0, 0, 0.55) 50%, rgba(7, 9, 13, 0.9)),
+		linear-gradient(115deg, rgba(7, 9, 13, 0.96), rgba(46, 45, 41, 0.9) 68%, rgba(130, 0, 0, 0.68)),
 		url("../images/research/lab-network-background.jpg") center 48% / cover no-repeat;
 	color: #fff;
 	min-height: calc(100svh - 5.5rem);

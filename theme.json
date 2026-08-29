@@ -18,8 +18,8 @@
       "gradients": [
         {
           "slug": "stanford-cardinal-charcoal",
-          "gradient": "linear-gradient(115deg, #820000 0%, #2E2D29 100%)",
-          "name": "Stanford Cardinal to Charcoal"
+          "gradient": "linear-gradient(115deg, #07090D 0%, #2E2D29 68%, #820000 100%)",
+          "name": "Stanford Carbon to Cardinal"
         }
       ],
       "palette": [
