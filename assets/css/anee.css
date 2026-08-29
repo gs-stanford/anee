@@ -2,22 +2,28 @@
 	--boies-carbon: #07090d;
 	--boies-carbon-soft: #11141c;
 	--boies-ink: #12131a;
-	--boies-grape: #442067;
-	--boies-violet: #8058b7;
-	--boies-electric: #a78bfa;
-	--boies-flame: #f45128;
+	--boies-cardinal: #820000;
+	--boies-cardinal-bright: #b1040e;
+	--boies-charcoal: #2e2d29;
+	--boies-sandstone: #d2c295;
+	--boies-grape: var(--boies-cardinal);
+	--boies-violet: var(--boies-cardinal-bright);
+	--boies-electric: var(--boies-sandstone);
+	--boies-flame: var(--boies-cardinal-bright);
 	--boies-aerosol: #58d7cf;
 	--boies-aerosol-dark: #197e80;
 	--boies-paper: #ffffff;
 	--boies-smoke: #f5f5f8;
 	--boies-muted: #686b75;
 	--boies-line: #dedfe7;
+	--boies-stanford-gradient: linear-gradient(115deg, var(--boies-cardinal) 0%, var(--boies-charcoal) 100%);
+	--boies-stanford-gradient-horizontal: linear-gradient(90deg, var(--boies-cardinal) 0%, var(--boies-charcoal) 100%);
 	--boies-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
 	--boies-sans: "Space Grotesk", "Avenir Next", sans-serif;
 	--boies-wide: min(92vw, 1500px);
 	--boies-content: min(88vw, 1160px);
 	--boies-radius: 1.5rem;
-	--boies-shadow: 0 28px 80px rgba(28, 18, 43, 0.11);
+	--boies-shadow: 0 28px 80px rgba(130, 0, 0, 0.1);
 }
 
 *,
@@ -115,7 +121,7 @@ a {
 }
 
 ::selection {
-	background: rgba(128, 88, 183, 0.25);
+	background: rgba(130, 0, 0, 0.2);
 }
 
 .screen-reader-text {
@@ -146,7 +152,7 @@ a {
 
 /* Header */
 .boies-site-header {
-	background: rgba(7, 9, 13, 0.94);
+	background: var(--boies-stanford-gradient-horizontal);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 	backdrop-filter: blur(18px);
 	-webkit-backdrop-filter: blur(18px);
@@ -157,7 +163,7 @@ a {
 }
 
 .boies-site-header::after {
-	background: linear-gradient(90deg, transparent, var(--boies-violet), var(--boies-aerosol), transparent);
+	background: linear-gradient(90deg, transparent, var(--boies-sandstone), rgba(255, 255, 255, 0.7), transparent);
 	bottom: -1px;
 	content: "";
 	height: 1px;
@@ -200,7 +206,7 @@ a {
 }
 
 .boies-nav__list a::after {
-	background: linear-gradient(90deg, var(--boies-electric), var(--boies-aerosol));
+	background: linear-gradient(90deg, var(--boies-sandstone), #fff);
 	bottom: -0.45rem;
 	content: "";
 	height: 2px;
@@ -283,10 +289,10 @@ a {
 
 .boies-button--flame {
 	-webkit-background-clip: padding-box;
-	background: linear-gradient(110deg, var(--boies-grape) 0%, var(--boies-violet) 62%, var(--boies-aerosol) 100%);
+	background: var(--boies-stanford-gradient);
 	background-clip: padding-box;
-	border-color: rgba(128, 88, 183, 0.42);
-	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 16px 36px rgba(68, 32, 103, 0.3);
+	border-color: rgba(210, 194, 149, 0.44);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 16px 36px rgba(130, 0, 0, 0.28);
 	color: #fff;
 	isolation: isolate;
 	overflow: hidden;
@@ -294,19 +300,19 @@ a {
 
 .boies-button--flame:hover,
 .boies-button--flame:focus-visible {
-	box-shadow: 0 18px 48px rgba(68, 32, 103, 0.42);
+	box-shadow: 0 18px 48px rgba(130, 0, 0, 0.36);
 	color: #fff;
 }
 
 .boies-button--primary {
-	background: linear-gradient(115deg, var(--boies-grape), var(--boies-violet) 58%, var(--boies-aerosol-dark));
-	box-shadow: 0 14px 34px rgba(68, 32, 103, 0.24);
+	background: var(--boies-stanford-gradient);
+	box-shadow: 0 14px 34px rgba(130, 0, 0, 0.22);
 	color: #fff;
 }
 
 .boies-button--primary:hover,
 .boies-button--primary:focus-visible {
-	box-shadow: 0 18px 42px rgba(68, 32, 103, 0.34);
+	box-shadow: 0 18px 42px rgba(130, 0, 0, 0.32);
 	color: #fff;
 }
 
@@ -373,9 +379,9 @@ a {
 
 .boies-hero__fallback {
 	background:
-		radial-gradient(circle at 24% 25%, rgba(128, 88, 183, 0.62), transparent 23rem),
+		radial-gradient(circle at 24% 25%, rgba(130, 0, 0, 0.7), transparent 23rem),
 		radial-gradient(circle at 80% 60%, rgba(88, 215, 207, 0.35), transparent 22rem),
-		linear-gradient(135deg, #05070b, #20122e 62%, #0e4d50);
+		var(--boies-stanford-gradient);
 	z-index: 0;
 }
 
@@ -464,7 +470,7 @@ a {
 		radial-gradient(circle at 65% 55%, rgba(88, 215, 207, 0.65), transparent 22%),
 		linear-gradient(145deg, #f2eff9, #dcd1f2 55%, #b5eeee);
 	border-radius: 50%;
-	box-shadow: inset -28px -30px 70px rgba(68, 32, 103, 0.18), var(--boies-shadow);
+	box-shadow: inset -28px -30px 70px rgba(130, 0, 0, 0.16), var(--boies-shadow);
 	height: min(40vw, 34rem);
 	position: relative;
 	width: min(40vw, 34rem);
@@ -472,7 +478,7 @@ a {
 
 .boies-orbital-visual::after,
 .boies-orbital-visual span {
-	border: 1px solid rgba(68, 32, 103, 0.26);
+	border: 1px solid rgba(130, 0, 0, 0.24);
 	border-radius: 50%;
 	content: "";
 	inset: 16%;
@@ -619,13 +625,13 @@ a {
 
 .boies-network-teaser__visual {
 	aspect-ratio: 1;
-	background: radial-gradient(circle, rgba(128, 88, 183, 0.14), transparent 65%);
+	background: radial-gradient(circle, rgba(130, 0, 0, 0.12), transparent 65%);
 	position: relative;
 }
 
 .boies-network-teaser__visual::before,
 .boies-network-teaser__visual::after {
-	border: 1px solid rgba(68, 32, 103, 0.24);
+	border: 1px solid rgba(130, 0, 0, 0.22);
 	border-radius: 50%;
 	content: "";
 	inset: 18%;
@@ -641,7 +647,7 @@ a {
 	background: var(--boies-grape);
 	border: 6px solid #fff;
 	border-radius: 50%;
-	box-shadow: 0 0 0 1px rgba(68, 32, 103, 0.18), 0 18px 35px rgba(68, 32, 103, 0.2);
+	box-shadow: 0 0 0 1px rgba(130, 0, 0, 0.16), 0 18px 35px rgba(130, 0, 0, 0.18);
 	height: clamp(2.5rem, 5vw, 5rem);
 	left: 50%;
 	position: absolute;
@@ -669,7 +675,7 @@ a {
 .boies-publications-page,
 .boies-research-page {
 	background:
-		radial-gradient(circle at 7% 8%, rgba(128, 88, 183, 0.08), transparent 24rem),
+		radial-gradient(circle at 7% 8%, rgba(130, 0, 0, 0.065), transparent 24rem),
 		linear-gradient(#fff, #fff);
 	min-height: 70vh;
 }
@@ -819,7 +825,7 @@ a {
 .anee-profile-card {
 	align-items: center;
 	background: linear-gradient(145deg, rgba(250, 249, 252, 0.98), #fff);
-	border: 1px solid rgba(68, 32, 103, 0.15);
+	border: 1px solid rgba(130, 0, 0, 0.14);
 	border-radius: var(--boies-radius);
 	display: flex;
 	flex-direction: column;
@@ -836,7 +842,7 @@ a {
 .anee-profile-card:focus-within,
 .anee-profile-card.is-expanded {
 	border-color: rgba(88, 215, 207, 0.78);
-	box-shadow: 0 24px 60px rgba(68, 32, 103, 0.12);
+	box-shadow: 0 24px 60px rgba(130, 0, 0, 0.11);
 	transform: translateY(-3px);
 }
 
@@ -930,7 +936,7 @@ a {
 .anee-live-pi .anee-profile-card {
 	background:
 		linear-gradient(#fff, #fff) padding-box,
-		linear-gradient(135deg, var(--boies-electric), var(--boies-aerosol)) border-box;
+		linear-gradient(135deg, var(--boies-cardinal), var(--boies-sandstone)) border-box;
 	border: 1px solid transparent;
 	flex: 0 1 25rem;
 	width: min(100%, 25rem);
@@ -1011,9 +1017,9 @@ a {
 .boies-publications-hero {
 	background:
 		radial-gradient(circle at 76% 20%, rgba(88, 215, 207, 0.16), transparent 22rem),
-		radial-gradient(circle at 18% 70%, rgba(128, 88, 183, 0.28), transparent 28rem),
-		var(--boies-carbon);
-	border-bottom: 1px solid rgba(88, 215, 207, 0.25);
+		radial-gradient(circle at 18% 70%, rgba(210, 194, 149, 0.18), transparent 28rem),
+		var(--boies-stanford-gradient);
+	border-bottom: 1px solid rgba(210, 194, 149, 0.35);
 	color: #fff;
 	padding: clamp(3.5rem, 7vw, 6.5rem) 0;
 }
@@ -1048,7 +1054,7 @@ a {
 /* Research network */
 .boies-network {
 	background:
-		linear-gradient(115deg, rgba(4, 5, 8, 0.9), rgba(15, 10, 24, 0.8) 50%, rgba(4, 10, 12, 0.88)),
+		linear-gradient(115deg, rgba(46, 45, 41, 0.94), rgba(130, 0, 0, 0.55) 50%, rgba(7, 9, 13, 0.9)),
 		url("../images/research/lab-network-background.jpg") center 48% / cover no-repeat;
 	color: #fff;
 	min-height: calc(100svh - 5.5rem);
@@ -1129,7 +1135,7 @@ a {
 }
 
 .boies-network-theme {
-	--boies-theme-image: linear-gradient(145deg, rgba(128, 88, 183, 0.5), rgba(45, 38, 70, 0.94));
+	--boies-theme-image: var(--boies-stanford-gradient);
 	--boies-theme-position: center;
 
 	align-items: center;
@@ -1150,7 +1156,7 @@ a {
 	aspect-ratio: 1;
 	background-image:
 		linear-gradient(180deg, rgba(7, 9, 13, 0.34), rgba(7, 9, 13, 0.82)),
-		radial-gradient(circle at 50% 42%, transparent 0 26%, rgba(68, 32, 103, 0.28) 70%),
+		radial-gradient(circle at 50% 42%, transparent 0 26%, rgba(130, 0, 0, 0.24) 70%),
 		var(--boies-theme-image);
 	background-position: center, center, var(--boies-theme-position);
 	background-repeat: no-repeat;
@@ -1266,7 +1272,7 @@ a {
 }
 
 .boies-network-branch::before {
-	background: rgba(128, 88, 183, 0.58);
+	background: rgba(210, 194, 149, 0.62);
 	content: "";
 	height: 1.5rem;
 	left: 50%;
@@ -1277,8 +1283,8 @@ a {
 }
 
 .boies-network-project {
-	background: linear-gradient(145deg, rgba(239, 79, 36, 0.19), rgba(239, 79, 36, 0.08));
-	border: 1px solid rgba(239, 79, 36, 0.72);
+	background: linear-gradient(145deg, rgba(177, 4, 14, 0.23), rgba(130, 0, 0, 0.1));
+	border: 1px solid rgba(177, 4, 14, 0.78);
 	border-radius: 1rem;
 	margin: 0 auto;
 	max-width: 36rem;
@@ -1505,7 +1511,7 @@ body .boies-bibliography #bibbase .bibbase_group_whole {
 
 body .boies-bibliography #bibbase .bibbase_group {
 	align-items: center !important;
-	background: linear-gradient(110deg, var(--boies-carbon), #21112f 72%, var(--boies-grape)) !important;
+	background: var(--boies-stanford-gradient-horizontal) !important;
 	border: 0 !important;
 	border-radius: 1rem !important;
 	color: #fff !important;
@@ -1571,7 +1577,7 @@ body .boies-bibliography #bibbase .bibbase_entry:last-child {
 }
 
 body .boies-bibliography #bibbase .bibbase_paper:hover {
-	background: rgba(128, 88, 183, 0.045) !important;
+	background: rgba(130, 0, 0, 0.04) !important;
 }
 
 body .boies-bibliography #bibbase .bibbase_paper_titleauthoryear {
@@ -1650,9 +1656,9 @@ body .boies-bibliography #bibbase .bibbase_icon {
 /* Openings */
 .boies-home-openings {
 	background:
-		radial-gradient(circle at 8% 15%, rgba(128, 88, 183, 0.42), transparent 28rem),
+		radial-gradient(circle at 8% 15%, rgba(210, 194, 149, 0.2), transparent 28rem),
 		radial-gradient(circle at 92% 82%, rgba(88, 215, 207, 0.19), transparent 25rem),
-		var(--boies-carbon);
+		var(--boies-stanford-gradient);
 	border-radius: clamp(1.6rem, 3vw, 3rem);
 	color: #fff;
 	display: grid;
@@ -1666,7 +1672,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 }
 
 .boies-home-openings::before {
-	background: linear-gradient(90deg, var(--boies-violet), var(--boies-aerosol));
+	background: linear-gradient(90deg, var(--boies-sandstone), var(--boies-aerosol));
 	content: "";
 	height: 2px;
 	left: 0;
@@ -1817,9 +1823,9 @@ body .boies-bibliography #bibbase .bibbase_icon {
 .boies-openings-hero,
 .boies-opening-hero {
 	background:
-		radial-gradient(circle at 12% 22%, rgba(128, 88, 183, 0.48), transparent 31rem),
+		radial-gradient(circle at 12% 22%, rgba(210, 194, 149, 0.2), transparent 31rem),
 		radial-gradient(circle at 88% 75%, rgba(88, 215, 207, 0.19), transparent 30rem),
-		linear-gradient(130deg, #07090d, #11101a 68%, #092628);
+		var(--boies-stanford-gradient);
 	color: #fff;
 	overflow: hidden;
 	position: relative;
@@ -1827,7 +1833,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 
 .boies-openings-hero::after,
 .boies-opening-hero::after {
-	background: linear-gradient(90deg, var(--boies-violet), var(--boies-aerosol));
+	background: linear-gradient(90deg, var(--boies-sandstone), var(--boies-aerosol));
 	bottom: 0;
 	content: "";
 	height: 2px;
@@ -1942,7 +1948,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 }
 
 .boies-openings-row:hover {
-	border-color: rgba(68, 32, 103, 0.42);
+	border-color: rgba(130, 0, 0, 0.4);
 }
 
 .boies-openings-row__number {
@@ -2096,7 +2102,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 .boies-opening-content a {
 	color: var(--boies-grape);
 	text-decoration: underline;
-	text-decoration-color: rgba(68, 32, 103, 0.35);
+	text-decoration-color: rgba(130, 0, 0, 0.34);
 	text-underline-offset: 0.2em;
 }
 
@@ -2115,8 +2121,8 @@ body .boies-bibliography #bibbase .bibbase_icon {
 	align-self: start;
 	background:
 		radial-gradient(circle at 100% 0, rgba(88, 215, 207, 0.2), transparent 14rem),
-		var(--boies-carbon-soft);
-	border-top: 2px solid var(--boies-aerosol);
+		var(--boies-stanford-gradient);
+	border-top: 2px solid var(--boies-sandstone);
 	color: #fff;
 	padding: clamp(2rem, 4vw, 3rem);
 	position: sticky;
@@ -2322,7 +2328,7 @@ body .boies-bibliography #bibbase .bibbase_icon {
 .boies-site-footer {
 	background:
 		radial-gradient(circle at 82% 0%, rgba(88, 215, 207, 0.13), transparent 22rem),
-		var(--boies-carbon);
+		var(--boies-stanford-gradient);
 	color: rgba(255, 255, 255, 0.62);
 	padding: clamp(3.5rem, 7vw, 6rem) 0;
 }

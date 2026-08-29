@@ -15,6 +15,13 @@
     "color": {
       "defaultPalette": false,
       "defaultGradients": false,
+      "gradients": [
+        {
+          "slug": "stanford-cardinal-charcoal",
+          "gradient": "linear-gradient(115deg, #820000 0%, #2E2D29 100%)",
+          "name": "Stanford Cardinal to Charcoal"
+        }
+      ],
       "palette": [
         {
           "slug": "canvas",
@@ -38,18 +45,28 @@
         },
         {
           "slug": "cardinal",
-          "color": "#442067",
-          "name": "Grape"
+          "color": "#820000",
+          "name": "Stanford Cardinal"
         },
         {
           "slug": "cardinal-soft",
-          "color": "#a78bfa",
-          "name": "Electric Violet"
+          "color": "#B1040E",
+          "name": "Bright Cardinal"
         },
         {
           "slug": "gold",
-          "color": "#58d7cf",
-          "name": "Aerosol Cyan"
+          "color": "#D2C295",
+          "name": "Sandstone"
+        },
+        {
+          "slug": "charcoal",
+          "color": "#2E2D29",
+          "name": "Stanford Charcoal"
+        },
+        {
+          "slug": "aerosol",
+          "color": "#58D7CF",
+          "name": "Aerosol Teal"
         },
         {
           "slug": "line",
@@ -134,7 +151,7 @@
           "radius": "999px"
         },
         "color": {
-          "background": "var(--wp--preset--color--gold)",
+          "background": "var(--wp--preset--color--cardinal)",
           "text": "var(--wp--preset--color--surface)"
         },
         "spacing": {
